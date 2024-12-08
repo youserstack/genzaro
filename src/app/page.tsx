@@ -12,8 +12,8 @@ async function fetcher(url: string) {
 }
 
 export default async function Home() {
-  const products = await fetcher("products");
-  console.log({ products });
+  // const products = await fetcher("products");
+  // console.log({ products });
 
   return (
     <main>
