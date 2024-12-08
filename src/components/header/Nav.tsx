@@ -29,6 +29,7 @@ export default function Nav() {
   const [index, setIndex] = useState<number | null>(null);
   const detail = index !== null ? details[index] : null;
   const megaRef = useRef<HTMLDivElement | null>(null);
+  console.log({ index });
 
   return (
     <div className="border border-black">
@@ -53,12 +54,19 @@ export default function Nav() {
       <div
         className={`Mega_menu
         absolute top-full left-0 right-0 z-[100] bg-black
-        
-        grid transition-[grid-template-rows] duration-1000
+
+        grid transition-[grid-template-rows]
         ${index !== null ? `grid-rows-[1fr]` : "grid-rows-[0fr]"}
         `}
-        // transform /transition-[height]
-        // ${index !== null ? `h-[${500}px]` : "h-0"}
+        // 높이 애니메이션 방법1
+        // grid transition-[grid-template-rows]
+        // ${index !== null ? `grid-rows-[1fr]` : "grid-rows-[0fr]"}
+
+        // 높이 애니메이션 방법2
+        // [interpolate-size:allow-keywords]
+        // transform transition-all overflow-hidden
+        // ${index !== null ? `h-auto visible` : "h-0 invisible"}
+
         onMouseLeave={() => setIndex(null)}
         ref={megaRef}
       >

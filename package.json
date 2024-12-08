@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "update": "git add . && git commit -m 'update' && git push"
   },
   "dependencies": {
     "next": "15.0.3",
