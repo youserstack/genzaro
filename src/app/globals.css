@@ -19,3 +19,24 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.x-default-color {
+  @apply /* 백그라운드 */
+        bg-white dark:bg-neutral-800
+        /* 텍스트 */
+        text-neutral-800 dark:text-neutral-300;
+}
+.x-layer-color {
+  @apply /* 백그라운드 */
+        bg-white dark:bg-neutral-900
+        /* 텍스트 */
+        text-neutral-800 dark:text-neutral-300 
+        /* 보더 */
+        border-neutral-700 
+        [&_*]:border-neutral-700
+        /* 호버이벤트 */
+        [&_li:hover]:bg-neutral-100
+        [&_li:hover]:dark:bg-neutral-700
+        [&_a:hover]:bg-neutral-100
+        [&_a:hover]:dark:bg-neutral-700;
+}
