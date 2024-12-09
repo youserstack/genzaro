@@ -104,7 +104,7 @@ export default function Nav() {
     <div className="border border-black">
       <ul
         className="Menu_List
-        hidden sm:flex gap-4 justify-center 
+        hidden sm:flex gap-4 justify-center relative 
         [&_>_li]:border
         [&_>_li]:border-orange-500
         "
@@ -122,7 +122,8 @@ export default function Nav() {
 
       <div
         className={`Mega_menu
-        absolute top-full left-0 right-0 /z-[100] bg-black
+        absolute top-full left-0 right-0 
+        x-default-color
 
         grid transition-[grid-template-rows]
         ${index !== null ? `grid-rows-[1fr]` : "grid-rows-[0fr]"}
@@ -139,25 +140,27 @@ export default function Nav() {
         onMouseLeave={() => setIndex(null)}
       >
         <div
-          className="Transition_Layer
+          className={`Background_Layer 
+          absolute inset-0 h-screen bg-black z-[-1]
+          transition-opacity duration-[0.7s] ease-in-out
+          pointer-events-none
+          ${index !== null ? "opacity-50" : "opacity-0 "} `}
+          onClick={() => setIndex(null)}
+        />
+
+        <div
+          className="Transition_Animation_Layer
           overflow-hidden w-full max-w-screen-lg mx-auto"
         >
           <div
-            className="Padding_Layer
-            p-8 border border-white flex gap-4"
+            className="Content_Layer 
+            p-8 flex gap-4"
           >
-            {/* <ul className="border border-green-500">
-              {detail?.items.map((item, index) => (
-                <li key={index} className="">
-                  {item.name}
-                </li>
-              ))}
-            </ul> */}
             {detail?.items.map((item, index) => (
               <div key={index}>
-                <h5>{item.name}</h5>
+                <h5 className="border-b-[1px]">{item.name}</h5>
 
-                <ul className="border border-green-500">
+                <ul>
                   {item.items?.map((item, index) => (
                     <li key={index}>{item.name}</li>
                   ))}

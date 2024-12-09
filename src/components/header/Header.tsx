@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] text-white">
       <section
-        className="w-full relative flex flex-col flex-wrap z-50 
+        className="w-full relative flex flex-col flex-wrap z-[100] 
         whitespace-nowrap bg-gradient-to-r from-amber-500 to-emerald-500"
       >
         <div

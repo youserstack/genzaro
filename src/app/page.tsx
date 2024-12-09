@@ -17,8 +17,13 @@ export default async function Home() {
 
   return (
     <main>
-      <section className="max-w-screen-xl mx-auto">
+      <section className="max-w-screen-xl min-h-screen mx-auto ">
         {/* <ProductList products={products} /> */}
+        <p className="mt-[100px]">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed minima delectus omnis est
+          asperiores maxime officiis, id sunt, natus aliquam suscipit, ipsum molestias repellat
+          dolorum laborum dignissimos. Commodi, hic minima!
+        </p>
       </section>
     </main>
   );
