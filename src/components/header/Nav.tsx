@@ -101,12 +101,13 @@ export default function Nav() {
   const detail = index !== null ? details[index] : null;
 
   return (
-    <div className="border border-black">
+    <div className="Nav">
       <ul
         className="Menu_List
         hidden sm:flex gap-4 justify-center relative 
-        [&_>_li]:border
-        [&_>_li]:border-orange-500
+        /[&_>_li]:border
+        /[&_>_li]:border-orange-500
+        [&_>_li:hover]:text-amber-400
         "
       >
         <li onMouseEnter={() => setIndex(0)}>
@@ -145,7 +146,6 @@ export default function Nav() {
           transition-opacity duration-[0.7s] ease-in-out
           pointer-events-none
           ${index !== null ? "opacity-50" : "opacity-0 "} `}
-          onClick={() => setIndex(null)}
         />
 
         <div
@@ -158,7 +158,7 @@ export default function Nav() {
           >
             {detail?.items.map((item, index) => (
               <div key={index}>
-                <h5 className="border-b-[1px]">{item.name}</h5>
+                <h5 className="border-b-[1px] mb-2">{item.name}</h5>
 
                 <ul>
                   {item.items?.map((item, index) => (
