@@ -14,17 +14,15 @@ const url =
 const Background = () => {
   return (
     <div className="absolute inset-0 overflow-hidden rounded-lg">
-      {/* <div
-        className="w-[130%] h-full bg-no-repeat bg-cover bg-center 
-        /transform /-translate-x-[10%]"
-        style={{ backgroundImage: `url(${url})` }}
-        data-swiper-parallax="-10%"
-        // data-swiper-parallax="-100"
-        // data-swiper-parallax-scale="0.5"
-      /> */}
-      <img
+      <Image
         src={url}
-        className="w-[130%] max-w-[130%] h-full object-center object-cover absolute left-[-15%]"
+        alt=""
+        width={500}
+        height={500}
+        className="
+        w-[130%] max-w-[130%] h-full 
+        absolute left-[-15%]
+        object-center object-cover "
         data-swiper-parallax="-10%"
       />
     </div>
@@ -44,7 +42,7 @@ export default function XSiper() {
         centeredSlides
         parallax
         loop
-        speed={2000}
+        speed={1200}
 
         // autoplay={{ delay: 1000 }}
         // onSlideChange={() => console.log("slide change")}
