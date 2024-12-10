@@ -10,41 +10,58 @@ import "swiper/css/parallax";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const items = [
+  // iphones
+  // {
+  //   bgUrl: "",
+  //   imageUrl: "https://inventstore.in/wp-content/uploads/2023/04/iPhone_13_Midnight_-768x768.webp",
+  // },
+  // {
+  //   bgUrl:
+  //     "https://inventstore.in/wp-content/themes/invent/iphone-6-pro-img/hero_glow_large.png?600029ca8840",
+  //   imageUrl: "https://inventstore.in/wp-content/uploads/2024/09/69-600x600.webp",
+  // },
+
+  // iwatches
+  // {
+  //   bgUrl: "",
+  //   imageUrl: "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg",
+  // },
+
+  // cocacola
   {
     bgUrl: "",
-    imageUrl: "https://inventstore.in/wp-content/uploads/2023/04/iPhone_13_Midnight_-768x768.webp",
+    imageUrl:
+      "https://eg.coca-colahellenic.com/en/our-24-7-portfolio/brands/coca-cola/_jcr_content/root/sectionteaser_image/container_585461450/teaser.coreimg.png/1675926600758/coca-cola-original.png",
   },
+
+  // macdonalds
   {
     bgUrl: "",
-    imageUrl: "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg",
+    imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1723564106957.png",
   },
-  {
-    bgUrl: "",
-    imageUrl: "https://shopping-phinf.pstatic.net/main_2857304/28573043554.20241023085934.jpg",
-  },
-  {
-    bgUrl: "",
-    imageUrl: "https://inventstore.in/wp-content/uploads/2023/04/iPhone_13_Midnight_-768x768.webp",
-  },
-  {
-    bgUrl: "",
-    imageUrl: "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg",
-  },
-  {
-    bgUrl: "",
-    imageUrl: "https://shopping-phinf.pstatic.net/main_2857304/28573043554.20241023085934.jpg",
-  },
+
+  // netflix
+  // {
+  //   bgUrl:
+  //     "https://inventstore.in/wp-content/themes/invent/iphone-6-pro-img/hero_glow_large.png?600029ca8840",
+  //   imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+  // },
+
+  // {
+  //   bgUrl: "",
+  //   imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1583727855319.png",
+  // },
 ];
 
-const url =
+const url: string =
   "https://blog-next-app.tooroo.rf.gd/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdzktdrw7o%2Fimage%2Fupload%2Fv1731244673%2Fblog-next-app%2Fjvbqapd33yo6sz8zdrgi.webp&w=1080&q=75";
-// ;
 
-const Background = () => {
+const Background = ({ bgUrl }: { bgUrl: string }) => {
+  console.log({ bgUrl });
   return (
     <div className="absolute inset-0 overflow-hidden">
       <Image
-        src={url}
+        src={bgUrl}
         alt=""
         width={500}
         height={500}
@@ -92,13 +109,13 @@ export default function XSiper() {
       <div>
         {items.map((item, index) => (
           <SwiperSlide key={index} className="!flex !justify-center !items-center">
-            <Background />
+            <Background bgUrl={item.bgUrl || url} />
             <Image
               src={item.imageUrl}
               alt=""
-              width={300}
-              height={300}
-              className="h-[80%] object-center object-cover"
+              width={500}
+              height={500}
+              className="/h-full object-center object-cover"
               data-swiper-parallax="-300"
             />
           </SwiperSlide>

@@ -9,6 +9,9 @@ const nextConfig: NextConfig = {
       { hostname: "blog-next-app.tooroo.rf.gd" },
       { hostname: "store.storeimages.cdn-apple.com" },
       { hostname: "inventstore.in" },
+      { hostname: "eg.coca-colahellenic.com" },
+      { hostname: "www.mcdonalds.co.kr" },
+      { hostname: "upload.wikimedia.org" },
     ],
   },
 };
