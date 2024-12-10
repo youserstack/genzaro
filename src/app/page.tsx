@@ -19,7 +19,9 @@ export default async function Home() {
   return (
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px]">
-        <XSiper />
+        <div className="max-w-screen-lg mx-auto /w-[70vw] border-2 border-orange-400">
+          <XSiper />
+        </div>
         {/* <ProductList products={products} /> */}
         {/* <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed minima delectus omnis est
