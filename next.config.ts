@@ -7,6 +7,8 @@ const nextConfig: NextConfig = {
       //
       { hostname: "shopping-phinf.pstatic.net" },
       { hostname: "blog-next-app.tooroo.rf.gd" },
+      { hostname: "store.storeimages.cdn-apple.com" },
+      { hostname: "inventstore.in" },
     ],
   },
 };

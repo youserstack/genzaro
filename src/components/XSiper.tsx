@@ -9,10 +9,36 @@ import "swiper/css/pagination";
 import "swiper/css/parallax";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
-const items = [{ bgUrl: "", imageUrl: "" }];
+const items = [
+  {
+    bgUrl: "",
+    imageUrl: "https://inventstore.in/wp-content/uploads/2023/04/iPhone_13_Midnight_-768x768.webp",
+  },
+  {
+    bgUrl: "",
+    imageUrl: "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg",
+  },
+  {
+    bgUrl: "",
+    imageUrl: "https://shopping-phinf.pstatic.net/main_2857304/28573043554.20241023085934.jpg",
+  },
+  {
+    bgUrl: "",
+    imageUrl: "https://inventstore.in/wp-content/uploads/2023/04/iPhone_13_Midnight_-768x768.webp",
+  },
+  {
+    bgUrl: "",
+    imageUrl: "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg",
+  },
+  {
+    bgUrl: "",
+    imageUrl: "https://shopping-phinf.pstatic.net/main_2857304/28573043554.20241023085934.jpg",
+  },
+];
 
 const url =
   "https://blog-next-app.tooroo.rf.gd/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdzktdrw7o%2Fimage%2Fupload%2Fv1731244673%2Fblog-next-app%2Fjvbqapd33yo6sz8zdrgi.webp&w=1080&q=75";
+// ;
 
 const Background = () => {
   return (
@@ -35,6 +61,7 @@ const Background = () => {
 export default function XSiper() {
   return (
     <Swiper
+      className="h-[500px]"
       modules={[Navigation, Pagination, Keyboard, Parallax, Autoplay]}
       navigation={{
         //
@@ -46,7 +73,8 @@ export default function XSiper() {
         el: ".swiper-pagination",
         type: "bullets", // 기본값
         clickable: true, // 점 클릭 시 슬라이드 이동 가능
-        renderBullet: (index, className) => `<span class="${className} !bg-white"></span>`,
+        renderBullet: (index, className) =>
+          `<span class="${className} !w-[10px] !h-[10px] !bg-white !mx-2"></span>`,
       }}
       keyboard={{ enabled: true }}
       slidesPerView={1.5}
@@ -62,61 +90,19 @@ export default function XSiper() {
     >
       {/* swiper slides */}
       <div>
-        <SwiperSlide>
-          <Background />
-          <Image
-            src={"https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg"}
-            alt=""
-            width={300}
-            height={300}
-            className="w-full h-full object-center object-cover"
-            data-swiper-parallax="-50%"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Background />
-          <Image
-            src={"https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg"}
-            alt=""
-            width={400}
-            height={400}
-            className="w-full "
-            data-swiper-parallax="-50%"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Background />
-          <Image
-            src={"https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg"}
-            alt=""
-            width={400}
-            height={400}
-            className="w-full h-full"
-            data-swiper-parallax="-50%"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Background />
-          <Image
-            src={"https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg"}
-            alt=""
-            width={400}
-            height={400}
-            className="w-full h-full"
-            data-swiper-parallax="-50%"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <Background />
-          <Image
-            src={"https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg"}
-            alt=""
-            width={400}
-            height={400}
-            className="w-full h-full"
-            data-swiper-parallax="-50%"
-          />
-        </SwiperSlide>
+        {items.map((item, index) => (
+          <SwiperSlide key={index} className="!flex !justify-center !items-center">
+            <Background />
+            <Image
+              src={item.imageUrl}
+              alt=""
+              width={300}
+              height={300}
+              className="h-[80%] object-center object-cover"
+              data-swiper-parallax="-300"
+            />
+          </SwiperSlide>
+        ))}
       </div>
 
       {/* navigation arrow buttons */}
