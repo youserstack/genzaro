@@ -9,44 +9,90 @@ import "swiper/css/pagination";
 import "swiper/css/parallax";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
+const brands = [
+  {
+    name: "mcdonals",
+    svg: "https://upload.wikimedia.org/wikipedia/commons/3/36/McDonald%27s_Golden_Arches.svg",
+    png: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/McDonald%27s_Golden_Arches.svg/2339px-McDonald%27s_Golden_Arches.svg.png",
+    items: ["https://www.mcdonalds.co.kr/upload/product/pcfile/1723564106957.png"],
+    bg: "",
+  },
+  {
+    name: "adidas",
+    svg: "https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg",
+    png: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/2560px-Adidas_Logo.svg.png",
+    items: [""],
+    bg: "",
+  },
+  {
+    name: "apple",
+    svg: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+    png: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/1667px-Apple_logo_black.svg.png",
+    items: [
+      "https://inventstore.in/wp-content/uploads/2023/04/iPhone_13_Midnight_-768x768.webp",
+      "https://inventstore.in/wp-content/uploads/2024/09/69-600x600.webp",
+      "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg",
+    ],
+    bg: "https://inventstore.in/wp-content/themes/invent/iphone-6-pro-img/hero_glow_large.png?600029ca8840",
+  },
+  {
+    name: "h&m",
+    svg: "https://upload.wikimedia.org/wikipedia/commons/5/53/H%26M-Logo.svg",
+    png: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/H%26M-Logo.svg/2560px-H%26M-Logo.svg.png",
+    items: [""],
+    bg: "",
+  },
+  {
+    name: "cocacola",
+    svg: "https://upload.wikimedia.org/wikipedia/commons/c/ce/Coca-Cola_logo.svg",
+    png: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Coca-Cola_logo.svg/2560px-Coca-Cola_logo.svg.png",
+    items: [
+      "https://eg.coca-colahellenic.com/en/our-24-7-portfolio/brands/coca-cola/_jcr_content/root/sectionteaser_image/container_585461450/teaser.coreimg.png/1675926600758/coca-cola-original.png",
+    ],
+    bg: "",
+  },
+  {
+    name: "nike",
+    svg: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Logo_NIKE.svg",
+    png: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a6/Logo_NIKE.svg/2560px-Logo_NIKE.svg.png",
+    items: [""],
+    bg: "",
+  },
+  {
+    name: "netflix",
+    svg: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
+    png: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/2560px-Netflix_2015_logo.svg.png",
+    items: [""],
+    bg: "",
+  },
+  {
+    name: "tesla",
+    svg: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
+    png: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/1587px-Tesla_Motors.svg.png",
+    items: [""],
+    bg: "",
+  },
+];
+
 const items = [
-  // iphones
-  // {
-  //   bgUrl: "",
-  //   imageUrl: "https://inventstore.in/wp-content/uploads/2023/04/iPhone_13_Midnight_-768x768.webp",
-  // },
-  // {
-  //   bgUrl:
-  //     "https://inventstore.in/wp-content/themes/invent/iphone-6-pro-img/hero_glow_large.png?600029ca8840",
-  //   imageUrl: "https://inventstore.in/wp-content/uploads/2024/09/69-600x600.webp",
-  // },
-
-  // iwatches
-  // {
-  //   bgUrl: "",
-  //   imageUrl: "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg",
-  // },
-
-  // cocacola
   {
     bgUrl: "",
     imageUrl:
-      "https://eg.coca-colahellenic.com/en/our-24-7-portfolio/brands/coca-cola/_jcr_content/root/sectionteaser_image/container_585461450/teaser.coreimg.png/1675926600758/coca-cola-original.png",
+      "https://file.kelleybluebookimages.com/kbb/base/evox/CP/54583/2024-Tesla-Cybertruck-front_54583_032_1585x661_EVOX01_cropped.png",
   },
-
-  // macdonalds
   {
     bgUrl: "",
-    imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1723564106957.png",
+    imageUrl:
+      "https://rk-se.s3.us-west-2.amazonaws.com/ev/vehicles/2024_Tesla_Cybertruck_Tri_Motor_AWD_Cyberbeast_All_Wheel_Drive_BEV_01.png",
   },
 
-  // netflix
-  // {
-  //   bgUrl:
-  //     "https://inventstore.in/wp-content/themes/invent/iphone-6-pro-img/hero_glow_large.png?600029ca8840",
-  //   imageUrl: "https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg",
-  // },
-
+  //
+  //
+  //
+  //
+  //
+  //
+  //
   // {
   //   bgUrl: "",
   //   imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1583727855319.png",

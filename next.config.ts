@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
       { hostname: "eg.coca-colahellenic.com" },
       { hostname: "www.mcdonalds.co.kr" },
       { hostname: "upload.wikimedia.org" },
+      { hostname: "ko.wikipedia.org" },
+      { hostname: "file.kelleybluebookimages.com" },
+      { hostname: "rk-se.s3.us-west-2.amazonaws.com" },
+      { hostname: "*" },
     ],
   },
 };
