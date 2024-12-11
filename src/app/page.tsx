@@ -1,5 +1,5 @@
 import ProductList from "@/components/ProductList";
-import XSiper from "@/components/XSiper";
+import Carousel from "@/components/Carousel";
 
 async function fetcher(url: string) {
   try {
@@ -19,7 +19,7 @@ export default async function Home() {
   return (
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px]">
-        <XSiper />
+        <Carousel />
         {/* <div className="max-w-screen-lg mx-auto /w-[70vw] border-2 border-orange-400">
         </div> */}
         {/* <ProductList products={products} /> */}
