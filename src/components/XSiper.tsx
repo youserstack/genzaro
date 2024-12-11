@@ -69,41 +69,74 @@ const brands = [
     name: "tesla",
     svg: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
     png: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bd/Tesla_Motors.svg/1587px-Tesla_Motors.svg.png",
-    items: [""],
+    items: [
+      "https://file.kelleybluebookimages.com/kbb/base/evox/CP/54583/2024-Tesla-Cybertruck-front_54583_032_1585x661_EVOX01_cropped.png",
+      "https://rk-se.s3.us-west-2.amazonaws.com/ev/vehicles/2024_Tesla_Cybertruck_Tri_Motor_AWD_Cyberbeast_All_Wheel_Drive_BEV_01.png",
+    ],
     bg: "",
   },
+  // {
+  //   name: "",
+  //   svg: "",
+  //   png: "",
+  //   items: [""],
+  //   bg: "",
+  // },
+  // {
+  //   name: "",
+  //   svg: "",
+  //   png: "",
+  //   items: [""],
+  //   bg: "",
+  // },
+  // {
+  //   name: "",
+  //   svg: "",
+  //   png: "",
+  //   items: [""],
+  //   bg: "",
+  // },
+  // {
+  //   name: "",
+  //   svg: "",
+  //   png: "",
+  //   items: [""],
+  //   bg: "",
+  // },
 ];
 
 const items = [
   {
     bgUrl: "",
-    imageUrl:
-      "https://file.kelleybluebookimages.com/kbb/base/evox/CP/54583/2024-Tesla-Cybertruck-front_54583_032_1585x661_EVOX01_cropped.png",
+    imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1583727855319.png",
   },
   {
     bgUrl: "",
-    imageUrl:
-      "https://rk-se.s3.us-west-2.amazonaws.com/ev/vehicles/2024_Tesla_Cybertruck_Tri_Motor_AWD_Cyberbeast_All_Wheel_Drive_BEV_01.png",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
   },
-
-  //
-  //
-  //
-  //
-  //
-  //
-  //
-  // {
-  //   bgUrl: "",
-  //   imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1583727855319.png",
-  // },
+  {
+    bgUrl: "",
+    imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1583727855319.png",
+  },
+  {
+    bgUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
+  },
+  {
+    bgUrl: "",
+    imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1583727855319.png",
+  },
+  {
+    bgUrl: "",
+    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
+  },
 ];
 
 const url: string =
   "https://blog-next-app.tooroo.rf.gd/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdzktdrw7o%2Fimage%2Fupload%2Fv1731244673%2Fblog-next-app%2Fjvbqapd33yo6sz8zdrgi.webp&w=1080&q=75";
 
 const Background = ({ bgUrl }: { bgUrl: string }) => {
-  console.log({ bgUrl });
+  // console.log({ bgUrl });
   return (
     <div className="absolute inset-0 overflow-hidden">
       <Image
@@ -153,14 +186,18 @@ export default function XSiper() {
     >
       {/* swiper slides */}
       <div>
-        {items.map((item, index) => (
-          <SwiperSlide key={index} className="!flex !justify-center !items-center">
-            <Background bgUrl={item.bgUrl || url} />
+        {brands.map((brand, index) => (
+          <SwiperSlide
+            key={brand.name}
+            className="!flex !justify-center !items-center"
+            title={brand.name}
+          >
+            <Background bgUrl={brand.bg || url} />
             <Image
-              src={item.imageUrl}
+              src={brand.svg || brand.png || brand.items[0]}
               alt=""
-              width={500}
-              height={500}
+              width={300}
+              height={300}
               className="/h-full object-center object-cover"
               data-swiper-parallax="-300"
             />
