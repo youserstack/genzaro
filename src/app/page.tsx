@@ -1,5 +1,6 @@
 import ProductList from "@/components/ProductList";
 import Carousel from "@/components/Carousel";
+import RecommendedProducts from "@/components/RecommendedProducts";
 
 async function fetcher(url: string) {
   try {
@@ -13,16 +14,18 @@ async function fetcher(url: string) {
 }
 
 export default async function Home() {
-  // const products = await fetcher("products");
-  // console.log({ products });
+  const products = await fetcher("products");
+  console.log({ products });
 
   return (
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px]">
-        <Carousel />
+        {/* <Carousel /> */}
+        {/* <ProductList products={products} /> */}
+        <RecommendedProducts products={products} />
+
         {/* <div className="max-w-screen-lg mx-auto /w-[70vw] border-2 border-orange-400">
         </div> */}
-        {/* <ProductList products={products} /> */}
         {/* <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed minima delectus omnis est
           asperiores maxime officiis, id sunt, natus aliquam suscipit, ipsum molestias repellat

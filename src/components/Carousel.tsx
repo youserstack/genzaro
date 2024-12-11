@@ -152,14 +152,14 @@ export default function Carousel() {
           `<span class="${className} !w-[10px] !h-[10px] !bg-white !mx-2"></span>`,
       }}
       keyboard={{ enabled: true }}
+      autoplay={{ delay: 4000 }}
       slidesPerView={1.5}
-      speed={700}
+      speed={1000}
       centeredSlides
       parallax
       loop
 
       // spaceBetween={70}
-      // autoplay={{ delay: 1000 }}
       // onSlideChange={() => console.log("slide change")}
       // onSwiper={(swiper) => console.log(swiper)}
     >

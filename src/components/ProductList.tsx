@@ -23,12 +23,13 @@ export default function ProductList({ products }: IProps) {
               <Image
                 alt={""}
                 src={
+                  product.image ||
                   "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg"
                 }
-                className="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 
-                xl:aspect-[7/8]"
-                width={300}
-                height={300}
+                className="w-full aspect-[7/8]
+                rounded-lg bg-gray-200 object-cover group-hover:opacity-75"
+                width={700}
+                height={700}
               />
               <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
               <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
