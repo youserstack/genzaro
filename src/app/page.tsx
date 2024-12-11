@@ -20,7 +20,7 @@ export default async function Home() {
   return (
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px]">
-        {/* <Carousel /> */}
+        <Carousel />
         {/* <ProductList products={products} /> */}
         <RecommendedProducts products={products} />
 

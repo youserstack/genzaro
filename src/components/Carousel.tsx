@@ -117,7 +117,7 @@ const brands = [
 const Background = ({ bgUrl }: { bgUrl: string }) => {
   // console.log({ bgUrl });
   return (
-    <div className="absolute inset-0 overflow-hidden">
+    <div className="absolute inset-0 overflow-hidden ">
       <Image
         src={bgUrl}
         alt=""
@@ -126,7 +126,8 @@ const Background = ({ bgUrl }: { bgUrl: string }) => {
         className="
         w-[130%] max-w-[130%] h-full 
         absolute left-[-15%]
-        object-center object-cover "
+        object-center object-cover 
+        "
         data-swiper-parallax="-10%"
       />
     </div>
@@ -152,7 +153,7 @@ export default function Carousel() {
           `<span class="${className} !w-[10px] !h-[10px] !bg-white !mx-2"></span>`,
       }}
       keyboard={{ enabled: true }}
-      autoplay={{ delay: 4000 }}
+      // autoplay={{ delay: 4000 }}
       slidesPerView={1.5}
       speed={1000}
       centeredSlides
@@ -170,7 +171,7 @@ export default function Carousel() {
             <SwiperSlide
               key={brand.name}
               title={brand.name}
-              className="!flex !justify-center !items-center"
+              className="!flex !justify-center !items-center group"
             >
               <Background bgUrl={brand.bg} />
               <Image
@@ -178,16 +179,23 @@ export default function Carousel() {
                 alt=""
                 width={300}
                 height={300}
-                className={`/h-full object-center object-cover 
+                className={`w-[200px] /h-full object-center object-cover 
                   drop-shadow-[2px_4px_6px_rgba(0,0,0,0.8)]
+
                   ${brand.name === "nike" ? "!invert-[0.95]" : ""}
                   ${brand.name === "adidas" ? "!invert-[0.95]" : ""}
                   ${brand.name === "apple" ? "!invert-[0.95]" : ""}
-                  ${brand.name === "apple" ? "!scale-[0.7]" : ""}
-                  ${brand.name === "tesla" ? "!scale-[0.7]" : ""}
+                  ${brand.name === "apple" ? "!w-[100px]" : ""}
+                  ${brand.name === "tesla" ? "!w-[100px]" : ""}
                   `}
-                data-swiper-parallax="-300"
+                data-swiper-parallax="-200%"
               />
+              <h1
+                className="text-white z-[9999] absolute top-[70%] left-1/2 -translate-x-1/2"
+                data-swiper-parallax="-300"
+              >
+                sdfsdfsdf
+              </h1>
             </SwiperSlide>
           );
         })}
