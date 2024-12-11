@@ -105,36 +105,6 @@ const brands = [
   // },
 ];
 
-const items = [
-  {
-    bgUrl: "",
-    imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1583727855319.png",
-  },
-  {
-    bgUrl: "",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
-  },
-  {
-    bgUrl: "",
-    imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1583727855319.png",
-  },
-  {
-    bgUrl: "",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
-  },
-  {
-    bgUrl: "",
-    imageUrl: "https://www.mcdonalds.co.kr/upload/product/pcfile/1583727855319.png",
-  },
-  {
-    bgUrl: "",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/b/bd/Tesla_Motors.svg",
-  },
-];
-
-const url: string =
-  "https://blog-next-app.tooroo.rf.gd/_next/image?url=https%3A%2F%2Fres.cloudinary.com%2Fdzktdrw7o%2Fimage%2Fupload%2Fv1731244673%2Fblog-next-app%2Fjvbqapd33yo6sz8zdrgi.webp&w=1080&q=75";
-
 const Background = ({ bgUrl }: { bgUrl: string }) => {
   // console.log({ bgUrl });
   return (
@@ -186,23 +156,32 @@ export default function XSiper() {
     >
       {/* swiper slides */}
       <div>
-        {brands.map((brand, index) => (
-          <SwiperSlide
-            key={brand.name}
-            className="!flex !justify-center !items-center"
-            title={brand.name}
-          >
-            <Background bgUrl={brand.bg || url} />
-            <Image
-              src={brand.svg || brand.png || brand.items[0]}
-              alt=""
-              width={300}
-              height={300}
-              className="/h-full object-center object-cover"
-              data-swiper-parallax="-300"
-            />
-          </SwiperSlide>
-        ))}
+        {brands.map((brand, index) => {
+          return (
+            <SwiperSlide
+              key={brand.name}
+              title={brand.name}
+              className="!flex !justify-center !items-center"
+            >
+              <Background bgUrl={brand.bg} />
+              <Image
+                src={brand.svg || brand.png || brand.items[0]}
+                alt=""
+                width={300}
+                height={300}
+                className={`/h-full object-center object-cover 
+                  drop-shadow-[2px_4px_6px_rgba(0,0,0,0.8)]
+                  ${brand.name === "nike" ? "!invert-[0.95]" : ""}
+                  ${brand.name === "adidas" ? "!invert-[0.95]" : ""}
+                  ${brand.name === "apple" ? "!invert-[0.95]" : ""}
+                  ${brand.name === "apple" ? "!scale-[0.7]" : ""}
+                  ${brand.name === "tesla" ? "!scale-[0.7]" : ""}
+                  `}
+                data-swiper-parallax="-300"
+              />
+            </SwiperSlide>
+          );
+        })}
       </div>
 
       {/* navigation arrow buttons */}
