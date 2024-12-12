@@ -30,6 +30,7 @@ const brands = [
     items: [""],
     bg: "https://res.cloudinary.com/dzktdrw7o/image/upload/v1733903069/genzaro/adidas-store_i7ypat.webp",
     // bg: "https://report.adidas-group.com/2022/en/_assets/gallery/mag-2-hero.jpg",
+    descriptions: ["퍼포먼스를 극대화하는 최고의 선택", "기술과 스타일의 완벽한 융합"],
   },
   {
     name: "apple",
@@ -51,6 +52,11 @@ const brands = [
     items: [""],
     bg: "https://res.cloudinary.com/dzktdrw7o/image/upload/v1733903069/genzaro/hm-store_xzhbbf.webp",
     // bg: "https://mymerryhill.co.uk/wp-content/uploads/2022/12/Mhill-HM-11-1024x683.jpg",
+    descriptions: [
+      "당신의 스타일을 완성하는 곳",
+      "합리적인 가격, 세련된 디자인",
+      "더 나은 미래를 위한 지속 가능 패션",
+    ],
   },
   {
     name: "cocacola",
@@ -62,6 +68,7 @@ const brands = [
     bg: "https://res.cloudinary.com/dzktdrw7o/image/upload/v1733903069/genzaro/cocacola-cans_jaba29.webp",
     // bg: "https://res.cloudinary.com/dzktdrw7o/image/upload/v1733903070/genzaro/cocacola-can_xrtqj2.jpg",
     // bg: "https://img.favpng.com/25/4/12/coca-cola-fizzy-drinks-pepsi-desktop-wallpaper-png-favpng-CfQJANGvAZN54jqtd2vfHknk2.jpg",
+    descriptions: ["함께할 때 더 맛있는 코카콜라", "순간을 특별하게 만드는 그 맛"],
   },
   {
     name: "nike",
@@ -70,6 +77,7 @@ const brands = [
     items: [""],
     bg: "https://res.cloudinary.com/dzktdrw7o/image/upload/v1733903069/genzaro/nike-store_apdpgu.webp",
     // bg: "https://static.nike.com/a/images/f_auto/d9bece9b-3597-431a-ac8e-3b3754443c82/image.jpeg",
+    descriptions: ["혁신으로 만들어진 편안함", "당신의 꿈에 날개를 달다"],
   },
   {
     name: "netflix",
@@ -78,6 +86,7 @@ const brands = [
     items: [""],
     bg: "https://res.cloudinary.com/dzktdrw7o/image/upload/v1733903069/genzaro/netflix_myo6ri.webp",
     // bg: "https://s3.amazonaws.com/prod-cdata-secure.sprinklr.com/DAM/3877/c403c07b-df03-4039-bee7-1a0dd7b449bd-227725003/what_is_netflix_5_en.png?X-Amz-Security-Token=IQoJb3JpZ2luX2VjEOH%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCXVzLWVhc3QtMSJHMEUCIA25fEQFDliaeGPiqv0wtQGtNtCSe%2BBOFNM0qLQ2AWsMAiEAmfx1nCTPit6vdXYuTSqDBSTcYy5siAZWbOujnrvu0BUquwUImv%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FARAAGgw4NjkzNjc0NzE2NzQiDMql%2B0xdUcz8J6ZhziqPBXOdd1EKC2bt6rVEzZkY9xRX%2FGTk4YuoVgAZp0q6PE4PE1NHkp%2Fzi4cgYdp6IhScANGjG45Pbytfx%2F%2BovFO5Z%2BdmKvbU0hcne8p6bqq1LoL8D%2FzE2d2IN%2BoKmCCaVeBF4lSOWYkYgDSUfpPme4qGA6vKcoEOZiqvmJntENNrznOwcf14a%2BNFqTMW50GCYHiUFu3I9pJDdycAh3TyLX9FUWGP37Y3gxAgnuTP6slcUncNSPexmGjvDl%2Fuim3VoD0B7xBhn3WKF30sUnyCYm%2BAT7TZSoNrbDozA9%2BrSyLc7tRAYJ4%2FiKOrd5KhasDtf%2B4dVz%2B7Zr8Sm4lxVfKue1Rj2BzMtlF0cglNyGBJR4M4NzjcpFyesD9WD%2FIuyiZGDPoKjR3QRGbdG6tLsV5RZM%2BYighpyjR8uIxmAqby3FnRKeTAD%2FXk3QGT7wd357prHS9lLNdP4OFVrdqv5ezXbAVxhD4MFZyynArukUVi9IuUu891qi0Wpg6TQrpt8rxpwOREEJXmN6YctntL%2BZyZQJDl5MI0hhlWeItbnPy8M3zdEiFqeO1Xs9Qk6UZB6EwTcDX%2BlPQoU0uaRcGoIaT%2F2l8me7tcGDDUy3IJx%2Btlv8efKDcrp1M9BNMsXODe6OPdG5RbBVrhHAOg9XTm2RspnB82MBCa7pneyu8sfyObg5ZIBej4ar8QwOA6JlFNIfukk1juA2274eJjKzpUpEmoapRPOu3clc3fD0U0eydJGO4CzWY0nuejkRcqEtGXMbhYoFWzgg%2B%2BGCyeQvKOqBF03BgGzRIQCPEEV2QRl1Z8yUroAqWo9mUdkzyM8m7nh1bRVN3J%2B%2F3ta%2BGYem4lUtr%2FdbcW25EqtXBlnSp3XMJ%2BZlqd3Cgw%2BMbjugY6sQFkoL5bmxdQneQ%2B0vwOe8O9KqcMgLpDHNQfctrLY1Wa6H65%2FExR4RbYqdKo0dcpdIK%2B9CQYiART8KIXts2ELHt6ghRWjFjK2TfUuQZ%2F6k1i25RTsAEtS%2FHLpjMfFBGAajcMcgRe96%2BbADYCzB9toIitONEVyBp5%2F%2Fd61UJ3cxotclrXh8lHkt%2F8nFK4hT1hO%2BmJ7wjrHeDoHM%2BDv25X3u%2BrVlsKuSKgM8Meu%2B0H5SBfx9M%3D&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20241211T014015Z&X-Amz-SignedHeaders=host&X-Amz-Expires=1800&X-Amz-Credential=ASIA4U2SW3Y5C6WIPGNP%2F20241211%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=27d970b681075da832708736c671a3991dafb7ca3a7f4b95c168acfebd96a7a1",
+    descriptions: ["한 번 시작하면 멈출 수 없는 즐거움", "집에서도 극장 같은 경험"],
   },
   {
     name: "tesla",
@@ -89,6 +98,7 @@ const brands = [
     ],
     bg: "https://res.cloudinary.com/dzktdrw7o/image/upload/v1733903069/genzaro/tesla-cybertruck_kd5bps.webp",
     // bg: "https://hips.hearstapps.com/hmg-prod/images/2025-tesla-cybertruck-3-672e75cce7814.jpg?crop=0.607xw:0.512xh;0.0994xw,0.399xh&resize=1200:*",
+    descriptions: ["전기차의 혁명, 테슬라", "미래의 모빌리티, 오늘 당신과 함께합니다"],
   },
   // {
   //   name: "",
@@ -214,20 +224,22 @@ export default function Carousel() {
 
                 <div data-swiper-parallax="-700" className="max-w-[80%] sm:max-w-[50%]">
                   {brand.descriptions
-                    ? brand.descriptions.map((desc) => <p>{desc}</p>)
+                    ? brand.descriptions.map((desc, index) => <p key={index}>{desc}</p>)
                     : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat cum sit maiores, illum blanditiis ipsam ullam distinctio"}
                 </div>
 
-                <button
-                  className="bg-neutral-300/50 backdrop-blur-sm 
-                  !transition-[background-color] !duration-500
-                  
-                  text-white hover:bg-neutral-500/50 px-4 py-2 mt-8 rounded-2xl"
-                  onClick={() => console.log("first")}
-                  data-swiper-parallax="-600"
-                >
-                  자세히 보기
-                </button>
+                <div data-swiper-parallax="-600">
+                  <button
+                    className="
+                    !transition-[background-color] !duration-500
+                    bg-black/20 backdrop-blur-[2px] 
+                    text-white hover:bg-black/30 
+                    px-4 py-2 mt-8 rounded-2xl"
+                    onClick={() => console.log("first")}
+                  >
+                    자세히 보기
+                  </button>
+                </div>
               </div>
             </SwiperSlide>
           );
