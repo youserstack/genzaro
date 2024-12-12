@@ -8,6 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/parallax";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { useEffect, useState } from "react";
 
 const brands = [
   {
@@ -135,6 +136,16 @@ const Background = ({ bgUrl }: { bgUrl: string }) => {
 };
 
 export default function Carousel() {
+  const [slidesPerView, setSlidesPerView] = useState(1);
+
+  const handleResize = () =>
+    window.innerWidth < 720 ? setSlidesPerView(1) : setSlidesPerView(1.5);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener("resize", handleResize);
+  }, []);
+
   return (
     <Swiper
       className="h-[500px]"
@@ -154,7 +165,8 @@ export default function Carousel() {
       }}
       keyboard={{ enabled: true }}
       // autoplay={{ delay: 4000 }}
-      slidesPerView={1.5}
+      slidesPerView={slidesPerView}
+      // slidesPerView={1.5}
       speed={1000}
       centeredSlides
       parallax
@@ -168,19 +180,22 @@ export default function Carousel() {
       <div>
         {brands.map((brand, index) => {
           return (
-            <SwiperSlide
-              key={brand.name}
-              title={brand.name}
-              className="!flex !justify-center !items-center group"
-            >
+            <SwiperSlide key={brand.name} title={brand.name} className="group">
               <Background bgUrl={brand.bg} />
-              <Image
-                src={brand.svg || brand.png || brand.items[0]}
-                alt=""
-                width={300}
-                height={300}
-                className={`w-[200px] /h-full object-center object-cover 
+
+              <div
+                className="absolute inset-0 text-white 
+                flex flex-col justify-center items-center"
+              >
+                <Image
+                  src={brand.svg || brand.png || brand.items[0]}
+                  alt=""
+                  width={300}
+                  height={300}
+                  className={`w-[200px] /h-full 
+                  object-center object-cover 
                   drop-shadow-[2px_4px_6px_rgba(0,0,0,0.8)]
+                  mb-8 border border-red-500
 
                   ${brand.name === "nike" ? "!invert-[0.95]" : ""}
                   ${brand.name === "adidas" ? "!invert-[0.95]" : ""}
@@ -188,14 +203,15 @@ export default function Carousel() {
                   ${brand.name === "apple" ? "!w-[100px]" : ""}
                   ${brand.name === "tesla" ? "!w-[100px]" : ""}
                   `}
-                data-swiper-parallax="-200%"
-              />
-              <h1
-                className="text-white z-[9999] absolute top-[70%] left-1/2 -translate-x-1/2"
-                data-swiper-parallax="-300"
-              >
-                sdfsdfsdf
-              </h1>
+                  data-swiper-parallax="-1000"
+                  // data-swiper-parallax="-200%"
+                />
+
+                <h1 data-swiper-parallax="-700" className="max-w-[80%] sm:max-w-[50%]">
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat cum sit
+                  maiores, illum blanditiis ipsam ullam distinctio
+                </h1>
+              </div>
             </SwiperSlide>
           );
         })}
