@@ -18,6 +18,10 @@ const brands = [
     items: ["https://www.mcdonalds.co.kr/upload/product/pcfile/1723564106957.png"],
     bg: "https://res.cloudinary.com/dzktdrw7o/image/upload/v1733903070/genzaro/macdonalds-setmenu_ztg0ue.webp",
     // bg: "https://imageproxy.wolt.com/venue/5af0754862efb5000c096232/4e08e07a-4ead-11ec-9874-8a1d5b3d7604_mcdonalds4.jpg",
+    descriptions: [
+      "전 세계 어디서나 변치 않는 그 맛!",
+      "작은 간식에서 큰 만족을, 맥도날드와 함께!",
+    ],
   },
   {
     name: "adidas",
@@ -38,6 +42,7 @@ const brands = [
     ],
     bg: "https://res.cloudinary.com/dzktdrw7o/image/upload/v1733903069/genzaro/apple-store_lavdsr.webp",
     // bg: "https://rtlimages.apple.com/cmc/dieter/store/16_9/R411.png?resize=2880:1612&output-format=jpg&output-quality=85&interpolation=progressive-bicubic",
+    descriptions: ["모든 디테일을 담은 완벽한 기술", "디자인과 성능의 완벽한 조화"],
   },
   {
     name: "h&m",
@@ -138,12 +143,13 @@ const Background = ({ bgUrl }: { bgUrl: string }) => {
 export default function Carousel() {
   const [slidesPerView, setSlidesPerView] = useState(1);
 
-  const handleResize = () =>
-    window.innerWidth < 720 ? setSlidesPerView(1) : setSlidesPerView(1.5);
-
   useEffect(() => {
+    const handleResize = () =>
+      window.innerWidth < 720 ? setSlidesPerView(1) : setSlidesPerView(1.5);
+
     handleResize();
     window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -166,7 +172,6 @@ export default function Carousel() {
       keyboard={{ enabled: true }}
       // autoplay={{ delay: 4000 }}
       slidesPerView={slidesPerView}
-      // slidesPerView={1.5}
       speed={1000}
       centeredSlides
       parallax
@@ -184,7 +189,7 @@ export default function Carousel() {
               <Background bgUrl={brand.bg} />
 
               <div
-                className="absolute inset-0 text-white 
+                className="absolute inset-0 text-white bg-black/10 hover:bg-transparent transition-all duration-500
                 flex flex-col justify-center items-center"
               >
                 <Image
@@ -195,7 +200,7 @@ export default function Carousel() {
                   className={`w-[200px] /h-full 
                   object-center object-cover 
                   drop-shadow-[2px_4px_6px_rgba(0,0,0,0.8)]
-                  mb-8 border border-red-500
+                  mb-8 
 
                   ${brand.name === "nike" ? "!invert-[0.95]" : ""}
                   ${brand.name === "adidas" ? "!invert-[0.95]" : ""}
@@ -207,10 +212,22 @@ export default function Carousel() {
                   // data-swiper-parallax="-200%"
                 />
 
-                <h1 data-swiper-parallax="-700" className="max-w-[80%] sm:max-w-[50%]">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat cum sit
-                  maiores, illum blanditiis ipsam ullam distinctio
-                </h1>
+                <div data-swiper-parallax="-700" className="max-w-[80%] sm:max-w-[50%]">
+                  {brand.descriptions
+                    ? brand.descriptions.map((desc) => <p>{desc}</p>)
+                    : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat cum sit maiores, illum blanditiis ipsam ullam distinctio"}
+                </div>
+
+                <button
+                  className="bg-neutral-300/50 backdrop-blur-sm 
+                  !transition-[background-color] !duration-500
+                  
+                  text-white hover:bg-neutral-500/50 px-4 py-2 mt-8 rounded-2xl"
+                  onClick={() => console.log("first")}
+                  data-swiper-parallax="-600"
+                >
+                  자세히 보기
+                </button>
               </div>
             </SwiperSlide>
           );

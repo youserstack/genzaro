@@ -14,15 +14,15 @@ async function fetcher(url: string) {
 }
 
 export default async function Home() {
-  const products = await fetcher("products");
-  console.log({ products });
+  // const products = await fetcher("products");
+  // console.log({ products });
 
   return (
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px]">
         <Carousel />
         {/* <ProductList products={products} /> */}
-        <RecommendedProducts products={products} />
+        {/* <RecommendedProducts products={products} /> */}
 
         {/* <div className="max-w-screen-lg mx-auto /w-[70vw] border-2 border-orange-400">
         </div> */}
