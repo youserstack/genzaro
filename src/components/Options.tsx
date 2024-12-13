@@ -66,9 +66,16 @@ export default function Options({ product }: Props) {
           <fieldset className="mt-4">
             <div className="flex items-center space-x-3">
               {[
-                { name: "black", class: "bg-black", selectedClass: "ring-gray-400" },
-                { name: "white", class: "bg-white", selectedClass: "ring-gray-400" },
-                { name: "amber", class: "bg-amber-500", selectedClass: "ring-gray-900" },
+                { name: "black", class: "bg-black" },
+                { name: "white", class: "bg-white" },
+                { name: "red", class: "bg-red-500" },
+                { name: "orange", class: "bg-orange-500" },
+                { name: "yellow", class: "bg-yellow-500" },
+                { name: "green", class: "bg-green-500" },
+                { name: "blue", class: "bg-blue-500" },
+                { name: "purple", class: "bg-purple-500" },
+                { name: "pink", class: "bg-pink-500" },
+                { name: "gray", class: "bg-gray-500" },
               ].map((color) => (
                 <div key={color.name} className="flex items-center">
                   <input
@@ -81,12 +88,28 @@ export default function Options({ product }: Props) {
                   />
                   <label
                     htmlFor={color.name}
-                    className="Outer_Round
-                    w-8 h-8 p-[2px] rounded-full peer-checked:ring-2 ring-black/80"
+                    className={`Outer_Round
+                    peer-checked:ring-2 /ring-black/80
+                    p-[2px] rounded-full 
+
+                    ${color.name === "black" ? "ring-black" : ""}
+                    ${color.name === "white" ? "ring-black/30" : ""}
+                    
+                    ${color.name === "red" ? "ring-red-500" : ""}
+                    ${color.name === "orange" ? "ring-orange-500" : ""}
+                    ${color.name === "amber" ? "ring-amber-500" : ""}
+                    ${color.name === "yellow" ? "ring-yellow-500" : ""}
+                    ${color.name === "green" ? "ring-green-500" : ""}
+                    ${color.name === "blue" ? "ring-blue-500" : ""}
+                    ${color.name === "purple" ? "ring-purple-500" : ""}
+                    ${color.name === "pink" ? "ring-pink-500" : ""}
+                    ${color.name === "gray" ? "ring-gray-500" : ""}
+                    `}
                   >
                     <div
                       className={`Inner_Round 
-                      ${color.class} w-full h-full rounded-full border border-black/20 cursor-pointer`}
+                      w-8 h-8  rounded-full border-[1px] border-black/15 cursor-pointer
+                      ${color.class} `}
                     />
                   </label>
                 </div>

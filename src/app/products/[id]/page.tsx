@@ -11,7 +11,7 @@ export default async function ProductDetail({ params }: Props) {
 
   return (
     <main>
-      <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] bg-neutral-200">
+      <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] ">
         <div
           className="제품정보
           max-w-2xl lg:max-w-7xl mx-auto
