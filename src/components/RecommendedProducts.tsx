@@ -21,7 +21,9 @@ export default function RecommendedProducts({ products }: IProps) {
                 "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg"
               }
               className="w-full /aspect-[7/8]
-                rounded-lg bg-gray-200 object-cover group-hover:opacity-75"
+              rounded-lg bg-gray-200 object-cover group-hover:opacity-75
+              transition-opacity 
+              "
               width={700}
               height={700}
             />

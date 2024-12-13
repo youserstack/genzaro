@@ -7,6 +7,7 @@ interface Product {
   brand: string;
   maker: string;
   seller: string;
+  description: string;
   category1: string;
   category2: string;
   category3: string;
