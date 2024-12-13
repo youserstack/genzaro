@@ -13,7 +13,7 @@ export default function Options({ product }: Props) {
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
 
-  useEffect(() => console.log({ selectedColor }), [selectedColor]);
+  //   useEffect(() => console.log({ selectedColor }), [selectedColor]);
   useEffect(() => console.log({ selectedSize }), [selectedSize]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -61,7 +61,7 @@ export default function Options({ product }: Props) {
       </div> */}
 
       <form className="mt-10" onSubmit={handleSubmit}>
-        <div>
+        {/* <div className="Colors">
           <h3 className="text-sm font-medium text-gray-900">Color</h3>
           <fieldset className="mt-4">
             <div className="flex items-center space-x-3">
@@ -93,7 +93,7 @@ export default function Options({ product }: Props) {
                     p-[2px] rounded-full 
 
                     ${color.name === "black" ? "ring-black" : ""}
-                    ${color.name === "white" ? "ring-black/30" : ""}
+                    ${color.name === "white" ? "ring-black/30 dark:ring-white" : ""}
                     
                     ${color.name === "red" ? "ring-red-500" : ""}
                     ${color.name === "orange" ? "ring-orange-500" : ""}
@@ -108,7 +108,7 @@ export default function Options({ product }: Props) {
                   >
                     <div
                       className={`Inner_Round 
-                      w-8 h-8  rounded-full border-[1px] border-black/15 cursor-pointer
+                      w-8 h-8  rounded-full border-[1px] border-black/10  cursor-pointer
                       ${color.class} `}
                     />
                   </label>
@@ -116,10 +116,9 @@ export default function Options({ product }: Props) {
               ))}
             </div>
           </fieldset>
-        </div>
+        </div> */}
 
-        {/* Sizes */}
-        <div className="mt-10">
+        <div className="Sizes mt-10">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-medium text-gray-900">Size</h3>
             <a href="#" className="text-sm font-medium text-indigo-600 hover:text-indigo-500">
@@ -128,55 +127,62 @@ export default function Options({ product }: Props) {
           </div>
 
           <fieldset className="mt-4">
-            <div className="grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-4">
+            <div
+              className="grid gap-4
+              grid-cols-4 sm:grid-cols-8 lg:grid-cols-4 "
+            >
               {[
                 { name: "XXS", inStock: false },
                 { name: "XS", inStock: true },
                 { name: "S", inStock: true },
                 { name: "M", inStock: true },
                 { name: "L", inStock: true },
-                { name: "XL", inStock: true },
+                { name: "XL", inStock: false },
                 { name: "2XL", inStock: true },
                 { name: "3XL", inStock: true },
               ].map((size) => (
-                <input
-                  type="radio"
-                  key={size.name}
-                  value={selectedSize}
-                  onChange={() => setSelectedSize(size.name)}
-                  disabled={!size.inStock}
-                  className={`
-                  ${
-                    size.inStock
-                      ? "cursor-pointer bg-white text-gray-900 shadow-sm"
-                      : "cursor-not-allowed bg-gray-50 text-gray-200"
-                  }
-                    group relative flex items-center justify-center rounded-md border px-4 py-3 text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none data-[focus]:ring-2 data-[focus]:ring-indigo-500 sm:flex-1 sm:py-6
+                <div key={size.name} className="Size_Item flex relative ">
+                  <input
+                    type="radio"
+                    id={size.name}
+                    name="size"
+                    value={selectedSize}
+                    onChange={() => setSelectedSize(size.name)}
+                    disabled={!size.inStock}
+                    className="hidden peer"
+                  />
+                  <label
+                    htmlFor={size.name}
+                    className={`Size_Label
+                    peer-checked:ring-2 ring-amber-500 border rounded-md 
+                    w-full shadow-sm uppercase font-medium px-4 py-3
+                    flex justify-center items-center
+                    
+                    ${
+                      size.inStock
+                        ? "cursor-pointer bg-white text-gray-900 shadow-sm"
+                        : "cursor-not-allowed bg-gray-50 text-gray-200"
+                    }
+                    `}
+                  >
+                    <div className="">{size.name}</div>
 
-                  `}
-                >
-                  {/* <span>{size.name}</span> */}
-                  {/* {size.inStock ? (
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -inset-px rounded-md border-2 border-transparent group-data-[focus]:border group-data-[checked]:border-indigo-500"
-                    />
-                  ) : (
-                    <span
-                      aria-hidden="true"
-                      className="pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200"
-                    >
-                      <svg
-                        stroke="currentColor"
-                        viewBox="0 0 100 100"
-                        preserveAspectRatio="none"
-                        className="absolute inset-0 size-full stroke-2 text-gray-200"
-                      >
-                        <line x1={0} x2={100} y1={100} y2={0} vectorEffect="non-scaling-stroke" />
-                      </svg>
-                    </span>
-                  )} */}
-                </input>
+                    {size.inStock ? (
+                      <div className="Size_InStock pointer-events-none absolute -inset-px rounded-md border-2 border-transparent" />
+                    ) : (
+                      <div className="Size_OutStock pointer-events-none absolute -inset-px rounded-md border-2 border-gray-200">
+                        <svg
+                          stroke="currentColor"
+                          viewBox="0 0 100 100"
+                          preserveAspectRatio="none"
+                          className="absolute inset-0 size-full stroke-2 text-gray-200"
+                        >
+                          <line x1={0} x2={100} y1={100} y2={0} vectorEffect="non-scaling-stroke" />
+                        </svg>
+                      </div>
+                    )}
+                  </label>
+                </div>
               ))}
             </div>
           </fieldset>
