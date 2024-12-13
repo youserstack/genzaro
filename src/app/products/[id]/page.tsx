@@ -26,7 +26,7 @@ export default async function ProductDetail({ params }: Props) {
         >
           <div
             className="제목
-            border-2 border-purple-500 
+            /border-2 border-purple-500 
             lg:pr-8
 
             lg:row-start-1
@@ -40,7 +40,7 @@ export default async function ProductDetail({ params }: Props) {
           <div
             className="설명
             py-10 lg:pb-16 lg:pr-8 lg:pt-6 
-            border-2 border-blue-500
+            /border-2 border-blue-500
             
             lg:row-start-2
             lg:col-start-1 

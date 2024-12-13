@@ -31,7 +31,7 @@ export default function Options({ product }: Props) {
 
   return (
     <div
-      className="mt-4 lg:mt-0 border-2 border-green-500 
+      className="mt-4 lg:mt-0 /border-2 border-green-500 
       lg:row-start-1 
       lg:row-span-2 
       lg:col-start-3
@@ -161,7 +161,7 @@ export default function Options({ product }: Props) {
                     
                     ${
                       size.inStock
-                        ? "cursor-pointer bg-white dark:bg-neutral-700 shadow-sm"
+                        ? "cursor-pointer bg-white dark:bg-neutral-700 shadow-sm hover:bg-neutral-100 dark:hover:bg-neutral-700/50"
                         : "cursor-not-allowed bg-neutral-100 dark:bg-neutral-800 opacity-50"
                     }
                     `}
@@ -191,7 +191,11 @@ export default function Options({ product }: Props) {
 
         <button
           type="submit"
-          className="mt-10 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+          className="mt-10 flex w-full items-center justify-center rounded-md 
+          border border-transparent 
+          bg-lime-800 hover:bg-lime-900
+          px-8 py-3 text-base font-medium text-white 
+          "
         >
           Add to bag
         </button>
