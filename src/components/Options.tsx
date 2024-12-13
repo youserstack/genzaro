@@ -150,7 +150,6 @@ export default function Options({ product }: Props) {
                 <label
                   htmlFor={size.name}
                   className={`Size_Label
-                    /peer-checked:ring-2 ring-amber-500 
                     peer-checked:border-blue-500
                     border-2 border-neutral-200 dark:border-neutral-600 rounded-md 
                     w-full shadow-sm uppercase font-medium px-4 py-3
@@ -165,7 +164,6 @@ export default function Options({ product }: Props) {
                 >
                   <div className="">{size.name}</div>
 
-                  {/* Overlay */}
                   {size.inStock ? (
                     <div className="Size_InStock_Overlay absolute inset-0 rounded-md border-2 border-transparent pointer-events-none" />
                   ) : (
@@ -183,8 +181,6 @@ export default function Options({ product }: Props) {
                 </label>
               </div>
             ))}
-            {/* <div className="">
-            </div> */}
           </fieldset>
         </div>
 
