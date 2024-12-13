@@ -37,9 +37,9 @@ export default function Options({ product }: Props) {
       lg:col-start-3
       "
     >
-      {/* <p className="text-3xl">{product.price}</p> */}
+      <p className="text-3xl">{product.price}</p>
 
-      {/* <div className="mt-6">
+      <div className="mt-6">
         <div className="flex items-center">
           <div className="flex items-center">
             {[0, 1, 2, 3, 4].map((rating) => (
@@ -58,10 +58,10 @@ export default function Options({ product }: Props) {
             {reviews.totalCount} reviews
           </a>
         </div>
-      </div> */}
+      </div>
 
       <form className="mt-10" onSubmit={handleSubmit}>
-        {/* <div className="Colors">
+        <div className="Colors">
           <h3 className="text-sm font-medium text-gray-900">Color</h3>
           <fieldset className="mt-4">
             <div className="flex items-center space-x-3">
@@ -116,7 +116,7 @@ export default function Options({ product }: Props) {
               ))}
             </div>
           </fieldset>
-        </div> */}
+        </div>
 
         <div className="Sizes mt-10">
           <div className="flex items-center justify-between">
@@ -126,35 +126,32 @@ export default function Options({ product }: Props) {
             </a>
           </div>
 
-          <fieldset className="mt-4">
-            <div
-              className="grid gap-4
-              grid-cols-4 sm:grid-cols-8 lg:grid-cols-4 "
-            >
-              {[
-                { name: "XXS", inStock: false },
-                { name: "XS", inStock: true },
-                { name: "S", inStock: true },
-                { name: "M", inStock: true },
-                { name: "L", inStock: true },
-                { name: "XL", inStock: false },
-                { name: "2XL", inStock: true },
-                { name: "3XL", inStock: true },
-              ].map((size) => (
-                <div key={size.name} className="Size_Item flex relative ">
-                  <input
-                    type="radio"
-                    id={size.name}
-                    name="size"
-                    value={selectedSize}
-                    onChange={() => setSelectedSize(size.name)}
-                    disabled={!size.inStock}
-                    className="hidden peer"
-                  />
-                  <label
-                    htmlFor={size.name}
-                    className={`Size_Label
-                    peer-checked:ring-2 ring-amber-500 
+          <fieldset className="grid gap-4 mt-4 grid-cols-4 sm:grid-cols-8 lg:grid-cols-4">
+            {[
+              { name: "XXS", inStock: false },
+              { name: "XS", inStock: true },
+              { name: "S", inStock: true },
+              { name: "M", inStock: true },
+              { name: "L", inStock: true },
+              { name: "XL", inStock: false },
+              { name: "2XL", inStock: true },
+              { name: "3XL", inStock: true },
+            ].map((size) => (
+              <div key={size.name} className="Size_Item flex relative">
+                <input
+                  type="radio"
+                  id={size.name}
+                  name="size"
+                  value={selectedSize}
+                  onChange={() => setSelectedSize(size.name)}
+                  disabled={!size.inStock}
+                  className="hidden peer"
+                />
+                <label
+                  htmlFor={size.name}
+                  className={`Size_Label
+                    /peer-checked:ring-2 ring-amber-500 
+                    peer-checked:border-blue-500
                     border-2 border-neutral-200 dark:border-neutral-600 rounded-md 
                     w-full shadow-sm uppercase font-medium px-4 py-3
                     flex justify-center items-center
@@ -165,27 +162,29 @@ export default function Options({ product }: Props) {
                         : "cursor-not-allowed bg-neutral-100 dark:bg-neutral-800 opacity-50"
                     }
                     `}
-                  >
-                    <div className="">{size.name}</div>
+                >
+                  <div className="">{size.name}</div>
 
-                    {size.inStock ? (
-                      <div className="Size_InStock_Overlay absolute inset-0 rounded-md border-2 border-transparent pointer-events-none" />
-                    ) : (
-                      <div className="Size_OutStock_Overlay absolute inset-0 rounded-md border-2 dark:border-neutral-600 pointer-events-none">
-                        <svg
-                          stroke="currentColor"
-                          viewBox="0 0 100 100"
-                          preserveAspectRatio="none"
-                          className="absolute inset-0 size-full stroke-2 text-neutral-200 dark:text-neutral-600"
-                        >
-                          <line x1={0} x2={100} y1={100} y2={0} vectorEffect="non-scaling-stroke" />
-                        </svg>
-                      </div>
-                    )}
-                  </label>
-                </div>
-              ))}
-            </div>
+                  {/* Overlay */}
+                  {size.inStock ? (
+                    <div className="Size_InStock_Overlay absolute inset-0 rounded-md border-2 border-transparent pointer-events-none" />
+                  ) : (
+                    <div className="Size_OutStock_Overlay absolute inset-0 rounded-md border-2 dark:border-neutral-600 pointer-events-none">
+                      <svg
+                        stroke="currentColor"
+                        viewBox="0 0 100 100"
+                        preserveAspectRatio="none"
+                        className="absolute inset-0 size-full stroke-2 text-neutral-200 dark:text-neutral-600"
+                      >
+                        <line x1={0} x2={100} y1={100} y2={0} vectorEffect="non-scaling-stroke" />
+                      </svg>
+                    </div>
+                  )}
+                </label>
+              </div>
+            ))}
+            {/* <div className="">
+            </div> */}
           </fieldset>
         </div>
 
@@ -193,7 +192,8 @@ export default function Options({ product }: Props) {
           type="submit"
           className="mt-10 flex w-full items-center justify-center rounded-md 
           border border-transparent 
-          bg-lime-800 hover:bg-lime-900
+          bg-lime-500 hover:bg-lime-600
+          dark:bg-lime-800 dark:hover:bg-lime-900
           px-8 py-3 text-base font-medium text-white 
           "
         >

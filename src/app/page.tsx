@@ -10,31 +10,6 @@ export default async function Home() {
   return (
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] flex justify-center items-center">
-        <div>
-          <div className="flex">
-            <input type="radio" name="hs-default-radio" id="hs-default-radio" />
-            <label htmlFor="hs-default-radio">Default radio</label>
-          </div>
-
-          <div className="flex">
-            <input
-              type="radio"
-              name="hs-default-radio"
-              className="shrink-0 mt-0.5 border-gray-200 rounded-full 
-                      text-blue-600 focus:ring-blue-500 disabled:opacity-50 
-                      disabled:pointer-events-none dark:bg-neutral-800 dark:border-neutral-700 
-                      dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800"
-              id="hs-checked-radio"
-            />
-            <label
-              htmlFor="hs-checked-radio"
-              className="text-sm text-gray-500 ms-2 dark:text-neutral-400"
-            >
-              Checked radio
-            </label>
-          </div>
-        </div>
-
         {/* <Carousel /> */}
         {/* <ProductList products={products} /> */}
         {/* <RecommendedProducts products={products} /> */}
