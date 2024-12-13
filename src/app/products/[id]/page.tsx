@@ -48,7 +48,7 @@ export default async function ProductDetail({ params }: Props) {
             "
           >
             <div className="space-y-6">
-              <p className="text-base text-gray-900">{product.description}</p>
+              <p className="text-base">{product.description}</p>
             </div>
           </div>
 
