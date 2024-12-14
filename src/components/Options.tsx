@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IoIosStar } from "react-icons/io";
+import Reviews from "./Reviews";
 
 const reviews = { href: "#", average: 4, totalCount: 117 };
 
@@ -14,7 +14,7 @@ export default function Options({ product }: Props) {
   const [selectedSize, setSelectedSize] = useState("");
 
   //   useEffect(() => console.log({ selectedColor }), [selectedColor]);
-  useEffect(() => console.log({ selectedSize }), [selectedSize]);
+  //   useEffect(() => console.log({ selectedSize }), [selectedSize]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -31,37 +31,20 @@ export default function Options({ product }: Props) {
 
   return (
     <div
-      className="mt-4 lg:mt-0 /border-2 border-green-500 
-      lg:row-start-1 
-      lg:row-span-2 
+      className="Options 옵션
+      mt-4 lg:mt-0 /border-2 border-green-500 
+      lg:row-start-1 lg:row-span-2 
       lg:col-start-3
       "
     >
       <p className="text-3xl">{product.price}</p>
 
       <div className="mt-6">
-        <div className="flex items-center">
-          <div className="flex items-center">
-            {[0, 1, 2, 3, 4].map((rating) => (
-              <IoIosStar
-                key={rating}
-                className={`${reviews.average > rating ? "text-gray-900" : "text-gray-200"}
-                "size-5 shrink-0"
-              `}
-              />
-            ))}
-          </div>
-          <a
-            href={reviews.href}
-            className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
-          >
-            {reviews.totalCount} reviews
-          </a>
-        </div>
+        <Reviews reviews={reviews} />
       </div>
 
       <form className="mt-10" onSubmit={handleSubmit}>
-        <div className="Colors">
+        <div className="Colors 칼라">
           <h3 className="text-sm font-medium text-gray-900">Color</h3>
           <fieldset className="mt-4">
             <div className="flex items-center space-x-3">
@@ -118,7 +101,7 @@ export default function Options({ product }: Props) {
           </fieldset>
         </div>
 
-        <div className="Sizes mt-10">
+        <div className="Sizes 사이즈 mt-10">
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-medium">Size</h3>
             <a href="#" className="text-sm font-medium text-lime-500 hover:text-lime-400">
