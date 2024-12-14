@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Reviews from "./Reviews";
 
-const reviews = { href: "#", average: 4, totalCount: 117 };
+const reviews = { href: "#", average: 4.2, totalCount: 117 };
 
 interface Props {
   product: Product;
@@ -176,7 +176,7 @@ export default function Options({ product }: Props) {
           px-8 py-3 text-base font-medium text-white 
           "
         >
-          Add to bag
+          장바구니에 담기
         </button>
       </form>
     </div>

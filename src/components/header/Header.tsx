@@ -4,6 +4,11 @@ import Logo from "./Logo";
 import Nav from "./Nav";
 import Burger from "./Burger";
 import SideMenu from "./SideMenu";
+import { CiShoppingCart } from "react-icons/ci";
+import { IoBag, IoBagAdd } from "react-icons/io5";
+import { GiBeachBag } from "react-icons/gi";
+import { BsHandbag } from "react-icons/bs";
+import Link from "next/link";
 
 export default function Header() {
   return (
@@ -21,6 +26,12 @@ export default function Header() {
           <Nav />
           <Burger />
           <SideMenu />
+          <div className="Features 기능 hidden md:flex items-center gap-4">
+            <Link href={"/cart"}>
+              <BsHandbag className="text-xl" />
+            </Link>
+            {/* <GiBeachBag className="text-xl " /> */}
+          </div>
         </div>
       </section>
     </header>

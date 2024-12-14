@@ -1,15 +1,17 @@
 import ProductList from "@/components/ProductList";
 import Carousel from "@/components/Carousel";
 import RecommendedProducts from "@/components/RecommendedProducts";
-import { fetcher } from "./utils/fetcher";
+import { fetcher } from "../utils/fetcher";
+import Example from "@/components/Example";
 
 export default async function Home() {
-  // const products = await fetcher("products");
-  // console.log({ products });
+  const products = await fetcher("products");
+  console.log({ products });
 
   return (
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] flex justify-center items-center">
+        <Example />
         {/* <Carousel /> */}
         {/* <ProductList products={products} /> */}
         {/* <RecommendedProducts products={products} /> */}

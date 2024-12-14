@@ -1,4 +1,4 @@
-import { fetcher } from "@/app/utils/fetcher";
+import { fetcher } from "@/utils/fetcher";
 import Breadcrumb from "@/components/Breadcrumb";
 import ProductInfo from "@/components/ProductInfo";
 import Gallery from "@/components/Gallery";

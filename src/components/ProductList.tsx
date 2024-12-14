@@ -7,19 +7,18 @@ interface IProps {
 
 export default function ProductList({ products }: IProps) {
   return (
-    <div className="bg-white border border-black">
+    <div className="ProductList 제품리스트 bg-white /border border-black/10">
       <div
         className="mx-auto max-w-2xl px-4 py-16 
         sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"
       >
-        <h2 className="sr-only">Products</h2>
-
         <div
-          className="grid grid-cols-1 gap-x-6 gap-y-10 
-          sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8"
+          className="
+          grid grid-cols-2 gap-x-6 gap-y-10 
+          sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 xl:gap-x-8"
         >
           {products.map((product) => (
-            <Link key={product.productId} href={""} className="group">
+            <Link key={product.productId} href={`/products/${product._id}`} className="group">
               <Image
                 alt={""}
                 src={
