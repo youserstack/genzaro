@@ -4,28 +4,22 @@ interface Props {
 
 export default function Gallery({ product }: Props) {
   return (
-    <div className="mx-auto mt-6 max-w-2xl sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-3 lg:gap-x-8 lg:px-8">
+    <div
+      className="
+      max-w-2xl lg:max-w-7xl mx-auto mt-6
+      lg:grid lg:gap-x-8 
+      sm:px-6 lg:px-8 
+      /border border-black/10
+      "
+    >
       <img
         alt={""}
         src={product.image}
-        className="hidden aspect-[3/4] size-full rounded-lg object-cover lg:block border border-red-500"
-      />
-      <div className="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
-        <img
-          alt={""}
-          src={product.image}
-          className="aspect-[3/2] size-full rounded-lg object-cover"
-        />
-        <img
-          alt={""}
-          src={product.image}
-          className="aspect-[3/2] size-full rounded-lg object-cover"
-        />
-      </div>
-      <img
-        alt={""}
-        src={product.image}
-        className="aspect-[4/5] size-full object-cover sm:rounded-lg lg:aspect-[3/4] border border-blue-500"
+        className="
+        aspect-[4/3] lg:aspect-[16/9] 
+        size-full object-cover 
+        sm:border sm:rounded-lg lg:rounded-2xl border-neutral-200
+        "
       />
     </div>
   );

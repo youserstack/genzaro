@@ -1,6 +1,6 @@
 export default function Breadcrumb() {
   return (
-    <nav className="Breadcrumb">
+    <nav className="Breadcrumb /border border-black/10">
       <ol className="mx-auto flex max-w-2xl items-center space-x-2 px-4 sm:px-6 lg:max-w-7xl lg:px-8">
         {[
           { id: 1, name: "Men", href: "#" },

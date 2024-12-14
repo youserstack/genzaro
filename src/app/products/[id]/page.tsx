@@ -1,6 +1,6 @@
 import { fetcher } from "@/app/utils/fetcher";
 import Breadcrumb from "@/components/Breadcrumb";
-import Description from "@/components/Description";
+import ProductInfo from "@/components/ProductInfo";
 import Gallery from "@/components/Gallery";
 
 interface Props {
@@ -16,7 +16,7 @@ export default async function ProductDetail({ params }: Props) {
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] ">
         <Breadcrumb />
         <Gallery product={product} />
-        {/* <Description product={product} /> */}
+        <ProductInfo product={product} />
       </section>
     </main>
   );

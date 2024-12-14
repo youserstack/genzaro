@@ -47,7 +47,7 @@ export default function Options({ product }: Props) {
         <div className="Colors 칼라">
           <h3 className="text-sm font-medium text-gray-900">Color</h3>
           <fieldset className="mt-4">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center gap-3 flex-wrap">
               {[
                 { name: "black", class: "bg-black" },
                 { name: "white", class: "bg-white" },
