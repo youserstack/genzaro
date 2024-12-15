@@ -1,12 +1,12 @@
 import { IoIosStar } from "react-icons/io";
 
-interface Props {
+type Props = {
   reviews: {
     href: string;
     average: number;
     totalCount: number;
   };
-}
+};
 
 export default function Reviews({ reviews }: Props) {
   return (

@@ -3,11 +3,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface IProps {
+type Props = {
   products: Product[];
-}
+};
 
-export default function RecommendedProducts({ products }: IProps) {
+export default function RecommendedProducts({ products }: Props) {
   return (
     <section className="p-4">
       <h1 className="text-5xl font-semibold text-center mb-[200px]">Recommendations</h1>

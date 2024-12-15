@@ -1,6 +1,6 @@
-interface Props {
+type Props = {
   product: Product;
-}
+};
 
 export default function Gallery({ product }: Props) {
   return (

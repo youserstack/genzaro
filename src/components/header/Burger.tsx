@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { HiBars2 } from "react-icons/hi2";
-import { Context } from "../Context";
+import { Context } from "../context/Context";
 
 export default function Burger() {
   const { setOpen } = useContext(Context);

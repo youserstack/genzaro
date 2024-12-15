@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
-interface IProps {
+type Props = {
   products: Product[];
-}
+};
 
-export default function ProductList({ products }: IProps) {
+export default function ProductList({ products }: Props) {
   return (
     <div className="ProductList 제품리스트 bg-white /border border-black/10">
       <div

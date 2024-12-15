@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useContext } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { Context } from "../Context";
+import { Context } from "../context/Context";
 
 export default function SideMenu() {
   const { open, setOpen } = useContext(Context);

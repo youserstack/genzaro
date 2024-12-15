@@ -5,9 +5,9 @@ import Reviews from "./Reviews";
 
 const reviews = { href: "#", average: 4.2, totalCount: 117 };
 
-interface Props {
+type Props = {
   product: Product;
-}
+};
 
 export default function Options({ product }: Props) {
   const [selectedColor, setSelectedColor] = useState("");

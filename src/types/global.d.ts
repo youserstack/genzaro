@@ -1,4 +1,4 @@
-interface Product {
+type Product = {
   _id: string;
   productId: string;
   productType: string;
@@ -17,4 +17,4 @@ interface Product {
   // lprice: string;
   // hprice: string;
   // mallName: string;
-}
+};

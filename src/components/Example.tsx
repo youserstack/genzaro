@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 const products = [
   {
     id: 1,
@@ -29,19 +31,21 @@ const products = [
 
 export default function Example() {
   return (
-    <div className="예제 relative z-10">
-      <ul className="divide-y divide-blue-500">
+    <div className="예제">
+      <ul className="divide-y divide-neutral-200">
         {products.map((product) => (
-          <li key={product.id} className="flex py-6">
-            <div className="size-24 shrink-0 overflow-hidden rounded-md border border-green-500">
-              <img
+          <li key={product.id} className="flex gap-4 py-6">
+            <div className="size-[150px] overflow-hidden rounded-xl border border-neutral-200">
+              <Image
                 alt={product.imageAlt}
                 src={product.imageSrc}
-                className="size-full object-cover"
+                width={300}
+                height={300}
+                className="size-full object-cover pointer-events-none"
               />
             </div>
 
-            <div className="ml-4 flex flex-1 flex-col">
+            <div className="flex flex-1 flex-col">
               <div>
                 <div className="flex justify-between text-base font-medium text-gray-900">
                   <h3>

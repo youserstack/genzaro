@@ -1,8 +1,8 @@
 import Options from "./Options";
 
-interface Props {
+type Props = {
   product: Product;
-}
+};
 
 function Description({ product }: Props) {
   return (
