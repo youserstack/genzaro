@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 type Item = {
   productId: string;
@@ -16,7 +16,7 @@ type State = {
 
 const initialState: State = {
   userId: null,
-  items: localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts") as string) : [],
+  items: [],
   total: 0,
 };
 
@@ -92,6 +92,17 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const clearCart = () => {
     setState(initialState);
   };
+
+  useEffect(() => {
+    const carts = localStorage.getItem("carts");
+    if (carts) {
+      setState((prevState) => ({
+        ...prevState,
+        items: JSON.parse(carts),
+        total: JSON.parse(carts).reduce((sum: number, v: Item) => sum + v.price * v.quantity, 0),
+      }));
+    }
+  }, []);
 
   return (
     <CartContext.Provider value={{ state, addItem, removeItem, clearCart }}>

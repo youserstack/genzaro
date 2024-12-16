@@ -9,16 +9,12 @@ import { IoBag, IoBagAdd } from "react-icons/io5";
 import { GiBeachBag } from "react-icons/gi";
 import { BsHandbag } from "react-icons/bs";
 import Link from "next/link";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { CartContext } from "../context/cart/CartContext";
 
 export default function Header() {
   const { state } = useContext(CartContext);
   const cartItemCount = state.items.length;
-
-  useEffect(() => {
-    console.log({ items: state.items });
-  }, [state]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] text-white">
@@ -36,10 +32,18 @@ export default function Header() {
           <Burger />
           <SideMenu />
           <div className="Features 기능 hidden md:flex items-center gap-4">
-            <Link href={"/cart"}>
+            <Link href={"/cart"} className="relative">
               <BsHandbag className="text-xl" />
+              <span
+                className="
+                absolute top-[-7px] right-[-7px]  /top-[-30%] /right-[-30%]
+                size-4 text-xs bg-red-500 rounded-full
+                flex items-center justify-center
+                "
+              >
+                {cartItemCount}
+              </span>
             </Link>
-            {/* <GiBeachBag className="text-xl " /> */}
           </div>
         </div>
       </section>
