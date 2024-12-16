@@ -1,11 +1,25 @@
+"use client";
+
+import { fetcher } from "@/utils/fetcher";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 
 type Props = {
   products: Product[];
 };
 
-export default function Cart({ products }: Props) {
+export default function Cart() {
+  const [products, setProducts] = useState();
+
+  useEffect(() => {
+    const getData = async () => {
+      const products = await fetcher("/products");
+      console.log(products);
+    };
+    getData();
+  }, []);
+
   return (
     <div
       className="Cart 장바구니 border border-black/10
@@ -13,7 +27,7 @@ export default function Cart({ products }: Props) {
       "
     >
       <ul className="divide-y divide-neutral-200">
-        {products.map((product) => (
+        {/* {products.map((product) => (
           <li key={product.productId} className="flex gap-4 py-6">
             <div className="size-[150px] overflow-hidden rounded-xl border border-neutral-200">
               <Image
@@ -49,7 +63,7 @@ export default function Cart({ products }: Props) {
               </div>
             </div>
           </li>
-        ))}
+        ))} */}
       </ul>
     </div>
   );

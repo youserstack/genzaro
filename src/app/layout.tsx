@@ -34,7 +34,7 @@ export default function RootLayout({
         <Provider
         // mode={mode}
         >
-          {/* <Header /> */}
+          <Header />
           {children}
         </Provider>
       </body>

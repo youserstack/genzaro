@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import Reviews from "./Reviews";
+import { CartContext } from "./context/cart/CartContext";
 
 const reviews = { href: "#", average: 4.2, totalCount: 117 };
 
@@ -12,6 +13,7 @@ type Props = {
 export default function Options({ product }: Props) {
   const [selectedColor, setSelectedColor] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
+  const { addItem } = useContext(CartContext);
 
   //   useEffect(() => console.log({ selectedColor }), [selectedColor]);
   //   useEffect(() => console.log({ selectedSize }), [selectedSize]);
@@ -20,13 +22,10 @@ export default function Options({ product }: Props) {
     e.preventDefault();
 
     const form = e.currentTarget as HTMLFormElement;
-    // console.log({ form });
-
     const formData = new FormData(form);
-    // console.log({ formData });
-
     const submittedData = Object.fromEntries(formData.entries());
-    console.log({ submittedData });
+
+    addItem({ productId: product._id, quantity: 1, price: 1000, ...submittedData });
   };
 
   return (

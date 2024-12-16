@@ -2,6 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   /* config options here */
+  env: {
+    DEFAULT_API_URL: process.env.DEFAULT_API_URL,
+  },
   images: {
     remotePatterns: [
       //

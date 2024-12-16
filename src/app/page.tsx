@@ -6,12 +6,12 @@ import Example from "@/components/Example";
 
 export default async function Home() {
   const products = await fetcher("products");
-  console.log({ products });
+  // console.log({ products });
 
   return (
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] flex justify-center items-center">
-        <Example />
+        {/* <Example /> */}
         {/* <Carousel /> */}
         {/* <ProductList products={products} /> */}
         {/* <RecommendedProducts products={products} /> */}

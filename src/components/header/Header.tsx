@@ -9,8 +9,17 @@ import { IoBag, IoBagAdd } from "react-icons/io5";
 import { GiBeachBag } from "react-icons/gi";
 import { BsHandbag } from "react-icons/bs";
 import Link from "next/link";
+import { useContext, useEffect } from "react";
+import { CartContext } from "../context/cart/CartContext";
 
 export default function Header() {
+  const { state } = useContext(CartContext);
+  const cartItemCount = state.items.length;
+
+  useEffect(() => {
+    console.log({ items: state.items });
+  }, [state]);
+
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] text-white">
       <section

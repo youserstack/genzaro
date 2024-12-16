@@ -4,6 +4,8 @@ type Item = {
   productId: string;
   quantity: number;
   price: number;
+  color?: string;
+  size?: string;
 };
 
 type State = {
@@ -14,7 +16,7 @@ type State = {
 
 const initialState: State = {
   userId: null,
-  items: [],
+  items: localStorage.getItem("carts") ? JSON.parse(localStorage.getItem("carts") as string) : [],
   total: 0,
 };
 
@@ -33,37 +35,60 @@ export const CartContext = createContext<{
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = useState<State>(initialState);
 
-  // 장바구니에 상품을 추가하는 함수
   const addItem = (item: Item) => {
     setState((prevState) => {
-      const itemIndex = prevState.items.findIndex((i) => i.productId === item.productId);
-      let updatedItems;
-      if (itemIndex >= 0) {
-        // 만약 이미 장바구니에 해당 상품이 있으면, 수량을 증가시킴
-        updatedItems = prevState.items.map((i, index) =>
-          index === itemIndex ? { ...i, quantity: i.quantity + item.quantity } : i
-        );
+      // 아이템 추가
+      const items = structuredClone(prevState.items);
+      const foundItem = items.find(
+        (v) => v.productId === item.productId && v.color === item.color && v.size === item.size
+      );
+      if (foundItem) {
+        foundItem.quantity += 1;
       } else {
-        // 해당 상품이 없다면, 새로 장바구니에 추가
-        updatedItems = [...prevState.items, item];
+        items.push(item);
       }
-      // 총합을 재계산
-      const total = updatedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      return { ...prevState, items: updatedItems, total };
+
+      // 총합
+      const total = items.reduce((sum, v) => sum + v.price * v.quantity, 0);
+
+      // 캐싱
+      localStorage.setItem("carts", JSON.stringify(items));
+
+      return { ...prevState, items, total };
     });
+
+    // setState((prevState) => {
+    //   const itemIndex = prevState.items.findIndex((v) => v.productId === item.productId);
+    //   let items;
+    //   if (itemIndex >= 0) {
+    //     items = prevState.items.map((v, i) =>
+    //       i === itemIndex ? { ...v, quantity: v.quantity + item.quantity } : v
+    //     );
+    //   } else {
+    //     items = [...prevState.items, item];
+    //   }
+
+    //   // 총합을 재계산
+    //   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    //   //   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    //   return { ...prevState, items, total };
+    // });
   };
 
-  // 장바구니에서 특정 상품을 제거하는 함수
-  const removeItem = (productId: string) => {
+  const removeItem = (productId: string, color?: string, size?: string) => {
     setState((prevState) => {
-      const updatedItems = prevState.items.filter((item) => item.productId !== productId);
-      // 총합을 재계산
-      const total = updatedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      return { ...prevState, items: updatedItems, total };
+      // 아이템 제거
+      const items = prevState.items.filter(
+        (v) => !(v.productId === productId && v.color === color && v.size === size)
+      );
+
+      // 총합
+      const total = items.reduce((sum, v) => sum + v.price * v.quantity, 0);
+
+      return { ...prevState, items, total };
     });
   };
 
-  // 장바구니를 초기 상태로 리셋하는 함수
   const clearCart = () => {
     setState(initialState);
   };
