@@ -18,11 +18,13 @@ type Item = {
 export default function Cart() {
   const { state } = useContext(CartContext);
   const { items } = state;
-  const [productDetails, setProductDetails] = useState<any[]>([]);
+  const [mergedProducts, setMergedProducts] = useState<any[]>([]);
 
   useEffect(() => {
-    const groupedItems = new Map<string, Item[]>();
+    if (!items.length) return;
 
+    // 아이템 제품아이디로 그룹핑
+    const groupedItems = new Map<string, Item[]>();
     items.forEach((item) => {
       const existingGroup = groupedItems.get(item.productId);
       if (existingGroup) {
@@ -32,30 +34,36 @@ export default function Cart() {
       }
     });
 
-    const productIds = Array.from(groupedItems.keys());
-    const searchParams = new URLSearchParams();
-    productIds.forEach((id) => {
-      searchParams.set("ids", id);
-    });
-    console.log({ searchParams });
-    const some = searchParams.getAll("ids");
-    console.log({ some });
     const getProducts = async () => {
-      try {
-        // const some = useSearchParams()
-        const searchParams = new URLSearchParams();
-        productIds.forEach((id) => {
-          searchParams.set("ids", id);
-        });
-        const response = await fetch(`/api/products?ids=${productIds.join(",")}`);
-        const data = await response.json();
+      const productIds = Array.from(groupedItems.keys());
+      const searchParams = new URLSearchParams();
+      productIds.forEach((id) => {
+        searchParams.append("ids", id);
+      });
 
-        setProductDetails(data);
+      try {
+        const products = await fetcher(`products?${searchParams.toString()}`);
+
+        // `products`와 `groupedItems` 병합
+        const mergedData = Array.from(groupedItems.entries()).map(([productId, items]) => {
+          const product = products.find((product: any) => product._id === productId);
+
+          return {
+            productId,
+            product,
+            items,
+          };
+        });
+
+        setMergedProducts(mergedData);
       } catch (error) {
         console.error("Error fetching product details:", error);
       }
     };
+    getProducts();
   }, [items]);
+
+  console.log({ mergedProducts });
 
   //   useEffect(() => {
   //     const getData = async () => {
@@ -85,12 +93,12 @@ export default function Cart() {
       "
     >
       <ul className="divide-y divide-neutral-200">
-        {/* {items.map((item) => (
-          <li key={item.productId} className="flex gap-4 py-6">
+        {mergedProducts.map((mergedProduct) => (
+          <li key={mergedProduct.productId} className="flex gap-4 py-6">
             <div className="size-[150px] overflow-hidden rounded-xl border border-neutral-200">
               <Image
                 alt={""}
-                src={item.image}
+                src={mergedProduct.product.image}
                 width={300}
                 height={300}
                 className="size-full object-cover pointer-events-none"
@@ -101,14 +109,16 @@ export default function Cart() {
               <div>
                 <div className="flex justify-between text-base font-medium text-gray-900">
                   <h3>
-                    <Link href={`/products/${item._id}`}>{item.title}</Link>
+                    <Link href={`/products/${mergedProduct.productId}`}>
+                      {mergedProduct.product.title}
+                    </Link>
                   </h3>
-                  <p className="ml-4">{item.price}</p>
+                  <p className="ml-4">{mergedProduct.items[0].price}</p>
                 </div>
-                <p className="mt-1 text-sm text-gray-500">{item.color}</p>
+                <p className="mt-1 text-sm text-gray-500">{mergedProduct.items[0].color}</p>
               </div>
               <div className="flex flex-1 items-end justify-between text-sm">
-                <p className="text-gray-500">Qty {item.quantity}</p>
+                <p className="text-gray-500">Qty {mergedProduct.items[0].quantity}</p>
 
                 <div className="flex">
                   <button
@@ -121,7 +131,7 @@ export default function Cart() {
               </div>
             </div>
           </li>
-        ))} */}
+        ))}
       </ul>
     </div>
   );
