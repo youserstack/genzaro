@@ -11,13 +11,11 @@ type Item = {
 type State = {
   userId: string | null;
   items: Item[];
-  total: number;
 };
 
 const initialState: State = {
   userId: null,
   items: [],
-  total: 0,
 };
 
 export const CartContext = createContext<{
@@ -35,26 +33,29 @@ export const CartContext = createContext<{
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, setState] = useState<State>(initialState);
 
-  const addItem = (item: Item) => {
+  const addItem = (newItem: Item) => {
     setState((prevState) => {
       // 아이템 추가
       const items = structuredClone(prevState.items);
       const foundItem = items.find(
-        (v) => v.productId === item.productId && v.color === item.color && v.size === item.size
+        (item) =>
+          item.productId === newItem.productId &&
+          item.color === newItem.color &&
+          item.size === newItem.size
       );
       if (foundItem) {
         foundItem.quantity += 1;
       } else {
-        items.push(item);
+        items.push(newItem);
       }
 
       // 총합
-      const total = items.reduce((sum, v) => sum + v.price * v.quantity, 0);
+      // const total = items.reduce((sum, v) => sum + v.price * v.quantity, 0);
 
       // 캐싱
       localStorage.setItem("carts", JSON.stringify(items));
 
-      return { ...prevState, items, total };
+      return { ...prevState, items };
     });
 
     // setState((prevState) => {
@@ -77,21 +78,23 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const removeItem = (productId: string, color?: string, size?: string) => {
     setState((prevState) => {
-      // 아이템 제거
+      // 아이템 제거 (filter 새로운 배열객체를 생성하기 때문에 structuredClone deep copy 필요없음)
       const items = prevState.items.filter(
-        (v) => !(v.productId === productId && v.color === color && v.size === size)
+        (item) => !(item.productId === productId && item.color === color && item.size === size)
       );
 
       // 총합
-      const total = items.reduce((sum, v) => sum + v.price * v.quantity, 0);
+      // const total = items.reduce((sum, v) => sum + v.price * v.quantity, 0);
 
-      return { ...prevState, items, total };
+      return { ...prevState, items };
     });
   };
 
   const clearCart = () => {
     setState(initialState);
   };
+
+  useEffect(() => console.log({ state }), [state]);
 
   useEffect(() => {
     const carts = localStorage.getItem("carts");

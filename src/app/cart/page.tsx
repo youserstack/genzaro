@@ -4,21 +4,76 @@ import { CartContext } from "@/components/context/cart/CartContext";
 import { fetcher } from "@/utils/fetcher";
 import Image from "next/image";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
 
-type Props = {
-  products: Product[];
+type Item = {
+  productId: string;
+  quantity: number;
+  price: number;
+  color?: string;
+  size?: string;
 };
 
 export default function Cart() {
-  const [products, setProducts] = useState();
   const { state } = useContext(CartContext);
   const { items } = state;
+  const [productDetails, setProductDetails] = useState<any[]>([]);
+
+  useEffect(() => {
+    const groupedItems = new Map<string, Item[]>();
+
+    items.forEach((item) => {
+      const existingGroup = groupedItems.get(item.productId);
+      if (existingGroup) {
+        existingGroup.push(item);
+      } else {
+        groupedItems.set(item.productId, [item]);
+      }
+    });
+
+    const productIds = Array.from(groupedItems.keys());
+    const searchParams = new URLSearchParams();
+    productIds.forEach((id) => {
+      searchParams.set("ids", id);
+    });
+    console.log({ searchParams });
+    const some = searchParams.getAll("ids");
+    console.log({ some });
+    const getProducts = async () => {
+      try {
+        // const some = useSearchParams()
+        const searchParams = new URLSearchParams();
+        productIds.forEach((id) => {
+          searchParams.set("ids", id);
+        });
+        const response = await fetch(`/api/products?ids=${productIds.join(",")}`);
+        const data = await response.json();
+
+        setProductDetails(data);
+      } catch (error) {
+        console.error("Error fetching product details:", error);
+      }
+    };
+  }, [items]);
 
   //   useEffect(() => {
   //     const getData = async () => {
-  //       const products = await fetcher("/products");
-  //       console.log(products);
+  //       // const products = await fetcher("/products");
+  //       // console.log(products);
+  //       // const carts = await fetcher('')
+
+  //       const map = new Map();
+
+  //       items.forEach(({ productId, quantity, price, color, size }) => {
+  //         if (!map.has(productId)) {
+  //           map.set(productId, { options: [] });
+  //         }
+
+  //         map.get(productId).options.push({ quantity, color, size });
+  //       });
+
+  //       //   console.log({ map });
   //     };
   //     getData();
   //   }, []);

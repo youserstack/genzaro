@@ -6,7 +6,7 @@ export default function Logo() {
       className="로고 
       flex-none font-semibold text-xl 
       focus:outline-none focus:opacity-80"
-      href={""}
+      href={"/"}
     >
       logo
     </Link>

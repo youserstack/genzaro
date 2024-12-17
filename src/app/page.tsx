@@ -13,7 +13,7 @@ export default async function Home() {
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] flex justify-center items-center">
         {/* <Example /> */}
         {/* <Carousel /> */}
-        {/* <ProductList products={products} /> */}
+        <ProductList products={products} />
         {/* <RecommendedProducts products={products} /> */}
 
         {/* <div className="max-w-screen-lg mx-auto /w-[70vw] border-2 border-orange-400">
