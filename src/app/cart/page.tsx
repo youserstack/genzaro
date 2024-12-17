@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
+import { IoClose } from "react-icons/io5";
 
 type Item = {
   productId: string;
@@ -15,10 +16,16 @@ type Item = {
   size?: string;
 };
 
+type MergedItem = {
+  productId: string;
+  product: Product;
+  items: Item[];
+};
+
 export default function Cart() {
   const { state } = useContext(CartContext);
   const { items } = state;
-  const [mergedProducts, setMergedProducts] = useState<any[]>([]);
+  const [mergedProducts, setMergedProducts] = useState<MergedItem[]>([]);
 
   useEffect(() => {
     if (!items.length) return;
@@ -63,7 +70,7 @@ export default function Cart() {
     getProducts();
   }, [items]);
 
-  console.log({ mergedProducts });
+  if (mergedProducts.length) console.log({ mergedProducts });
 
   //   useEffect(() => {
   //     const getData = async () => {
@@ -87,52 +94,79 @@ export default function Cart() {
   //   }, []);
 
   return (
-    <div
-      className="Cart 장바구니 border border-black/10
+    <main className="bg-neutral-50">
+      <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px]">
+        <ul
+          className="List 리스트
+          max-w-4xl mx-auto 
+          space-y-8
+          px-4 sm:px-6 md:px-8
+          "
+        >
+          {mergedProducts.map((mergedProduct, index) => (
+            <li
+              key={mergedProduct.productId}
+              className="Item 아이템
+              flex flex-col sm:flex-row
+              divide-y sm:divide-x
+              px-4 py-0 sm:px-0 sm:py-4
 
-      "
-    >
-      <ul className="divide-y divide-neutral-200">
-        {mergedProducts.map((mergedProduct) => (
-          <li key={mergedProduct.productId} className="flex gap-4 py-6">
-            <div className="size-[150px] overflow-hidden rounded-xl border border-neutral-200">
-              <Image
-                alt={""}
-                src={mergedProduct.product.image}
-                width={300}
-                height={300}
-                className="size-full object-cover pointer-events-none"
-              />
-            </div>
-
-            <div className="flex flex-1 flex-col">
-              <div>
-                <div className="flex justify-between text-base font-medium text-gray-900">
-                  <h3>
-                    <Link href={`/products/${mergedProduct.productId}`}>
-                      {mergedProduct.product.title}
-                    </Link>
-                  </h3>
-                  <p className="ml-4">{mergedProduct.items[0].price}</p>
-                </div>
-                <p className="mt-1 text-sm text-gray-500">{mergedProduct.items[0].color}</p>
-              </div>
-              <div className="flex flex-1 items-end justify-between text-sm">
-                <p className="text-gray-500">Qty {mergedProduct.items[0].quantity}</p>
-
-                <div className="flex">
-                  <button
-                    type="button"
-                    className="font-medium text-indigo-600 hover:text-indigo-500"
+              border border-neutral-200 rounded-xl
+              bg-white
+              shadow-md
+              "
+            >
+              <div className="flex-1 px-0 sm:px-4 py-4 sm:py-0">
+                <Link href={`/products/${mergedProduct.productId}`} className="flex gap-4">
+                  <div
+                    className="
+                    shrink-0 w-[100px] md:w-[150px] 
+                    overflow-hidden rounded-xl border border-neutral-200"
                   >
-                    Remove
-                  </button>
-                </div>
+                    <Image
+                      alt={""}
+                      src={mergedProduct.product.image}
+                      width={300}
+                      height={300}
+                      className="aspect-[1/1] 
+                    size-full object-cover pointer-events-none"
+                    />
+                  </div>
+
+                  <div>
+                    <p>{mergedProduct.product.title}</p>
+                    <p>{mergedProduct.product.price} 원</p>
+                  </div>
+                </Link>
               </div>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </div>
+
+              <div className="flex-1 px-0 sm:px-4 py-4 sm:py-0">
+                <ul className="border border-black">
+                  <div className="grid grid-cols-5">
+                    <p className="font-semibold">색상</p>
+                    <p className="font-semibold">사이즈</p>
+                    <p className="font-semibold">수량</p>
+                    <p className="font-semibold">가격</p>
+                    <p className="font-semibold">삭제</p>
+                  </div>
+                  {mergedProduct.items.map((item, index) => (
+                    <div key={index} className="grid grid-cols-5">
+                      <p>{item.color}</p>
+                      <p>{item.size}</p>
+                      <p className="text-gray-500">{item.quantity}</p>
+                      <p>{item.price}</p>
+
+                      <button type="button" className="font-medium text-red-500">
+                        <IoClose />
+                      </button>
+                    </div>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </main>
   );
 }

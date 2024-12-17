@@ -7,10 +7,15 @@ type Props = {
 
 export default function ProductList({ products }: Props) {
   return (
-    <div className="ProductList 제품리스트 bg-white /border border-black/10">
+    <div
+      className="ProductList 제품리스트 
+    bg-white /border border-black/10"
+    >
       <div
-        className="mx-auto max-w-2xl px-4 py-16 
-        sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8"
+        className="
+        max-w-2xl lg:max-w-7xl mx-auto
+        px-4 sm:px-6 lg:px-8 py-16 sm:py-24 
+        "
       >
         <div
           className="
