@@ -9,12 +9,20 @@ import { IoBag, IoBagAdd } from "react-icons/io5";
 import { GiBeachBag } from "react-icons/gi";
 import { BsHandbag } from "react-icons/bs";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/cart/CartContext";
 
 export default function Header() {
   const { state } = useContext(CartContext);
-  const cartItemCount = state.items.length;
+  const [cartItemCount, setCartItemCount] = useState(0);
+
+  useEffect(() => {
+    const uniqueItemCount = new Set();
+    state.items.map((item) => {
+      uniqueItemCount.add(item.productId);
+    });
+    setCartItemCount(uniqueItemCount.size);
+  }, [state.items]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] text-white">
