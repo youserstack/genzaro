@@ -1,6 +1,6 @@
 "use client";
 
-import CartItem from "@/components/CartItem";
+import GroupedProductsBySeller from "@/components/GroupedProductsBySeller";
 import { CartContext } from "@/components/context/cart/CartContext";
 import { fetcher } from "@/utils/fetcher";
 import Image from "next/image";
@@ -10,67 +10,73 @@ import { useContext, useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 type Item = {
-  productId: string;
   quantity: number;
   price: number;
   color?: string;
   size?: string;
 };
 
-type MergedProduct = {
-  productId: string;
-  product: Product;
-  items: Item[];
+type GroupedProduct = {
+  product: Product; // 팝퓰레잇될 제품
+  items: Item[]; // 병합될 아이템들
+};
+
+type RegroupedProduct = {
+  seller: string;
+  products: GroupedProduct[];
 };
 
 export default function Cart() {
   const { state } = useContext(CartContext);
   const { items } = state;
-  const [mergedProducts, setMergedProducts] = useState<MergedProduct[]>([]);
+  const [regroupedProducts, setRegroupedProducts] = useState<RegroupedProduct[]>([]);
 
   useEffect(() => {
     if (!items.length) return;
 
-    // 아이템 제품아이디로 그룹핑
-    const groupedItems = new Map<string, Item[]>();
-    items.forEach((item) => {
-      const existingGroup = groupedItems.get(item.productId);
-      if (existingGroup) {
-        existingGroup.push(item);
-      } else {
-        groupedItems.set(item.productId, [item]);
-      }
-    });
-    console.log({ groupedItems });
-
-    // 제품아이디로 데이터패칭
     const getProducts = async () => {
-      const productIds = Array.from(groupedItems.keys());
+      // 유니크한 제품아이디를 추출하고 쿼리파라미터를 셋팅
+      const productIds = [...new Set(items.map((item) => item.productId))];
       const searchParams = new URLSearchParams();
       productIds.forEach((id) => {
         searchParams.append("ids", id);
       });
 
       try {
-        const products = await fetcher(`products?${searchParams.toString()}`);
+        // 제품데이터 패칭
+        const products: Product[] = await fetcher(`products?${searchParams.toString()}`);
+        console.log({ products });
 
-        // `products`와 `groupedItems` 병합
-        const mergedData = Array.from(groupedItems.entries()).map(([productId, items]) => {
-          const product = products.find((product: any) => product._id === productId);
+        // 그룹핑
+        const groupedProductMap = new Map<string, GroupedProduct[]>();
+        products.forEach((product) => {
+          // 값에 병합할 카트아이템을 추출
+          const cartItems = items.filter((item) => item.productId === product._id);
 
-          return {
-            productId,
-            product,
-            items,
-          };
+          if (!groupedProductMap.has(product.seller)) {
+            groupedProductMap.set(product.seller, []);
+          }
+
+          // 병합과 추가
+          groupedProductMap.get(product.seller)?.push({ product, items: cartItems });
         });
-        console.log({ mergedData });
+        console.log({ groupedProductMap });
 
-        setMergedProducts(mergedData);
+        // 리그룹핑
+        const regroupedProducts = Array.from(groupedProductMap.entries()).map(
+          ([seller, products]) => ({
+            seller,
+            products,
+          })
+        );
+        console.log({ regroupedProducts });
+
+        setRegroupedProducts(regroupedProducts);
       } catch (error) {
-        console.error("Error fetching product details:", error);
+        console.error("카트페이지 제품데이터 패칭에러", error);
       }
     };
+
     getProducts();
   }, [items]);
 
@@ -84,151 +90,11 @@ export default function Cart() {
           px-4 sm:px-6 md:px-8
           "
         >
-          {mergedProducts.map((mergedProduct) => (
-            <CartItem key={mergedProduct.productId} mergedProduct={mergedProduct} />
+          {regroupedProducts.map((product) => (
+            <GroupedProductsBySeller key={product.seller} regroupedProduct={product} />
           ))}
         </ul>
       </section>
     </main>
   );
 }
-
-//   useEffect(() => {
-//     const getData = async () => {
-//       // const products = await fetcher("/products");
-//       // console.log(products);
-//       // const carts = await fetcher('')
-
-//       const map = new Map();
-
-//       items.forEach(({ productId, quantity, price, color, size }) => {
-//         if (!map.has(productId)) {
-//           map.set(productId, { options: [] });
-//         }
-
-//         map.get(productId).options.push({ quantity, color, size });
-//       });
-
-//       //   console.log({ map });
-//     };
-//     getData();
-//   }, []);
-
-//   useEffect(() => {
-//     if (!mergedProducts.length) return;
-
-//     // 판재자로 리그룹핑
-//     const regroupedItems = new Map<string, RegroupedProduct[]>();
-//     mergedProducts.forEach((mergedProduct) => {
-//       const existingGroup = regroupedItems.get(mergedProduct.product.seller);
-//       if (!existingGroup) {
-//         regroupedItems.set(mergedProduct.product.seller, [
-//           { ...mergedProduct, seller: mergedProduct.product.seller },
-//         ]);
-//       } else {
-//         existingGroup.push({ ...mergedProduct, seller: mergedProduct.product.seller });
-//       }
-//     });
-//     console.log({ regroupedItems });
-//     console.log("중첩된배열?", Array.from(regroupedItems.values()));
-
-//     // setRegroupedProducts(regroupedItems);
-//   }, [mergedProducts]);
-
-//   if (mergedProducts.length) console.log({ mergedProducts });
-
-//   useEffect(() => {
-//     const getData = async () => {
-//       // const products = await fetcher("/products");
-//       // console.log(products);
-//       // const carts = await fetcher('')
-
-//       const map = new Map();
-
-//       items.forEach(({ productId, quantity, price, color, size }) => {
-//         if (!map.has(productId)) {
-//           map.set(productId, { options: [] });
-//         }
-
-//         map.get(productId).options.push({ quantity, color, size });
-//       });
-
-//       //   console.log({ map });
-//     };
-//     getData();
-//   }, []);
-
-//   useEffect(() => {
-//     if (!mergedProducts.length) return;
-
-//     // 판재자로 리그룹핑
-//     const regroupedItems = new Map<string, RegroupedProduct[]>();
-//     mergedProducts.forEach((mergedProduct) => {
-//       const existingGroup = regroupedItems.get(mergedProduct.product.seller);
-//       if (!existingGroup) {
-//         regroupedItems.set(mergedProduct.product.seller, [
-//           { ...mergedProduct, seller: mergedProduct.product.seller },
-//         ]);
-//       } else {
-//         existingGroup.push({ ...mergedProduct, seller: mergedProduct.product.seller });
-//       }
-//     });
-//     console.log({ regroupedItems });
-//     console.log("중첩된배열?", Array.from(regroupedItems.values()));
-
-//     // setRegroupedProducts(regroupedItems);
-//   }, [mergedProducts]);
-
-//   if (mergedProducts.length) console.log({ mergedProducts });
-
-// --------------------
-
-// items.forEach((item) => {
-//   const product = products.find((product: any) => product._id === item.productId);
-//   if (!product) return;
-
-//   const { seller } = product; // 제품의 판매자 정보
-//   const existingGroup = groupedBySeller.get(seller);
-//   if (existingGroup) {
-//     existingGroup.items.push(item);
-//   } else {
-//     groupedBySeller.set(seller, { seller, items: [item] });
-//   }
-// });
-
-// // groupedBySeller와 products 병합
-// const mergedData = Array.from(groupedBySeller.values()).map((group) => ({
-//   seller: group.seller,
-//   products: group.items.map((item) => {
-//     const product = products.find((product: any) => product._id === item.productId);
-//     return {
-//       productId: item.productId,
-//       product,
-//       items: group.items.filter((i) => i.productId === item.productId),
-//     };
-//   }),
-// }));
-
-// setMergedProducts(mergedData);
-
-// 제품아이디로 데이터패칭
-// const getProducts = async () => {
-//   try {
-//     const products = await fetcher(`products?${searchParams.toString()}`);
-
-//     // `products`와 `groupedItems` 병합
-//     const mergedData = Array.from(groupedItems.entries()).map(([productId, items]) => {
-//       const product = products.find((product: any) => product._id === productId);
-
-//       return {
-//         productId,
-//         product,
-//         items,
-//       };
-//     });
-
-//     setMergedProducts(mergedData);
-//   } catch (error) {
-//     console.error("Error fetching product details:", error);
-//   }
-// };
