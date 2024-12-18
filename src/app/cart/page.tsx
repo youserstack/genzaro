@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from "react";
 import { IoClose } from "react-icons/io5";
 
 type Item = {
+  productId: string;
   quantity: number;
   price: number;
   color?: string;
@@ -45,7 +46,7 @@ export default function Cart() {
       try {
         // 제품데이터 패칭
         const products: Product[] = await fetcher(`products?${searchParams.toString()}`);
-        console.log({ products });
+        // console.log({ products });
 
         // 그룹핑
         const groupedProductMap = new Map<string, GroupedProduct[]>();
@@ -60,7 +61,7 @@ export default function Cart() {
           // 병합과 추가
           groupedProductMap.get(product.seller)?.push({ product, items: cartItems });
         });
-        console.log({ groupedProductMap });
+        // console.log({ groupedProductMap });
 
         // 리그룹핑
         const regroupedProducts = Array.from(groupedProductMap.entries()).map(

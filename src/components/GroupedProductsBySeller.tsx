@@ -1,5 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
+import { CartContext } from "./context/cart/CartContext";
 
 type Item = {
   quantity: number;
@@ -23,11 +25,20 @@ type Props = {
 };
 
 function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
+  const { product, items } = groupedProduct;
+  const { removeItem } = useContext(CartContext);
+
   const handleEdit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e.preventDefault();
 
     // const editItems = regroupedProduct.items;
-    // console.log({ editItems });
+    console.log({ editItems: items });
+  };
+
+  const handleRemove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    e.preventDefault();
+
+    removeItem(product._id);
   };
 
   return (
@@ -37,7 +48,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
       divide-x-0 divide-y sm:divide-x sm:divide-y-0"
     >
       <div className="ProductInfo 제품정보 flex-1 p-4">
-        <Link href={`/products/${groupedProduct.product._id}`} className="flex gap-4">
+        <Link href={`/products/${product._id}`} className="flex gap-4">
           <div
             className="Image_Container 이미지컨테이너
               shrink-0 w-[100px] sm:w-[130px] 
@@ -45,7 +56,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
           >
             <Image
               alt={""}
-              src={groupedProduct.product.image}
+              src={product.image}
               width={300}
               height={300}
               className="aspect-[1/1] 
@@ -54,8 +65,8 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
           </div>
 
           <div>
-            <p>{groupedProduct.product.title}</p>
-            <p>{groupedProduct.product.price} 원</p>
+            <p>{product.title}</p>
+            <p>{product.price} 원</p>
           </div>
         </Link>
       </div>
@@ -69,7 +80,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
             <span>가격</span>
           </li>
 
-          {groupedProduct.items.map((item, index) => (
+          {items.map((item, index) => (
             <li key={index} className="grid grid-cols-4">
               <span>{item.color}</span>
               <span>{item.size}</span>
@@ -83,7 +94,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
           <button type="button" className="font-medium " onClick={handleEdit}>
             주문수정
           </button>
-          <button type="button" className="font-medium text-red-500 ">
+          <button type="button" className="font-medium text-red-500 " onClick={handleRemove}>
             삭제
           </button>
         </div>
@@ -93,6 +104,8 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
 }
 
 export default function GroupedProductsBySeller({ regroupedProduct }: Props) {
+  const { seller, products } = regroupedProduct;
+
   return (
     <li
       className="GroupedProductsBySeller 아이템
@@ -105,11 +118,11 @@ export default function GroupedProductsBySeller({ regroupedProduct }: Props) {
       "
     >
       <div className="Title 타이틀 p-2 font-semibold text-xl">
-        <h1>{regroupedProduct.seller}</h1>
+        <h1>{seller}</h1>
       </div>
 
       <ul className="Rows divide-y">
-        {regroupedProduct.products.map((groupedProduct) => (
+        {products.map((groupedProduct) => (
           <Row key={groupedProduct.product._id} groupedProduct={groupedProduct} />
         ))}
       </ul>

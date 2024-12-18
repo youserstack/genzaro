@@ -78,13 +78,19 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const removeItem = (productId: string, color?: string, size?: string) => {
     setState((prevState) => {
-      // 아이템 제거 (filter 새로운 배열객체를 생성하기 때문에 structuredClone deep copy 필요없음)
-      const items = prevState.items.filter(
-        (item) => !(item.productId === productId && item.color === color && item.size === size)
-      );
+      const items = prevState.items.filter((item) => {
+        // 조건 1: productId가 일치하지만 color와 size가 없을 경우 제거
+        if (productId && !color && !size) {
+          return item.productId !== productId;
+        }
+        // 조건 2: productId, color, size가 모두 일치하는 경우 제거
+        return !(item.productId === productId && item.color === color && item.size === size);
+      });
 
       // 총합
       // const total = items.reduce((sum, v) => sum + v.price * v.quantity, 0);
+
+      localStorage.setItem("carts", JSON.stringify(items));
 
       return { ...prevState, items };
     });
