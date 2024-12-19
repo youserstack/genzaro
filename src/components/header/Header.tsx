@@ -13,16 +13,20 @@ import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/cart/CartContext";
 
 export default function Header() {
-  const { state } = useContext(CartContext);
-  const [cartItemCount, setCartItemCount] = useState(0);
+  const { cart } = useContext(CartContext);
+  // const [cartItemCount, setCartItemCount] = useState(0);
 
-  useEffect(() => {
-    const uniqueItemCount = new Set();
-    state.items.map((item) => {
-      uniqueItemCount.add(item.productId);
-    });
-    setCartItemCount(uniqueItemCount.size);
-  }, [state.items]);
+  // useEffect(() => {
+  //   if (!cart.items.length) return;
+
+  //   const uniqueItemCount = new Set();
+  //   cart.items.map((item) => {
+  //     uniqueItemCount.add(item.productId);
+  //   });
+  //   console.log({ uniqueItemCount });
+
+  //   setCartItemCount(uniqueItemCount.size);
+  // }, [cart.items]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-[100] text-white">
@@ -49,7 +53,8 @@ export default function Header() {
                 flex items-center justify-center
                 "
               >
-                {cartItemCount}
+                {cart.items.length}
+                {/* {cartItemCount} */}
               </span>
             </Link>
           </div>

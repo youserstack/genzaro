@@ -1,3 +1,12 @@
+type Item = {
+  seller: string;
+  productId: string;
+  quantity: number;
+  price: number;
+  color?: string;
+  size?: string;
+};
+
 type Product = {
   _id: string;
   productId: string;

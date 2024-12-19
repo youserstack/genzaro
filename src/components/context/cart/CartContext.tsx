@@ -1,37 +1,23 @@
 import { createContext, useEffect, useState } from "react";
 
-type Item = {
-  productId: string;
-  quantity: number;
-  price: number;
-  color?: string;
-  size?: string;
-};
+type Cart = { items: Item[] };
 
-type State = {
-  userId: string | null;
-  items: Item[];
-};
-
-const initialState: State = {
-  userId: null,
-  items: [],
-};
+const initialState: Cart = { items: [] };
 
 export const CartContext = createContext<{
-  state: State;
+  cart: Cart;
   addItem: (item: Item) => void;
   removeItem: (productId: string) => void;
   clearCart: () => void;
 }>({
-  state: initialState,
+  cart: initialState,
   addItem: () => {},
   removeItem: () => {},
   clearCart: () => {},
 });
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, setState] = useState<State>(initialState);
+  const [cart, setState] = useState<Cart>(initialState);
 
   const addItem = (newItem: Item) => {
     setState((prevState) => {
@@ -53,7 +39,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       // const total = items.reduce((sum, v) => sum + v.price * v.quantity, 0);
 
       // 캐싱
-      localStorage.setItem("carts", JSON.stringify(items));
+      const cart = { items };
+      localStorage.setItem("cart", JSON.stringify(cart));
 
       return { ...prevState, items };
     });
@@ -90,7 +77,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       // 총합
       // const total = items.reduce((sum, v) => sum + v.price * v.quantity, 0);
 
-      localStorage.setItem("carts", JSON.stringify(items));
+      const cart = { items };
+      localStorage.setItem("cart", JSON.stringify(cart));
 
       return { ...prevState, items };
     });
@@ -100,21 +88,17 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     setState(initialState);
   };
 
-  useEffect(() => console.log({ state }), [state]);
+  useEffect(() => {
+    cart.items.length > 0 && console.log({ cart });
+  }, [cart]);
 
   useEffect(() => {
-    const carts = localStorage.getItem("carts");
-    if (carts) {
-      setState((prevState) => ({
-        ...prevState,
-        items: JSON.parse(carts),
-        total: JSON.parse(carts).reduce((sum: number, v: Item) => sum + v.price * v.quantity, 0),
-      }));
-    }
+    const cart = JSON.parse(localStorage.getItem("cart") as string);
+    setState((prevState) => ({ ...prevState, ...cart }));
   }, []);
 
   return (
-    <CartContext.Provider value={{ state, addItem, removeItem, clearCart }}>
+    <CartContext.Provider value={{ cart, addItem, removeItem, clearCart }}>
       {children}
     </CartContext.Provider>
   );

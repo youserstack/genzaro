@@ -24,8 +24,15 @@ export default function Options({ product }: Props) {
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
     const submittedData = Object.fromEntries(formData.entries());
+    const newItem = {
+      seller: product.seller,
+      productId: product._id,
+      quantity: 1,
+      price: 1000,
+      ...submittedData,
+    };
 
-    addItem({ productId: product._id, quantity: 1, price: 1000, ...submittedData });
+    addItem(newItem);
   };
 
   return (

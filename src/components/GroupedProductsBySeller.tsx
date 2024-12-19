@@ -3,25 +3,14 @@ import Link from "next/link";
 import { useContext } from "react";
 import { CartContext } from "./context/cart/CartContext";
 
-type Item = {
-  quantity: number;
-  price: number;
-  color?: string;
-  size?: string;
-};
-
 type GroupedProduct = {
   product: Product; // 팝퓰레잇될 제품
   items: Item[]; // 병합될 아이템들
 };
 
-type RegroupedProduct = {
+type Props = {
   seller: string;
   products: GroupedProduct[];
-};
-
-type Props = {
-  regroupedProduct: RegroupedProduct;
 };
 
 function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
@@ -29,15 +18,11 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   const { removeItem } = useContext(CartContext);
 
   const handleEdit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-
     // const editItems = regroupedProduct.items;
     console.log({ editItems: items });
   };
 
   const handleRemove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    e.preventDefault();
-
     removeItem(product._id);
   };
 
@@ -103,8 +88,10 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   );
 }
 
-export default function GroupedProductsBySeller({ regroupedProduct }: Props) {
-  const { seller, products } = regroupedProduct;
+export default function GroupedProductsBySeller({ seller, products }: Props) {
+  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    console.log({ products });
+  };
 
   return (
     <li
@@ -128,7 +115,7 @@ export default function GroupedProductsBySeller({ regroupedProduct }: Props) {
       </ul>
 
       <div className="flex gap-4 justify-between p-4">
-        <button>주문하기</button>
+        <button onClick={handleSubmit}>주문하기</button>
       </div>
     </li>
   );
