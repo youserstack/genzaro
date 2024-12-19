@@ -21,7 +21,10 @@ export default function Cart() {
   const [groupes, setGroupes] = useState<Record<string, GroupedProduct[]>>({});
 
   useEffect(() => {
-    if (!items.length) return;
+    if (!items.length) {
+      setGroupes({});
+      return;
+    }
 
     const getProducts = async () => {
       // 유니크한 제품아이디를 추출하고 쿼리파라미터를 셋팅
@@ -72,7 +75,10 @@ export default function Cart() {
     getProducts();
   }, [items]);
 
-  useEffect(() => console.log({ groupes }), [groupes]);
+  useEffect(() => {
+    const hasData = Object.keys(groupes).length > 0;
+    if (hasData) console.log({ groupes });
+  }, [groupes]);
 
   return (
     <main className="bg-neutral-50">
@@ -92,46 +98,3 @@ export default function Cart() {
     </main>
   );
 }
-
-// const getProducts = async () => {
-//   // 유니크한 제품아이디를 추출하고 쿼리파라미터를 셋팅
-//   const productIds = [...new Set(items.map((item) => item.productId))];
-//   const searchParams = new URLSearchParams();
-//   productIds.forEach((id) => {
-//     searchParams.append("ids", id);
-//   });
-
-//   try {
-//     // 제품데이터 패칭
-//     const products: Product[] = await fetcher(`products?${searchParams.toString()}`);
-//     // console.log({ products });
-
-//     // 그룹핑
-//     const groupedProductMap = new Map<string, GroupedProduct[]>();
-//     products.forEach((product) => {
-//       // 값에 병합할 카트아이템을 추출
-//       const cartItems = items.filter((item) => item.productId === product._id);
-
-//       if (!groupedProductMap.has(product.seller)) {
-//         groupedProductMap.set(product.seller, []);
-//       }
-
-//       // 병합과 추가
-//       groupedProductMap.get(product.seller)?.push({ product, items: cartItems });
-//     });
-//     console.log({ groupedProductMap });
-
-//     // 리그룹핑
-//     const groupes = Array.from(groupedProductMap.entries()).map(
-//       ([seller, products]) => ({
-//         seller,
-//         products,
-//       })
-//     );
-//     console.log({ groupes });
-
-//     setGroupes(groupes);
-//   } catch (error) {
-//     console.error("카트페이지 제품데이터 패칭에러", error);
-//   }
-// };
