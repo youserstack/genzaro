@@ -54,10 +54,10 @@ export default function Cart() {
             .get(product.seller)
             ?.push({ seller: product.seller, product, items: cartItems });
         });
-        console.log({ groupedProductMap });
-        const some = Object.fromEntries(groupedProductMap);
+        // console.log({ groupedProductMap });
+        const groupes = Object.fromEntries(groupedProductMap);
 
-        setGroupes(some);
+        setGroupes(groupes);
       } catch (error) {
         console.error("카트페이지 제품데이터 패칭에러", error);
       }

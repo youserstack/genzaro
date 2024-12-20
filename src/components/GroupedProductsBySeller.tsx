@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { CartContext } from "./context/cart/CartContext";
 
 type GroupedProduct = {
+  seller: string;
   product: Product; // 팝퓰레잇될 제품
   items: Item[]; // 병합될 아이템들
 };
@@ -20,9 +21,8 @@ function OrderEditModal({
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  console.log({ open });
   return (
-    <div className="OrderEditModal 주문수정모달 border border-red-500">
+    <div className="OrderEditModal 주문수정모달">
       <div
         className={`Background_Layer 
         fixed inset-0 z-[100] bg-black
@@ -41,13 +41,24 @@ function OrderEditModal({
       >
         <div
           className={`Modal_Layer
-          w-[300px] h-[300px] bg-white
-          pointer-events-auto
+          max-w-[500px]  bg-white
+          p-4 border border-neutral-200 rounded-lg
+          shadow-lg
+          divide-y
+          
           transition-all duration-300 transform 
-          ${open ? "opacity-100 translate-y-0:" : "opacity-0 translate-y-[100px]"}  
+          ${
+            open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-[100px]"
+          }  
           `}
         >
-          <h1>some</h1>
+          <h1 className="py-2 text-center">주문수정</h1>
+
+          <ul className="py-2">
+            <li>soasdasdme</li>
+            <li>some</li>
+            <li>some</li>
+          </ul>
         </div>
       </div>
     </div>
@@ -59,14 +70,31 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   const { removeItem } = useContext(CartContext);
   const [open, setOpen] = useState(false);
 
-  const handleEdit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleEditItems = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     // const editItems = regroupedProduct.items;
     console.log({ editItems: items });
     setOpen(true);
   };
 
-  const handleRemoveItem = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    removeItem(product._id, { color: "red", size: "M" });
+  const handleRemoveItem = (item: Item) => {
+    // 아래의 필수속성(excludedKeys) 이외의 속성(color, size, ...)은 attributes로 객체를 만들어서 삭제메서드에 넘겨주어야한다.
+    const excludedKeys = ["seller", "productId", "quantity", "price"];
+
+    const attributes = Object.entries(item).reduce<Record<string, string | number | undefined>>(
+      (acc, [key, value]) => {
+        if (!excludedKeys.includes(key)) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {}
+    );
+
+    removeItem(product._id, attributes);
+  };
+
+  const handleRemoveProduct = (product: Product) => {
+    removeItem(product._id);
   };
 
   return (
@@ -101,29 +129,42 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
 
       <div className="ItmeList 아이템리스트 flex-[1.5] flex flex-col p-4">
         <ul>
-          <li className="grid grid-cols-4 font-semibold">
+          <li className="grid grid-cols-5 font-semibold">
             <span>색상</span>
             <span>사이즈</span>
             <span>수량</span>
             <span>가격</span>
+            <span></span>
           </li>
 
           {items.map((item, index) => (
-            <li key={index} className="grid grid-cols-4">
+            <li key={index} className="grid grid-cols-5">
               <span>{item.color}</span>
               <span>{item.size}</span>
               <span className="text-gray-500">{item.quantity}</span>
               <span>{item.price}</span>
+              <button
+                type="button"
+                className="font-medium text-red-500 hover:text-red-600"
+                onClick={() => handleRemoveItem(item)}
+                title="삭제"
+              >
+                X
+              </button>
             </li>
           ))}
         </ul>
 
         <div className="space-x-4 bg-green-50">
-          <button type="button" className="font-medium " onClick={handleEdit}>
+          <button type="button" className="font-medium " onClick={handleEditItems}>
             주문수정
           </button>
 
-          <button type="button" className="font-medium text-red-500 " onClick={handleRemoveItem}>
+          <button
+            type="button"
+            className="font-medium text-red-500 "
+            onClick={() => handleRemoveProduct(product)}
+          >
             삭제
           </button>
         </div>
