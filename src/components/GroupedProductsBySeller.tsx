@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "./context/cart/CartContext";
 
 type GroupedProduct = {
@@ -13,17 +13,60 @@ type Props = {
   products: GroupedProduct[];
 };
 
+function OrderEditModal({
+  open,
+  setOpen,
+}: {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  console.log({ open });
+  return (
+    <div className="OrderEditModal 주문수정모달 border border-red-500">
+      <div
+        className={`Background_Layer 
+        fixed inset-0 z-[100] bg-black
+        transition-opacity duration-[0.7s] ease-in-out
+        ${open ? "opacity-50" : "opacity-0 pointer-events-none"} 
+        `}
+        onClick={() => setOpen(false)}
+      />
+
+      <div
+        className={`Modal_Position_Layer
+        fixed inset-0 z-[200]
+        pointer-events-none 
+        flex justify-center items-center 
+        `}
+      >
+        <div
+          className={`Modal_Layer
+          w-[300px] h-[300px] bg-white
+          pointer-events-auto
+          transition-all duration-300 transform 
+          ${open ? "opacity-100 translate-y-0:" : "opacity-0 translate-y-[100px]"}  
+          `}
+        >
+          <h1>some</h1>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   const { product, items } = groupedProduct;
   const { removeItem } = useContext(CartContext);
+  const [open, setOpen] = useState(false);
 
   const handleEdit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     // const editItems = regroupedProduct.items;
     console.log({ editItems: items });
+    setOpen(true);
   };
 
-  const handleRemove = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    removeItem(product._id);
+  const handleRemoveItem = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    removeItem(product._id, { color: "red", size: "M" });
   };
 
   return (
@@ -79,10 +122,13 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
           <button type="button" className="font-medium " onClick={handleEdit}>
             주문수정
           </button>
-          <button type="button" className="font-medium text-red-500 " onClick={handleRemove}>
+
+          <button type="button" className="font-medium text-red-500 " onClick={handleRemoveItem}>
             삭제
           </button>
         </div>
+
+        <OrderEditModal open={open} setOpen={setOpen} />
       </div>
     </li>
   );

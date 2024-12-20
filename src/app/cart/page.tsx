@@ -57,15 +57,6 @@ export default function Cart() {
         console.log({ groupedProductMap });
         const some = Object.fromEntries(groupedProductMap);
 
-        // 리그룹핑
-        // const groupes = Array.from(groupedProductMap.entries()).map(
-        //   ([seller, products]) => ({
-        //     seller,
-        //     products,
-        //   })
-        // );
-        // console.log({ groupes });
-
         setGroupes(some);
       } catch (error) {
         console.error("카트페이지 제품데이터 패칭에러", error);

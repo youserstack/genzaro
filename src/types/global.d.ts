@@ -5,6 +5,7 @@ type Item = {
   price: number;
   color?: string;
   size?: string;
+  [key: string]: string | number | undefined;
 };
 
 type Product = {

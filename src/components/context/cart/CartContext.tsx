@@ -7,7 +7,7 @@ const initialState: Cart = { items: [] };
 export const CartContext = createContext<{
   cart: Cart;
   addItem: (item: Item) => void;
-  removeItem: (productId: string) => void;
+  removeItem: (productId: string, attributes?: Record<string, string | number | undefined>) => void;
   clearCart: () => void;
 }>({
   cart: initialState,
@@ -25,9 +25,13 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
       const items = structuredClone(prevState.items);
       const foundItem = items.find(
         (item) =>
+          // productId와 동적 속성들을 모두 비교
           item.productId === newItem.productId &&
-          item.color === newItem.color &&
-          item.size === newItem.size
+          Object.keys(newItem).every((key) => newItem[key] === item[key])
+
+        // item.productId === newItem.productId &&
+        // item.color === newItem.color &&
+        // item.size === newItem.size
       );
       if (foundItem) {
         foundItem.quantity += 1;
@@ -43,15 +47,31 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
-  const removeItem = (productId: string, color?: string, size?: string) => {
-    console.log({ productId, color, size });
+  const removeItem = (
+    productId: string,
+    attributes: Record<string, string | number | undefined> = {}
+  ) => {
+    console.log({ productId, attributes });
 
     setState((prevState) => {
       // 아이템 삭제
       const items = prevState.items.filter((item) => {
-        return item.productId !== productId;
+        // productId 다르면 남기고(true로 리턴해야함)
+        if (item.productId !== productId) return true;
+
+        // productId 같으면
+        // 동적 속성 비교
+        const isMatchingAttributes = Object.entries(attributes).every(
+          ([key, value]) => item[key] === value
+        );
+
+        // productId가 같고 모든 속성이 일치하면 제거(false로 리턴해야함)
+        return !isMatchingAttributes;
+
+        // return item.productId !== productId;
         // return !(item.productId === productId && item.color === color && item.size === size);
       });
+      console.log({ items });
 
       // 캐싱
       const cart = { items };
