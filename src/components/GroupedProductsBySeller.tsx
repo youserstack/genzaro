@@ -126,7 +126,7 @@ function OrderEditModal({
 
 function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   const { product, items } = groupedProduct;
-  const { removeItem } = useContext(CartContext);
+  const { removeItem, removeGroupedProduct } = useContext(CartContext);
   const [open, setOpen] = useState(false);
 
   const openModal = () => {
@@ -146,18 +146,19 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
       },
       {}
     );
-    console.log({ attributes });
+    // console.log({ attributes });
 
-    removeItem(product._id, attributes);
+    removeItem(product._id, item);
   };
 
   const handleRemoveProduct = (product: Product) => {
-    removeItem(product._id);
+    // removeItem(product._id, {});
+    removeGroupedProduct(product._id);
   };
 
   return (
     <li
-      className="Row
+      className="Row border border-red-500
       flex flex-col sm:flex-row
       divide-x-0 divide-y sm:divide-x sm:divide-y-0"
     >

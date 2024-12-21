@@ -1,4 +1,4 @@
-type Item = {
+interface Item {
   // 불변속성
   seller: string;
   productId: string;
@@ -7,9 +7,9 @@ type Item = {
   quantity: number;
   total: number;
   [key: string]: string | number | undefined;
-};
+}
 
-type Product = {
+interface Product {
   _id: string;
   productId: string;
   productType: string;
@@ -28,10 +28,10 @@ type Product = {
   // lprice: string;
   // hprice: string;
   // mallName: string;
-};
+}
 
-type GroupedProduct = {
+interface GroupedProduct {
   seller: string;
   product: Product; // 팝퓰레잇될 제품
   items: Item[]; // 병합될 아이템들
-};
+}
