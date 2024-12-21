@@ -3,6 +3,7 @@
 import { useContext, useState } from "react";
 import Reviews from "./Reviews";
 import { CartContext } from "./context/cart/CartContext";
+import QuantitySelector from "./QuantitySelector";
 
 const REVIEWS = { href: "#", average: 4.2, totalCount: 117 };
 
@@ -153,20 +154,66 @@ function Sizes({
   );
 }
 
+// function Quantity() {
+//   return (
+//     <div className="Quantity 수량 mt-6 border border-red-500">
+//       <label htmlFor="quantity" className="text-sm font-medium text-gray-900">
+//         Quantity
+//       </label>
+//       <input
+//         type="number"
+//         name="quantity"
+//         id="quantity"
+//         defaultValue={1}
+//         min={1}
+//         className="mt-2 block w-full border-gray-300 rounded-md shadow-sm"
+//       />
+//     </div>
+//   );
+// }
+
 function Quantity() {
+  const [quantity, setQuantity] = useState(1);
+
+  const increase = () => setQuantity((prev) => prev + 1);
+  const decrease = () => setQuantity((prev) => Math.max(1, prev - 1));
+
   return (
-    <div className="Quantity 수량 mt-6">
+    <div className="Quantity mt-6">
       <label htmlFor="quantity" className="text-sm font-medium text-gray-900">
         Quantity
       </label>
-      <input
-        type="number"
-        name="quantity"
-        id="quantity"
-        defaultValue={1}
-        min={1}
-        className="mt-2 block w-full border-gray-300 rounded-md shadow-sm"
-      />
+      <div className="mt-4 flex justify-between items-center">
+        <div className="border border-neutral-200 flex rounded-lg overflow-hidden">
+          <button
+            className="px-4 py-2 bg-neutral-200 hover:bg-neutral-300"
+            type="button"
+            onClick={decrease}
+          >
+            -
+          </button>
+
+          <input
+            className="min-w-[50px] w-[50px] text-center "
+            type="number"
+            name="quantity"
+            id="quantity"
+            value={quantity}
+            min={1}
+            onChange={(e) => setQuantity(Math.max(1, Number(e.target.value)))}
+          />
+
+          <button
+            className="px-4 py-2 bg-neutral-200 hover:bg-neutral-300"
+            type="button"
+            onClick={increase}
+          >
+            +
+          </button>
+        </div>
+
+        <div>총 상품금액</div>
+      </div>
     </div>
   );
 }
@@ -187,6 +234,8 @@ export default function Options({ product }: Props) {
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
     const submittedData = Object.fromEntries(formData.entries());
+    console.log({ submittedData });
+    return;
     if (!submittedData.color || !submittedData.size || !submittedData.quantity) {
       alert("옵션을 선택해주세요.");
       return;

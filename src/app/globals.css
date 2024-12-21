@@ -40,3 +40,10 @@ body {
         [&_a:hover]:bg-neutral-100
         [&_a:hover]:dark:bg-neutral-700;
 }
+
+/* 숫자 입력에서 스피너 제거 */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
