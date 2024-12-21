@@ -3,12 +3,6 @@ import Link from "next/link";
 import { useContext, useState } from "react";
 import { CartContext } from "./context/cart/CartContext";
 
-type GroupedProduct = {
-  seller: string;
-  product: Product; // 팝퓰레잇될 제품
-  items: Item[]; // 병합될 아이템들
-};
-
 type Props = {
   seller: string;
   products: GroupedProduct[];
@@ -17,17 +11,40 @@ type Props = {
 function OrderEditModal({
   open,
   setOpen,
+  items,
 }: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  items: Item[];
 }) {
+  const { updateItem } = useContext(CartContext);
+  const [updatedItems, setUpdatedItems] = useState(items);
+
+  const handleChange = (index: number, key: keyof Item, value: string | number) => {
+    setUpdatedItems((prevItems) => {
+      const newItems = [...prevItems];
+      newItems[index] = { ...newItems[index], [key]: value };
+      return newItems;
+    });
+  };
+
+  const handleSubmit = () => {
+    // console.log({ updatedItems, items });
+    updatedItems.forEach((updatedItem, index) => {
+      const currentItem = items[index];
+      updateItem(updatedItem.productId, currentItem, updatedItem);
+    });
+
+    setOpen(false);
+  };
+
   return (
     <div className="OrderEditModal 주문수정모달">
       <div
-        className={`Background_Layer 
+        className={`Background_Layer
         fixed inset-0 z-[100] bg-black
         transition-opacity duration-[0.7s] ease-in-out
-        ${open ? "opacity-50" : "opacity-0 pointer-events-none"} 
+        ${open ? "opacity-50" : "opacity-0 pointer-events-none"}
         `}
         onClick={() => setOpen(false)}
       />
@@ -35,8 +52,8 @@ function OrderEditModal({
       <div
         className={`Modal_Position_Layer
         fixed inset-0 z-[200]
-        pointer-events-none 
-        flex justify-center items-center 
+        pointer-events-none
+        flex justify-center items-center
         `}
       >
         <div
@@ -45,20 +62,62 @@ function OrderEditModal({
           p-4 border border-neutral-200 rounded-lg
           shadow-lg
           divide-y
-          
-          transition-all duration-300 transform 
+
+          transition-all duration-300 transform
           ${
             open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 translate-y-[100px]"
-          }  
+          }
           `}
         >
           <h1 className="py-2 text-center">주문수정</h1>
 
-          <ul className="py-2">
-            <li>soasdasdme</li>
-            <li>some</li>
-            <li>some</li>
+          <ul className="py-4">
+            {updatedItems.map((item, index) => (
+              <li key={index} className="grid grid-cols-5 gap-2 py-1 items-center">
+                <input
+                  type="text"
+                  value={item.color}
+                  onChange={(e) => handleChange(index, "color", e.target.value)}
+                  className="border rounded px-2 py-1"
+                  placeholder="색상"
+                />
+
+                <input
+                  type="text"
+                  value={item.size}
+                  onChange={(e) => handleChange(index, "size", e.target.value)}
+                  className="border rounded px-2 py-1"
+                  placeholder="사이즈"
+                />
+
+                <input
+                  type="number"
+                  value={item.quantity}
+                  onChange={(e) => handleChange(index, "quantity", parseInt(e.target.value, 10))}
+                  className="border rounded px-2 py-1"
+                />
+
+                <span>{item.price}</span>
+              </li>
+            ))}
           </ul>
+
+          <div className="flex justify-end space-x-4 pt-4">
+            <button
+              className="px-4 py-2 border rounded
+              text-gray-500  border-gray-300 "
+              onClick={() => setOpen(false)}
+            >
+              취소
+            </button>
+            <button
+              className="px-4 py-2 rounded
+              text-white bg-blue-500 hover:bg-blue-600"
+              onClick={handleSubmit}
+            >
+              수정하기
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -70,9 +129,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   const { removeItem } = useContext(CartContext);
   const [open, setOpen] = useState(false);
 
-  const handleEditItems = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    // const editItems = regroupedProduct.items;
-    console.log({ editItems: items });
+  const openModal = () => {
     setOpen(true);
   };
 
@@ -89,6 +146,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
       },
       {}
     );
+    console.log({ attributes });
 
     removeItem(product._id, attributes);
   };
@@ -142,7 +200,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
               <span>{item.color}</span>
               <span>{item.size}</span>
               <span className="text-gray-500">{item.quantity}</span>
-              <span>{item.price}</span>
+              <span>{item.total}</span>
               <button
                 type="button"
                 className="font-medium text-red-500 hover:text-red-600"
@@ -156,7 +214,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
         </ul>
 
         <div className="space-x-4 bg-green-50">
-          <button type="button" className="font-medium " onClick={handleEditItems}>
+          <button type="button" className="font-medium " onClick={() => openModal()}>
             주문수정
           </button>
 
@@ -169,7 +227,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
           </button>
         </div>
 
-        <OrderEditModal open={open} setOpen={setOpen} />
+        <OrderEditModal open={open} setOpen={setOpen} items={items} />
       </div>
     </li>
   );

@@ -3,17 +3,7 @@
 import GroupedProductsBySeller from "@/components/GroupedProductsBySeller";
 import { CartContext } from "@/components/context/cart/CartContext";
 import { fetcher } from "@/utils/fetcher";
-import Image from "next/image";
-import Link from "next/link";
-import { useSearchParams } from "next/navigation";
 import { useContext, useEffect, useState } from "react";
-import { IoClose } from "react-icons/io5";
-
-type GroupedProduct = {
-  seller: string;
-  product: Product; // 팝퓰레잇될 제품
-  items: Item[]; // 병합될 아이템들
-};
 
 export default function Cart() {
   const { cart } = useContext(CartContext);
@@ -66,10 +56,10 @@ export default function Cart() {
     getProducts();
   }, [items]);
 
-  useEffect(() => {
-    const hasData = Object.keys(groupes).length > 0;
-    if (hasData) console.log({ groupes });
-  }, [groupes]);
+  // useEffect(() => {
+  //   const hasData = Object.keys(groupes).length > 0;
+  //   if (hasData) console.log({ groupes });
+  // }, [groupes]);
 
   return (
     <main className="bg-neutral-50">

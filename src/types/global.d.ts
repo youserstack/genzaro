@@ -1,10 +1,11 @@
 type Item = {
+  // 불변속성
   seller: string;
   productId: string;
-  quantity: number;
   price: number;
-  color?: string;
-  size?: string;
+  // 가변속성
+  quantity: number;
+  total: number;
   [key: string]: string | number | undefined;
 };
 
@@ -27,4 +28,10 @@ type Product = {
   // lprice: string;
   // hprice: string;
   // mallName: string;
+};
+
+type GroupedProduct = {
+  seller: string;
+  product: Product; // 팝퓰레잇될 제품
+  items: Item[]; // 병합될 아이템들
 };
