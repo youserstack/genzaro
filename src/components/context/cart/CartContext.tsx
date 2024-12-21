@@ -9,7 +9,7 @@ export const CartContext = createContext<{
   addItem: (item: Item) => void;
   removeItem: (productId: string, currentItem: Item) => void;
   removeGroupedProduct: (productId: string) => void;
-  updateItem: (productId: string, prevItem: Partial<Item>, newItem: Partial<Item>) => void;
+  updateItem: (productId: string, prevItem: Item, newItem: Item) => void;
   clearCart: () => void;
 }>({
   cart: initialState,
@@ -49,8 +49,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const removeItem = (productId: string, currentItem: Item) => {
     setState((state) => {
-      console.log({ currentItem });
-
       // 아이템 삭제
       const items = state.items.filter((item) => {
         // productId 다르면 남기고(true로 리턴해야함)
@@ -65,7 +63,6 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
         // productId가 같고 모든 속성이 일치하면 제거(false로 리턴해야함)
         return !isMatchingAttributes;
       });
-      console.log({ items });
 
       // 캐싱
       const cart = { items };
@@ -88,7 +85,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
     });
   };
 
-  const updateItem = (productId: string, prevItem: Partial<Item>, newItem: Partial<Item>) => {
+  const updateItem = (productId: string, prevItem: Item, newItem: Item) => {
     setState((state) => {
       // 아이템 수정
       const items = state.items.map(

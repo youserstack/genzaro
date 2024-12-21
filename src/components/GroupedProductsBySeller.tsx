@@ -134,31 +134,16 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   };
 
   const handleRemoveItem = (item: Item) => {
-    // 아래의 필수속성(excludedKeys) 이외의 속성(color, size, ...)은 attributes로 객체를 만들어서 삭제메서드에 넘겨주어야한다.
-    const excludedKeys = ["seller", "productId", "quantity", "price"];
-
-    const attributes = Object.entries(item).reduce<Record<string, string | number | undefined>>(
-      (acc, [key, value]) => {
-        if (!excludedKeys.includes(key)) {
-          acc[key] = value;
-        }
-        return acc;
-      },
-      {}
-    );
-    // console.log({ attributes });
-
     removeItem(product._id, item);
   };
 
   const handleRemoveProduct = (product: Product) => {
-    // removeItem(product._id, {});
     removeGroupedProduct(product._id);
   };
 
   return (
     <li
-      className="Row border border-red-500
+      className="Row 
       flex flex-col sm:flex-row
       divide-x-0 divide-y sm:divide-x sm:divide-y-0"
     >
