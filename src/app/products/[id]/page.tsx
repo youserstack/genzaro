@@ -1,7 +1,7 @@
 import { fetcher } from "@/utils/fetcher";
-import Breadcrumb from "@/components/Breadcrumb";
-import ProductInfo from "@/components/ProductInfo";
-import Gallery from "@/components/Gallery";
+import Breadcrumb from "@/components/product/Breadcrumb";
+import ProductInfo from "@/components/product/ProductInfo";
+import Gallery from "@/components/product/Gallery";
 
 type Props = {
   params: Promise<{ id: string }>;

@@ -1,6 +1,6 @@
 "use client";
 
-import GroupedProductsBySeller from "@/components/GroupedProductsBySeller";
+import GroupedProductsBySeller from "@/components/cart/GroupedProductsBySeller";
 import { CartContext } from "@/components/context/cart/CartContext";
 import { fetcher } from "@/utils/fetcher";
 import { useContext, useEffect, useState } from "react";

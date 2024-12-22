@@ -1,4 +1,4 @@
-import ProductList from "@/components/ProductList";
+import ProductList from "@/components/product/ProductList";
 import Carousel from "@/components/Carousel";
 import RecommendedProducts from "@/components/RecommendedProducts";
 import { fetcher } from "../utils/fetcher";

@@ -2,7 +2,7 @@
 
 import { useContext, useState } from "react";
 import Reviews from "./Reviews";
-import { CartContext } from "./context/cart/CartContext";
+import { CartContext } from "../context/cart/CartContext";
 import { formatPrice } from "@/utils/formatPrice";
 
 const REVIEWS = { href: "#", average: 4.2, totalCount: 117 };
@@ -161,7 +161,7 @@ function QuantityAndTotal({ price }: { price: number }) {
   const decrease = () => setQuantity((prev) => Math.max(1, prev - 1));
 
   return (
-    <div className="QuantityAndTotal 수량 border border-black">
+    <div className="QuantityAndTotal 수량">
       <label htmlFor="quantity" className="text-sm font-medium text-gray-900">
         수량
       </label>
