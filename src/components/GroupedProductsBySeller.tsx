@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useContext, useState } from "react";
 import { CartContext } from "./context/cart/CartContext";
+import { formatPrice } from "@/utils/formatPrice";
 
 type Props = {
   seller: string;
@@ -166,53 +167,63 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
 
           <div>
             <p>{product.title}</p>
-            <p>{product.price} 원</p>
+            <p>{formatPrice(product.price)}</p>
           </div>
         </Link>
       </div>
 
-      <div className="ItmeList 아이템리스트 flex-[1.5] flex flex-col p-4">
-        <ul>
-          <li className="grid grid-cols-5 font-semibold">
-            <span>색상</span>
-            <span>사이즈</span>
-            <span>수량</span>
-            <span>가격</span>
-            <span></span>
-          </li>
+      <div
+        className="ItmeList 아이템리스트 
+        flex-[1.5] p-4 flex flex-col gap-4
+        overflow-x-auto whitespace-nowrap 
+        "
+      >
+        <table className="table-auto w-full border-collapse">
+          <thead>
+            <tr className="font-semibold">
+              <th className="px-2 py-1">색상</th>
+              <th className="px-2 py-1">사이즈</th>
+              <th className="px-2 py-1">수량</th>
+              <th className="px-2 py-1">가격</th>
+              <th className="px-2 py-1"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {items.map((item, index) => (
+              <tr key={index}>
+                <td className="px-2 py-1">{item.color}</td>
+                <td className="px-2 py-1">{item.size}</td>
+                <td className="px-2 py-1">{item.quantity}</td>
+                <td className="px-2 py-1">{formatPrice(item.total)}</td>
+                <td className="px-2 py-1">
+                  <button
+                    type="button"
+                    className="font-medium text-red-500 hover:text-red-600"
+                    onClick={() => handleRemoveItem(item)}
+                    title="삭제"
+                  >
+                    X
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-          {items.map((item, index) => (
-            <li key={index} className="grid grid-cols-5">
-              <span>{item.color}</span>
-              <span>{item.size}</span>
-              <span className="text-gray-500">{item.quantity}</span>
-              <span>{item.total}</span>
-              <button
-                type="button"
-                className="font-medium text-red-500 hover:text-red-600"
-                onClick={() => handleRemoveItem(item)}
-                title="삭제"
-              >
-                X
-              </button>
-            </li>
-          ))}
-        </ul>
-
-        <div className="space-x-4 bg-green-50">
-          <button type="button" className="font-medium " onClick={() => openModal()}>
+        <div className="flex gap-4 bg-green-50 p-2">
+          <button type="button" className="font-medium" onClick={() => openModal()}>
             주문수정
           </button>
-
           <button
             type="button"
-            className="font-medium text-red-500 "
+            className="font-medium text-red-500"
             onClick={() => handleRemoveProduct(product)}
           >
             삭제
           </button>
         </div>
 
+        {/* 모달 컴포넌트 */}
         <OrderEditModal open={open} setOpen={setOpen} items={items} />
       </div>
     </li>
