@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "./context/cart/CartContext";
 import { formatPrice } from "@/utils/formatPrice";
 
@@ -21,19 +21,33 @@ function OrderEditModal({
   const { updateItem } = useContext(CartContext);
   const [updatedItems, setUpdatedItems] = useState(items);
 
+  useEffect(() => console.log({ updatedItems }), [updatedItems]);
+
   const handleChange = (index: number, key: keyof Item, value: string | number) => {
     setUpdatedItems((prevItems) => {
+      // 상태복사
       const newItems = [...prevItems];
+
+      // 해당 카트아이템 필드(size,color,quantity)에 오버라이딩으로 수정
       newItems[index] = { ...newItems[index], [key]: value };
+
+      // total 값 갱신
+      if (key === "quantity") {
+        newItems[index].total = newItems[index].quantity * newItems[index].price;
+      }
+
       return newItems;
     });
   };
 
   const handleSubmit = () => {
-    // console.log({ updatedItems, items });
     updatedItems.forEach((updatedItem, index) => {
       const currentItem = items[index];
-      updateItem(updatedItem.productId, currentItem, updatedItem);
+      const newItem = {
+        ...updatedItem,
+        total: updatedItem.quantity * updatedItem.price, // total 갱신
+      };
+      updateItem(updatedItem.productId, currentItem, newItem);
     });
 
     setOpen(false);
@@ -98,7 +112,7 @@ function OrderEditModal({
                   className="border rounded px-2 py-1"
                 />
 
-                <span>{item.price}</span>
+                <span>{item.total}</span>
               </li>
             ))}
           </ul>

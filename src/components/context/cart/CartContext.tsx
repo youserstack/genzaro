@@ -87,17 +87,20 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
 
   const updateItem = (productId: string, prevItem: Item, newItem: Item) => {
     setState((state) => {
-      // 아이템 수정
-      const items = state.items.map(
-        (item) =>
+      const items = state.items.map((item) => {
+        if (
           item.productId === productId &&
-          // 모든 값이 일치하는 경우 (Item 의 모든 values of properties)
           Object.entries(prevItem).every(([key, value]) => item[key] === value)
-            ? { ...item, ...newItem } // 일치하는 경우 기존 item에 newItem의 속성을 병합하여 새로운 객체 생성
-            : item // 일치하지 않는 경우 기존 item 유지
-      );
+        ) {
+          const updatedItem = { ...item, ...newItem };
+          // total 갱신
+          updatedItem.total = updatedItem.quantity * updatedItem.price;
+          return updatedItem;
+        }
 
-      // 캐싱
+        return item;
+      });
+
       const cart = { items };
       localStorage.setItem("cart", JSON.stringify(cart));
 
