@@ -13,7 +13,7 @@ interface Product {
   _id: string;
   productId: string;
   productType: string;
-  price: string;
+  price: number;
   title: string;
   image: string;
   brand: string;

@@ -3,7 +3,7 @@
 import { useContext, useState } from "react";
 import Reviews from "./Reviews";
 import { CartContext } from "./context/cart/CartContext";
-import QuantitySelector from "./QuantitySelector";
+import { formatPrice } from "@/utils/formatPrice";
 
 const REVIEWS = { href: "#", average: 4.2, totalCount: 117 };
 
@@ -40,7 +40,7 @@ function Colors({
 }) {
   return (
     <div className="Colors 칼라">
-      <h3 className="text-sm font-medium text-gray-900">Color</h3>
+      <h3 className="text-sm font-medium text-gray-900">색상</h3>
       <fieldset className="mt-4">
         <div className="flex items-center gap-3 flex-wrap">
           {COLORS.map((color) => (
@@ -95,11 +95,11 @@ function Sizes({
   setSelectedSize: React.Dispatch<React.SetStateAction<string>>;
 }) {
   return (
-    <div className="Sizes 사이즈 mt-10">
+    <div className="Sizes 사이즈">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-medium">Size</h3>
+        <h3 className="text-sm font-medium">사이즈</h3>
         <a href="#" className="text-sm font-medium text-lime-500 hover:text-lime-400">
-          Size guide
+          사이즈 안내
         </a>
       </div>
 
@@ -154,34 +154,16 @@ function Sizes({
   );
 }
 
-// function Quantity() {
-//   return (
-//     <div className="Quantity 수량 mt-6 border border-red-500">
-//       <label htmlFor="quantity" className="text-sm font-medium text-gray-900">
-//         Quantity
-//       </label>
-//       <input
-//         type="number"
-//         name="quantity"
-//         id="quantity"
-//         defaultValue={1}
-//         min={1}
-//         className="mt-2 block w-full border-gray-300 rounded-md shadow-sm"
-//       />
-//     </div>
-//   );
-// }
-
-function Quantity() {
+function QuantityAndTotal({ price }: { price: number }) {
   const [quantity, setQuantity] = useState(1);
 
   const increase = () => setQuantity((prev) => prev + 1);
   const decrease = () => setQuantity((prev) => Math.max(1, prev - 1));
 
   return (
-    <div className="Quantity mt-6">
+    <div className="QuantityAndTotal 수량 border border-black">
       <label htmlFor="quantity" className="text-sm font-medium text-gray-900">
-        Quantity
+        수량
       </label>
       <div className="mt-4 flex justify-between items-center">
         <div className="border border-neutral-200 flex rounded-lg overflow-hidden">
@@ -212,7 +194,9 @@ function Quantity() {
           </button>
         </div>
 
-        <div>총 상품금액</div>
+        <div>
+          총액: <span className="font-bold">{(price * quantity).toLocaleString()}원</span>
+        </div>
       </div>
     </div>
   );
@@ -230,35 +214,33 @@ export default function Options({ product }: Props) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // 입력필드로부터 입력값추출
+    // 입력정보 추출
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
     const submittedData = Object.fromEntries(formData.entries());
-    console.log({ submittedData });
-    return;
     if (!submittedData.color || !submittedData.size || !submittedData.quantity) {
       alert("옵션을 선택해주세요.");
       return;
     }
 
-    // 새로생성할 아이템객체생성
-    const constantFields = {
-      seller: product.seller,
-      productId: product._id,
-      price: 1000,
-      // price:product.price
-    };
-    const variableFields = {
-      ...submittedData,
-      quantity: Number(submittedData.quantity || 1),
-      total: 1000 * Number(submittedData.quantity || 1),
-      // total:product.price*Number(submittedData.quantity || 1)
-    };
+    // 제품정보 추출
+    const { seller, _id, price } = product;
+
+    // 수량과 총액 계산
+    const quantity = Number(submittedData.quantity || 1);
+    const total = Number(product.price) * quantity; // 총액 계산
+
+    // 필요한 모든정보를 병합하여 카트아이템객체 생성
     const newItem = {
-      ...constantFields,
-      ...variableFields,
-      // color: selectedColor,
-      // size: selectedSize,
+      // 사용자로부터 입력받은 값들 (추가필드가 존재할 수 있어서 추가)
+      ...submittedData,
+      // 필수 필드값들
+      seller,
+      productId: _id,
+      price: Number(price),
+      // 계산된 필드값들
+      quantity,
+      total,
     };
 
     addItem(newItem);
@@ -272,16 +254,16 @@ export default function Options({ product }: Props) {
       lg:col-start-3
       "
     >
-      <p className="text-3xl">{product.price}</p>
+      <p className="text-3xl">{formatPrice(product.price)}</p>
 
       <div className="mt-6">
         <Reviews reviews={REVIEWS} />
       </div>
 
-      <form className="mt-10" onSubmit={handleSubmit}>
+      <form className="mt-10 flex flex-col gap-10" onSubmit={handleSubmit}>
         <Colors selectedColor={selectedColor} setSelectedColor={setSelectedColor} />
         <Sizes selectedSize={selectedSize} setSelectedSize={setSelectedSize} />
-        <Quantity />
+        <QuantityAndTotal price={Number(product.price)} />
 
         <button
           type="submit"
