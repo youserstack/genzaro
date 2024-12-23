@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { CartContext } from "../context/cart/CartContext";
 import { formatPrice } from "@/utils/formatPrice";
+import { COLORS, SIZES } from "@/data/productData";
 
 interface Props {
   open: boolean;
@@ -17,13 +18,34 @@ export default function OrderEditModal({ open, setOpen, items }: Props) {
       // 상태복사
       const newItems = [...prevItems];
 
-      // 해당 카트아이템 필드(size,color,quantity)에 오버라이딩으로 수정
+      // 현제아이템에서 필드(size,color,quantity)를 수정
       newItems[index] = { ...newItems[index], [key]: value };
 
       // total 값 갱신
       if (key === "quantity") {
         newItems[index].total = newItems[index].quantity * newItems[index].price;
       }
+
+      return newItems;
+    });
+  };
+
+  const handleQuantityChange = (index: number, increase: boolean) => {
+    setUpdatedItems((prevItems) => {
+      const newItems = [...prevItems];
+      const currentItem = newItems[index];
+
+      // 새로운 수량 계산
+      const newQuantity = increase
+        ? currentItem.quantity + 1
+        : Math.max(1, currentItem.quantity - 1);
+
+      // 현재 아이템을 업데이트
+      newItems[index] = {
+        ...currentItem,
+        quantity: newQuantity,
+        total: newQuantity * currentItem.price,
+      };
 
       return newItems;
     });
@@ -65,7 +87,7 @@ export default function OrderEditModal({ open, setOpen, items }: Props) {
             max-w-[500px]  bg-white
             p-4 border border-neutral-200 rounded-lg
             shadow-lg
-            divide-y
+            divide-y divide-neutral-200
   
             transition-all duration-300 transform
             ${
@@ -73,42 +95,92 @@ export default function OrderEditModal({ open, setOpen, items }: Props) {
                 ? "opacity-100 translate-y-0 pointer-events-auto"
                 : "opacity-0 translate-y-[100px]"
             }
+            overflow-x-auto
             `}
         >
-          <h1 className="py-2 text-center">주문수정</h1>
+          <h1 className="p-4 text-center">주문수정</h1>
 
-          <ul className="py-4">
-            {updatedItems.map((item, index) => (
-              <li key={index} className="grid grid-cols-5 gap-2 py-1 items-center">
-                <input
-                  type="text"
-                  value={item.color}
-                  onChange={(e) => handleChange(index, "color", e.target.value)}
-                  className="border rounded px-2 py-1"
-                  placeholder="색상"
-                />
+          <div className="py-4">
+            <table className="table-auto w-full border-collapse">
+              <thead>
+                <tr className="font-semibold">
+                  <th className="px-2 py-1">색상</th>
+                  <th className="px-2 py-1">사이즈</th>
+                  <th className="px-2 py-1">수량</th>
+                  <th className="px-2 py-1">총합</th>
+                </tr>
+              </thead>
+              <tbody>
+                {updatedItems.map((item, index) => (
+                  <tr key={index}>
+                    <td className="px-2 py-1 w-[25%] min-w-[100px]">
+                      <select
+                        value={item.color}
+                        onChange={(e) => handleChange(index, "color", e.target.value)}
+                        className="Color 색상 border rounded px-2 py-1 w-full"
+                      >
+                        {COLORS.map((color) => (
+                          <option key={color.name} value={color.name}>
+                            {color.name}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="px-2 py-1 w-[20%] min-w-[70px]">
+                      <select
+                        value={item.size}
+                        onChange={(e) => handleChange(index, "size", e.target.value)}
+                        className="Size 사이즈 border rounded px-2 py-1 w-full"
+                      >
+                        {SIZES.map((size) => (
+                          <option key={size.name} value={size.name}>
+                            {size.name}
+                          </option>
+                        ))}
+                      </select>
+                    </td>
 
-                <input
-                  type="text"
-                  value={item.size}
-                  onChange={(e) => handleChange(index, "size", e.target.value)}
-                  className="border rounded px-2 py-1"
-                  placeholder="사이즈"
-                />
+                    <td className="px-2 py-1 w-[20%] min-w-[70px]">
+                      <div className="Quantity 수량 border border-neutral-200 flex rounded-lg overflow-hidden">
+                        <button
+                          className="px-4 py-2 bg-neutral-200 hover:bg-neutral-300"
+                          type="button"
+                          onClick={() => handleQuantityChange(index, false)} // 수량 감소
+                        >
+                          -
+                        </button>
 
-                <input
-                  type="number"
-                  value={item.quantity}
-                  onChange={(e) => handleChange(index, "quantity", parseInt(e.target.value, 10))}
-                  className="border rounded px-2 py-1"
-                />
+                        <input
+                          className="min-w-[50px] w-[50px] text-center"
+                          type="number"
+                          name={`quantity-${index}`}
+                          id={`quantity-${index}`}
+                          value={item.quantity}
+                          min={1}
+                          onChange={
+                            (e) =>
+                              handleChange(index, "quantity", Math.max(1, Number(e.target.value))) // 최소값 1 보장
+                          }
+                        />
 
-                <span>{formatPrice(item.total)}</span>
-              </li>
-            ))}
-          </ul>
+                        <button
+                          className="px-4 py-2 bg-neutral-200 hover:bg-neutral-300"
+                          type="button"
+                          onClick={() => handleQuantityChange(index, true)} // 수량 증가
+                        >
+                          +
+                        </button>
+                      </div>
+                    </td>
 
-          <div className="flex justify-end space-x-4 pt-4">
+                    <td className="px-2 py-1">{formatPrice(item.total)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="pt-4 flex justify-end space-x-4 ">
             <button
               className="px-4 py-2 border rounded
                 text-gray-500  border-gray-300 "
