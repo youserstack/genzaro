@@ -2,7 +2,7 @@
 
 import { createContext, useState } from "react";
 import { CartProvider } from "./cart/CartContext";
-// import { SessionProvider } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 
 type Props = {
   children: React.ReactNode;
@@ -22,11 +22,10 @@ export const Provider = ({ children, mode }: Props) => {
   const [open, setOpen] = useState(false);
 
   return (
-    // <SessionProvider>
-    <Context.Provider value={{ mode, open, setOpen }}>
-      <CartProvider>{children}</CartProvider>
-      {/*  */}
-    </Context.Provider>
-    // </SessionProvider>
+    <SessionProvider>
+      <Context.Provider value={{ mode, open, setOpen }}>
+        <CartProvider>{children}</CartProvider>
+      </Context.Provider>
+    </SessionProvider>
   );
 };
