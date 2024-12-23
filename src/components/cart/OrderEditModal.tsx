@@ -88,6 +88,7 @@ export default function OrderEditModal({ open, setOpen, items }: Props) {
             p-4 border border-neutral-200 rounded-lg
             shadow-lg
             divide-y divide-neutral-200
+            m-4
   
             transition-all duration-300 transform
             ${
@@ -98,9 +99,9 @@ export default function OrderEditModal({ open, setOpen, items }: Props) {
             overflow-x-auto
             `}
         >
-          <h1 className="p-4 text-center">주문수정</h1>
+          <h1 className="p-4 text-center text-xl font-bold tracking-[10px]">주문수정</h1>
 
-          <div className="py-4">
+          <div className="py-4 overflow-x-auto">
             <table className="table-auto w-full border-collapse">
               <thead>
                 <tr className="font-semibold">
@@ -113,11 +114,11 @@ export default function OrderEditModal({ open, setOpen, items }: Props) {
               <tbody>
                 {updatedItems.map((item, index) => (
                   <tr key={index}>
-                    <td className="px-2 py-1 w-[25%] min-w-[100px]">
+                    <td className="Color 색상 px-2 py-1 w-[25%] min-w-[100px]">
                       <select
                         value={item.color}
                         onChange={(e) => handleChange(index, "color", e.target.value)}
-                        className="Color 색상 border rounded px-2 py-1 w-full"
+                        className="border rounded px-2 py-1 w-full"
                       >
                         {COLORS.map((color) => (
                           <option key={color.name} value={color.name}>
@@ -126,11 +127,11 @@ export default function OrderEditModal({ open, setOpen, items }: Props) {
                         ))}
                       </select>
                     </td>
-                    <td className="px-2 py-1 w-[20%] min-w-[70px]">
+                    <td className="Size 사이즈 px-2 py-1 w-[20%] min-w-[70px]">
                       <select
                         value={item.size}
                         onChange={(e) => handleChange(index, "size", e.target.value)}
-                        className="Size 사이즈 border rounded px-2 py-1 w-full"
+                        className="border rounded px-2 py-1 w-full"
                       >
                         {SIZES.map((size) => (
                           <option key={size.name} value={size.name}>
@@ -139,11 +140,10 @@ export default function OrderEditModal({ open, setOpen, items }: Props) {
                         ))}
                       </select>
                     </td>
-
-                    <td className="px-2 py-1 w-[20%] min-w-[70px]">
-                      <div className="Quantity 수량 border border-neutral-200 flex rounded-lg overflow-hidden">
+                    <td className="Quantity 수량 px-2 py-1 w-[20%] min-w-[70px]">
+                      <div className="border border-neutral-200 flex rounded-sm overflow-hidden">
                         <button
-                          className="px-4 py-2 bg-neutral-200 hover:bg-neutral-300"
+                          className="px-2 py-1 bg-neutral-200 hover:bg-neutral-300"
                           type="button"
                           onClick={() => handleQuantityChange(index, false)} // 수량 감소
                         >
@@ -164,7 +164,7 @@ export default function OrderEditModal({ open, setOpen, items }: Props) {
                         />
 
                         <button
-                          className="px-4 py-2 bg-neutral-200 hover:bg-neutral-300"
+                          className="px-2 py-1 bg-neutral-200 hover:bg-neutral-300"
                           type="button"
                           onClick={() => handleQuantityChange(index, true)} // 수량 증가
                         >

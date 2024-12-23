@@ -4,6 +4,8 @@ import { useContext, useState } from "react";
 import { CartContext } from "../context/cart/CartContext";
 import { formatPrice } from "@/utils/formatPrice";
 import OrderEditModal from "./OrderEditModal";
+import { FaRegEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 type Props = {
   seller: string;
@@ -95,15 +97,32 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
           </tbody>
         </table>
 
-        <div className="flex gap-4 bg-green-50 p-2">
-          <button type="button" className="font-medium" onClick={() => openModal()}>
+        <div className="flex gap-4 p-2">
+          <button
+            type="button"
+            className="
+            flex gap-2 items-center 
+            font-medium px-2 py-1
+            border border-neutral-200 rounded-md 
+            hover:bg-neutral-100
+            "
+            onClick={() => openModal()}
+          >
+            <FaRegEdit />
             주문수정
           </button>
           <button
             type="button"
-            className="font-medium text-red-500"
+            className="
+            font-medium px-2 py-1
+            text-red-500
+            flex gap-2 items-center 
+            border border-neutral-200 rounded-md 
+            hover:bg-red-500 hover:text-white
+            "
             onClick={() => handleRemoveProduct(product)}
           >
+            <MdDelete />
             삭제
           </button>
         </div>
@@ -140,8 +159,16 @@ export default function GroupedProductsBySeller({ seller, products }: Props) {
         ))}
       </ul>
 
-      <div className="flex gap-4 justify-between p-4">
-        <button onClick={handleSubmit}>주문하기</button>
+      <div className="flex gap-4 justify-end p-4">
+        <button
+          className="
+          border border-blue-500 bg-blue-500 hover:bg-blue-600 text-white
+          px-4 py-2 rounded-md
+          "
+          onClick={handleSubmit}
+        >
+          주문하기
+        </button>
       </div>
     </li>
   );
