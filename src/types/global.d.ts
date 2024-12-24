@@ -35,3 +35,23 @@ interface GroupedProduct {
   product: Product; // 팝퓰레잇될 제품
   items: Item[]; // 병합될 아이템들
 }
+
+interface NaverProfile extends Profile {
+  resultcode: string;
+  message: string;
+  response: {
+    id: string;
+    email: string;
+    name: string;
+  };
+}
+
+interface KakaoProfile extends Profile {
+  id: string;
+  kakao_account: {
+    email: string;
+  };
+  properties: {
+    nickname: string;
+  };
+}
