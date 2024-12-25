@@ -12,14 +12,30 @@ export default async function UserMenu() {
   return (
     <>
       {user ? (
-        <div className="Profile 프로필 relative ">
-          <Image
-            src={user.picture || ""}
-            alt=""
-            width={100}
-            height={100}
-            className="size-8 rounded-full"
-          />
+        <div className="UserMenu 유저메뉴 relative flex group">
+          <div
+            className="ImageContainer
+            rounded-full overflow-hidden size-8 /peer"
+          >
+            <Image src={user.picture || ""} alt="" width={100} height={100} />
+          </div>
+
+          <div
+            className="PositionLayer 포지션레이어
+            #position absolute top-full right-0 
+            hidden group-hover:block /peer-hover:block /hover:block
+            pt-2
+            "
+          >
+            <div className="ModalLayer 모달레이어 border border-neutral-200 bg-white shadow-md text-black p-4 rounded-md">
+              <ul>
+                <li>내 정보</li>
+                <li>대시보드</li>
+                <li>관심상품</li>
+                <li>주문내역</li>
+              </ul>
+            </div>
+          </div>
         </div>
       ) : (
         <Link

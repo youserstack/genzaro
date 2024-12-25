@@ -67,9 +67,8 @@ export default function Signin() {
                 <button
                   className="
                   #size w-full px-4 py-3 
-                  #position inline-flex justify-center items-center gap-x-2 
                   #deco text-sm font-medium rounded-lg border shadow-sm 
-                  #state
+                  #position inline-flex justify-center items-center gap-x-2 
                   focus:outline-none  
                   disabled:opacity-50 
                   disabled:pointer-events-none 

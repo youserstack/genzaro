@@ -141,12 +141,11 @@ export default function GroupedProductsBySeller({ seller, products }: Props) {
   return (
     <li
       className="GroupedProductsBySeller 아이템
-      min-h-[150px]
-      divide-y divide-neutral-200
-      p-4
-      border border-neutral-200 rounded-xl
+      #size min-h-[150px] p-4
+      #deco shadow-md
       bg-white
-      shadow-md
+      border border-neutral-200 rounded-xl
+      divide-y divide-neutral-200
       "
     >
       <div className="Title 타이틀 p-2 font-semibold text-xl">
