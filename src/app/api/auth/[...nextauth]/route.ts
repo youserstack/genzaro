@@ -37,18 +37,8 @@ const authOptions: NextAuthOptions = {
       if (account.provider === "naver" && profile && "response" in profile) {
         user.realname = profile.response.name;
       }
-      console.log("\n\n\nsignIn", { user, profile }, "\n\n\n");
-
-      // else if (account.provider === "google") {
-      //   // Google의 경우 프로필의 'sub' 필드를 ID로 사용
-      //   const googleProfile = profile as Profile; // Profile 타입 단언
-      //   user.name = googleProfile?.name; // Google에서 제공하는 이름
-      //   user.email = googleProfile?.email; // Google에서 제공하는 이메일
-      // } else if (account.provider === "kakao" && profile && "kakao_account" in profile) {
-      //   const kakaoProfile = profile as KakaoProfile;
-      //   user.name = kakaoProfile.properties.nickname;
-      //   user.email = kakaoProfile.kakao_account.email;
-      // }
+      // console.log("\n\n\nsignIn", { user, profile }, "\n\n\n");
+      console.log("\n\n\nsignIn", { user }, "\n\n\n");
 
       return true; // 로그인 허용
     },
@@ -76,11 +66,20 @@ const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXTAUTH_SECRET,
   // 커스텀 로그인 페이지 (credentials를 활용한) 를 만들 경우에 사용한다.
-  // pages: { signIn: "/auth/signin" },
-  // production 환경에서는 반드시 secret 을 필수로 설정해야한다.
-  // secret: process.env.NEXTAUTH_SECRET,
+  // pages: { signIn: "/signin" },
 };
 
 const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
+
+// else if (account.provider === "google") {
+//   // Google의 경우 프로필의 'sub' 필드를 ID로 사용
+//   const googleProfile = profile as Profile; // Profile 타입 단언
+//   user.name = googleProfile?.name; // Google에서 제공하는 이름
+//   user.email = googleProfile?.email; // Google에서 제공하는 이메일
+// } else if (account.provider === "kakao" && profile && "kakao_account" in profile) {
+//   const kakaoProfile = profile as KakaoProfile;
+//   user.name = kakaoProfile.properties.nickname;
+//   user.email = kakaoProfile.kakao_account.email;
+// }

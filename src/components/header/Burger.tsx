@@ -1,3 +1,5 @@
+"use client";
+
 import { useContext } from "react";
 import { HiBars2 } from "react-icons/hi2";
 import { Context } from "../context/Context";
