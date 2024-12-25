@@ -3,6 +3,7 @@ import GoogleProvider from "next-auth/providers/google";
 import NaverProvider from "next-auth/providers/naver";
 import KakaoProvider from "next-auth/providers/kakao";
 import { JWT } from "next-auth/jwt";
+import { KakaoProfile, NaverProfile } from "@/types/next-auth";
 
 const authOptions: NextAuthOptions = {
   providers: [
@@ -29,33 +30,36 @@ const authOptions: NextAuthOptions = {
       account: Account | null;
       profile?: Profile | NaverProfile | KakaoProfile;
     }) {
-      // account가 null일 수 있으므로 null 체크
       if (!account) {
-        return false; // account가 없는 경우 로그인 허용하지 않음
+        console.log("\n\n\nno account\n\n\n");
+        return false;
       }
-
-      // 프로바이더별 프로필 데이터 처리
       if (account.provider === "naver" && profile && "response" in profile) {
-        user.name = profile.response.name;
-        user.email = profile.response.email;
-      } else if (account.provider === "google") {
-        // Google의 경우 프로필의 'sub' 필드를 ID로 사용
-        const googleProfile = profile as Profile; // Profile 타입 단언
-        user.name = googleProfile?.name; // Google에서 제공하는 이름
-        user.email = googleProfile?.email; // Google에서 제공하는 이메일
-      } else if (account.provider === "kakao" && profile && "kakao_account" in profile) {
-        const kakaoProfile = profile as KakaoProfile;
-        user.name = kakaoProfile.properties.nickname;
-        user.email = kakaoProfile.kakao_account.email;
+        user.realname = profile.response.name;
       }
+      console.log("\n\n\nsignIn", { user, profile }, "\n\n\n");
+
+      // else if (account.provider === "google") {
+      //   // Google의 경우 프로필의 'sub' 필드를 ID로 사용
+      //   const googleProfile = profile as Profile; // Profile 타입 단언
+      //   user.name = googleProfile?.name; // Google에서 제공하는 이름
+      //   user.email = googleProfile?.email; // Google에서 제공하는 이메일
+      // } else if (account.provider === "kakao" && profile && "kakao_account" in profile) {
+      //   const kakaoProfile = profile as KakaoProfile;
+      //   user.name = kakaoProfile.properties.nickname;
+      //   user.email = kakaoProfile.kakao_account.email;
+      // }
 
       return true; // 로그인 허용
     },
+
     async jwt({ token, user }: { token: JWT; user: User }) {
       if (user) {
         token.name = user.name;
         token.email = user.email;
+        token.realname = user.realname;
       }
+      console.log("\n\n\njwt", token, "\n\n\n");
 
       return token;
     },
@@ -63,7 +67,9 @@ const authOptions: NextAuthOptions = {
       if (session.user) {
         session.user.name = token.name;
         session.user.email = token.email;
+        session.user.realname = token.realname;
       }
+      console.log("\n\n\nsession", session, "\n\n\n");
 
       return session;
     },

@@ -43,7 +43,7 @@ export default function Header() {
           <Nav />
           <Burger />
           <SideMenu />
-          <div className="Features 기능 hidden md:flex items-center gap-4">
+          <div className="Features 기능 hidden md:flex items-center gap-6">
             <Link href={"/cart"} className="relative">
               <BsHandbag className="text-xl" />
               <span
@@ -56,6 +56,13 @@ export default function Header() {
                 {cart.items.length}
                 {/* {cartItemCount} */}
               </span>
+            </Link>
+
+            <Link
+              href={"/signin"}
+              className="bg-emerald-600 hover:bg-emerald-700 px-4 py-1 rounded-md text-sm"
+            >
+              로그인
             </Link>
           </div>
         </div>
