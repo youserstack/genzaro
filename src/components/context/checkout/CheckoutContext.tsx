@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 interface ShippingInfo {
   method: "standard" | "express" | "same-day" | "scheduled" | "pickup-location";
@@ -41,10 +41,19 @@ export const CheckoutProvider = ({ children }: { children: React.ReactNode }) =>
   const [checkout, setCheckout] = useState<Checkout>(initialCheckout);
 
   const setProducts = (products: GroupedProduct[]) => {
-    setCheckout((state) => {
-      state.products = products;
-      return state;
-    });
+    const total =
+      // 제품리스트 레벨에서 카운팅
+      products.reduce(
+        // 아이템리스트 레벨에서 카운팅
+        (a, product) => a + product.items.reduce((a, item) => a + item.total, 0),
+        0
+      );
+
+    setCheckout((state) => ({
+      ...state,
+      products,
+      total,
+    }));
   };
 
   return (
