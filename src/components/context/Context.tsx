@@ -3,6 +3,7 @@
 import { createContext, useState } from "react";
 import { CartProvider } from "./cart/CartContext";
 import { SessionProvider } from "next-auth/react";
+import { CheckoutProvider } from "./checkout/CheckoutContext";
 
 type Props = {
   children: React.ReactNode;
@@ -24,7 +25,9 @@ export const Provider = ({ children, mode }: Props) => {
   return (
     <SessionProvider>
       <Context.Provider value={{ mode, open, setOpen }}>
-        <CartProvider>{children}</CartProvider>
+        <CartProvider>
+          <CheckoutProvider>{children}</CheckoutProvider>
+        </CartProvider>
       </Context.Provider>
     </SessionProvider>
   );

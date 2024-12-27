@@ -68,7 +68,7 @@ export default function Signin() {
                   className="
                   #size w-full px-4 py-3 
                   #deco text-sm font-medium rounded-lg border shadow-sm 
-                  #position inline-flex justify-center items-center gap-x-2 
+                  #display inline-flex justify-center items-center gap-x-2 
                   focus:outline-none  
                   disabled:opacity-50 
                   disabled:pointer-events-none 

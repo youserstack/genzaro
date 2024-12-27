@@ -1,11 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../context/cart/CartContext";
 import { formatPrice } from "@/utils/formatPrice";
 import OrderEditModal from "./OrderEditModal";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { CheckoutContext } from "../context/checkout/CheckoutContext";
+import { useRouter } from "next/navigation";
 
 type Props = {
   seller: string;
@@ -134,8 +138,12 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
 }
 
 export default function GroupedProductsBySeller({ seller, products }: Props) {
+  const { setProducts } = useContext(CheckoutContext);
+  const router = useRouter();
+
   const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    console.log({ products });
+    setProducts(products);
+    router.push("/checkout");
   };
 
   return (

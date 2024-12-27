@@ -21,10 +21,10 @@ export const CartContext = createContext<{
 });
 
 export const CartProvider = ({ children }: { children: React.ReactNode }) => {
-  const [cart, setState] = useState<Cart>(initialState);
+  const [cart, setCart] = useState<Cart>(initialState);
 
   const addItem = (newItem: Item) => {
-    setState((state) => {
+    setCart((state) => {
       // 아이템 추가
       const { quantity, total, ...rest } = newItem;
       const items = structuredClone(state.items);
@@ -48,7 +48,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const removeItem = (productId: string, currentItem: Item) => {
-    setState((state) => {
+    setCart((state) => {
       // 아이템 삭제
       const items = state.items.filter((item) => {
         // productId 다르면 남기고(true로 리턴해야함)
@@ -73,7 +73,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const removeGroupedProduct = (productId: string) => {
-    setState((state) => {
+    setCart((state) => {
       // 아이템 삭제
       const items = state.items.filter((item) => item.productId !== productId);
 
@@ -86,7 +86,7 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const updateItem = (productId: string, prevItem: Item, newItem: Item) => {
-    setState((state) => {
+    setCart((state) => {
       const items = state.items.map((item) => {
         if (
           item.productId === productId &&
@@ -109,12 +109,12 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   const clearCart = () => {
-    setState(initialState);
+    setCart(initialState);
   };
 
   useEffect(() => {
     const cart = JSON.parse(localStorage.getItem("cart") as string);
-    setState((state) => ({ ...state, ...cart }));
+    setCart((state) => ({ ...state, ...cart }));
   }, []);
 
   return (
