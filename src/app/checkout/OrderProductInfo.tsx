@@ -33,7 +33,7 @@ export default function OrderProductInfo() {
           <div className="ProductInfo 제품정보 flex-1 p-4" key={index}>
             <Link href={`/products/${item.productId}`} className="flex gap-4">
               <div
-                className="Image_Container 이미지컨테이너
+                className="ImageContainer 이미지컨테이너
                 shrink-0 w-[100px] sm:w-[130px] 
                 overflow-hidden rounded-xl border border-neutral-200"
               >
@@ -47,7 +47,7 @@ export default function OrderProductInfo() {
                 />
               </div>
 
-              <div>
+              <div className="p-2">
                 <p>{item.title}</p>
                 <p>{formatPrice(item.price)}</p>
               </div>

@@ -5,33 +5,30 @@ const menuItems = [
   {
     title: "안내",
     links: [
-      { label: "멤버가입", href: "https://www.nike.com/kr/membership" },
-      { label: "매장찾기", href: "https://www.nike.com/kr/retail" },
-      { label: "나이키 저널", href: "https://www.nike.com/kr/stories" },
+      { label: "멤버가입", href: "" },
+      { label: "매장찾기", href: "" },
+      { label: "젠자로 저널", href: "" },
     ],
   },
   {
     title: "고객센터",
     links: [
-      { label: "주문배송조회", href: "https://www.nike.com/kr/orders/details/" },
-      { label: "반품 정책", href: "https://www.nike.com/kr/help/a/returns-policy-kr" },
-      { label: "결제 방법", href: "https://www.nike.com/kr/help/a/payment-options-kr" },
-      { label: "공지사항", href: "https://www.nike.com/kr/help/a/announcements-kr" },
-      { label: "문의하기", href: "https://www.nike.com/kr/help/#contact" },
+      { label: "주문배송조회", href: "" },
+      { label: "반품 정책", href: "" },
+      { label: "결제 방법", href: "" },
+      { label: "공지사항", href: "" },
+      { label: "문의하기", href: "" },
     ],
   },
   {
     title: "회사소개",
     links: [
-      { label: "About Nike", href: "https://about.nike.com/" },
-      { label: "소식", href: "https://about.nike.com/en/newsroom" },
-      { label: "채용", href: "https://jobs.nike.com/" },
-      { label: "투자자", href: "http://investors.nike.com/" },
-      { label: "지속가능성", href: "https://www.nike.com/kr/sustainability" },
-      {
-        label: "신고하기",
-        href: "https://secure.ethicspoint.com/domain/media/ko/gui/56821/index.html",
-      },
+      { label: "About Genzaro", href: "" },
+      { label: "소식", href: "" },
+      { label: "채용", href: "" },
+      { label: "투자자", href: "" },
+      { label: "지속가능성", href: "" },
+      { label: "신고하기", href: "" },
     ],
   },
 ];
@@ -70,7 +67,7 @@ export default function Footer() {
               <h2 className="text-lg font-bold">{menu.title}</h2>
 
               {menu.links.map((link, index) => (
-                <span key={index} className="block hover:text-amber-500 transition cursor-pointer">
+                <span key={index} className="block hover:text-lime-300 transition cursor-pointer">
                   {link.label}
                 </span>
               ))}

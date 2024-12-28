@@ -42,7 +42,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
       <div className="ProductInfo 제품정보 flex-1 p-4">
         <Link href={`/products/${product._id}`} className="flex gap-4">
           <div
-            className="Image_Container 이미지컨테이너
+            className="ImageContainer 이미지컨테이너
               shrink-0 w-[100px] sm:w-[130px] 
               overflow-hidden rounded-xl border border-neutral-200"
           >
@@ -56,7 +56,7 @@ function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
             />
           </div>
 
-          <div>
+          <div className="p-2">
             <p>{product.title}</p>
             <p>{formatPrice(product.price)}</p>
           </div>

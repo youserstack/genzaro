@@ -11,7 +11,7 @@ export default function Nav() {
     <div className="Nav">
       <ul
         className="Menu_List
-        hidden sm:flex gap-4 justify-center /relative 
+        hidden md:flex gap-4 justify-center /relative 
         [&_>_li:hover]:text-amber-400
         "
       >
@@ -59,15 +59,20 @@ export default function Nav() {
         >
           <div
             className="Content_Layer 
-            p-8 flex gap-4"
+            p-8 pb-16 flex gap-8 overflow-x-auto"
           >
             {detail?.items.map((item, index) => (
               <div key={index}>
-                <h5 className="border-b-[1px] mb-2">{item.name}</h5>
+                <h5 className="font-semibold text-lg cursor-pointer hover:text-amber-500">
+                  {item.name}
+                </h5>
+                <div className="h-[2px] bg-gradient-to-r from-amber-500 to-emerald-500 mb-4"></div>
 
                 <ul>
                   {item.items?.map((item, index) => (
-                    <li key={index}>{item.name}</li>
+                    <li key={index} className="cursor-pointer hover:text-amber-500">
+                      {item.name}
+                    </li>
                   ))}
                 </ul>
               </div>

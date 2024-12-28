@@ -15,7 +15,10 @@ export default async function UserMenu() {
         <div className="UserMenu 유저메뉴 relative flex group">
           <div
             className="ImageContainer
-            rounded-full overflow-hidden size-8 /peer"
+            rounded-full overflow-hidden size-8 /peer
+            cursor-pointer
+            hover:ring-2 hover:ring-amber-500
+            "
           >
             <Image src={user.picture || ""} alt="" width={100} height={100} />
           </div>

@@ -24,13 +24,18 @@ export default function CartIcon() {
 
   return (
     <Link href={"/cart"} className="relative">
-      <BsHandbag className="text-xl" />
+      <BsHandbag
+        className="
+        text-xl hover:text-amber-300 hover:scale-105 transition
+        "
+      />
       <span
         className="
-      absolute top-[-7px] right-[-7px]  /top-[-30%] /right-[-30%]
-      size-4 text-xs bg-red-500 rounded-full
-      flex items-center justify-center
-      "
+        absolute top-[-7px] right-[-7px]  /top-[-30%] /right-[-30%]
+        size-4 text-xs bg-red-500 rounded-full
+        flex items-center justify-center
+        
+        "
       >
         {cart.items.length}
         {/* {cartItemCount} */}
