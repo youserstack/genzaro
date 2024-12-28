@@ -9,7 +9,7 @@ export default function ShippingInfo() {
     >
       <h1 className="p-2 text-xl font-bold">배송정보</h1>
 
-      <div className="px-2 py-4 space-y-2 font-medium">
+      <div className="px-2 pt-4 space-y-2 font-medium">
         <div className="ShippingRecipient flex gap-4 items-center">
           <p className="font-semibold">홍길동</p>
           <p className="text-sm">010-0000-000</p>

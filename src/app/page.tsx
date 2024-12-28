@@ -11,13 +11,12 @@ export default async function Home() {
   return (
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] flex justify-center items-center">
+        <ProductList products={products} />
+
         {/* <Example /> */}
         {/* <Carousel /> */}
-        <ProductList products={products} />
         {/* <RecommendedProducts products={products} /> */}
 
-        {/* <div className="max-w-screen-lg mx-auto /w-[70vw] border-2 border-orange-400">
-        </div> */}
         {/* <p>
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed minima delectus omnis est
           asperiores maxime officiis, id sunt, natus aliquam suscipit, ipsum molestias repellat

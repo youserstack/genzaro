@@ -28,14 +28,14 @@ export default function OrderProductInfo() {
         <h1>주문상품</h1>
       </div>
 
-      <div className="OrderList px-2 py-4 space-y-2">
+      <div className="OrderList px-2 pt-4 space-y-2">
         {items.map((item, index) => (
           <div className="ProductInfo 제품정보 flex-1 p-4" key={index}>
             <Link href={`/products/${item.productId}`} className="flex gap-4">
               <div
                 className="Image_Container 이미지컨테이너
-              shrink-0 w-[100px] sm:w-[130px] 
-              overflow-hidden rounded-xl border border-neutral-200"
+                shrink-0 w-[100px] sm:w-[130px] 
+                overflow-hidden rounded-xl border border-neutral-200"
               >
                 <Image
                   alt={""}
@@ -43,7 +43,7 @@ export default function OrderProductInfo() {
                   width={300}
                   height={300}
                   className="aspect-[1/1] 
-                size-full object-cover pointer-events-none"
+                  size-full object-cover pointer-events-none"
                 />
               </div>
 

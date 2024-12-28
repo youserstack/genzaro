@@ -5,7 +5,7 @@ export default function PaymentOptions() {
         <h1>결제수단</h1>
       </div>
 
-      <div className="PaymentList px-2 py-4 space-y-2">
+      <div className="PaymentList px-2 pt-4 space-y-2">
         {[
           { id: "easybank-payment-item", label: "계좌 간편결제" },
           { id: "easycard-payment-item", label: "카드 간편결제" },
