@@ -3,14 +3,18 @@
 import PaymentOptions from "@/app/checkout/PaymentOptions";
 import { CheckoutContext } from "@/components/context/checkout/CheckoutContext";
 import { useRouter } from "next/navigation";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import OrderProductInfo from "./OrderProductInfo";
 import ShippingInfo from "./ShippingInfo";
 import { formatPrice } from "@/utils/formatPrice";
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 export default function page() {
-  const { checkout } = useContext(CheckoutContext);
   const router = useRouter();
+  const { checkout } = useContext(CheckoutContext);
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => setOpen(true);
 
   useEffect(() => {
     // if (!checkout.products.length) {
@@ -86,10 +90,40 @@ export default function page() {
           <button
             className="shrink-0 w-full sm:w-auto min-w-[250px]
             p-4 bg-lime-500 rounded-xl text-xl font-bold"
+            onClick={handleClick}
           >
             결제하기
           </button>
         </section>
+      </div>
+
+      <div className="CheckoutModal 결제모달">
+        <div
+          className={`BackgroundLayer
+            fixed inset-0 z-[100]
+            bg-black transition-opacity duration-500
+            ${open ? "opacity-50" : "opacity-0"}
+            ${open ? "pointer-events-auto" : "pointer-events-none"}
+          `}
+          onClick={() => setOpen(false)}
+        />
+
+        <div
+          className={`ModalPositionLayer
+            fixed inset-0 z-[200] 
+            flex justify-center items-center
+            pointer-events-none 
+          `}
+        >
+          <div
+            className={`ModalLayer
+            size-[500px] bg-white
+            transition-transform duration-500
+               ${open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[100px]"}
+               ${open ? "pointer-events-auto" : "pointer-events-none"}
+            `}
+          ></div>
+        </div>
       </div>
     </main>
   );

@@ -20,7 +20,7 @@ export default function OrderProductInfo() {
     ],
     [] as Item[]
   );
-  console.log({ items });
+  // console.log({ items });
 
   return (
     <div className="OrderProductInfo bg-white p-4 rounded-lg shadow-md divide-y">

@@ -26,7 +26,8 @@ export default function CartIcon() {
     <Link href={"/cart"} className="relative">
       <BsHandbag
         className="
-        text-xl hover:text-amber-300 hover:scale-105 transition
+        text-xl 
+        hover:text-amber-300 hover:stroke-[0.3] transition-all duration-300
         "
       />
       <span

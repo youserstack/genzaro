@@ -9,6 +9,7 @@
     "update": "git add . && git commit -m 'update' && git push"
   },
   "dependencies": {
+    "@paypal/react-paypal-js": "^8.7.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "next": "^15.1.2",
     "next-auth": "^4.24.11",

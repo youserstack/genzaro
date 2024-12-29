@@ -6,7 +6,8 @@ export default async function UserMenu() {
   // 토큰추출과 토큰디코딩
   const headersList = await headers();
   const token = headersList.get("token") as string;
-  const user = JSON.parse(Buffer.from(token, "base64url").toString("utf-8"));
+  const user = token ? JSON.parse(Buffer.from(token, "base64url").toString("utf-8")) : null;
+  // const user = token && JSON.parse(Buffer.from(token, "base64url").toString("utf-8"));
   console.log({ user });
 
   return (
@@ -17,7 +18,7 @@ export default async function UserMenu() {
             className="ImageContainer
             rounded-full overflow-hidden size-8 /peer
             cursor-pointer
-            hover:ring-2 hover:ring-amber-500
+            hover:ring-2 hover:ring-amber-300 transition-all duration-300
             "
           >
             <Image src={user.picture || ""} alt="" width={100} height={100} />
