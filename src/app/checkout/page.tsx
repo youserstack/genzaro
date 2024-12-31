@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import OrderProductInfo from "./OrderProductInfo";
 import ShippingInfo from "./ShippingInfo";
 import { formatPrice } from "@/utils/formatPrice";
-import { PayPalButtons } from "@paypal/react-paypal-js";
+import { PayPalButtons, PayPalButtonsComponentProps } from "@paypal/react-paypal-js";
 
 export default function page() {
   const router = useRouter();
@@ -15,6 +15,39 @@ export default function page() {
   const [open, setOpen] = useState(false);
 
   const handleClick = () => setOpen(true);
+
+  const createOrder: PayPalButtonsComponentProps["createOrder"] = (data, actions) => {
+    return actions.order
+      .create({
+        intent: "CAPTURE",
+        purchase_units: [{ amount: { currency_code: "USD", value: "10" } }],
+      })
+      .then((orderId: string) => {
+        console.log({ orderId });
+        return orderId;
+      });
+  };
+
+  const onApprove: PayPalButtonsComponentProps["onApprove"] = (data, actions) => {
+    if (!actions.order) {
+      console.error("주문 작업을 찾을 수 없습니다.");
+      return Promise.reject(new Error("주문 작업을 찾을 수 없습니다."));
+    }
+
+    return actions.order.capture().then((details) => {
+      console.log("결제가 성공적으로 완료되었습니다:", details);
+      alert(`결제가 완료되었습니다.`);
+    });
+  };
+
+  const onCancel: PayPalButtonsComponentProps["onCancel"] = () => {
+    alert("결제가 취소되었습니다.");
+  };
+
+  const onError: PayPalButtonsComponentProps["onError"] = (error) => {
+    console.error("PayPal 결제 중 오류 발생:", error);
+    alert("결제 중 오류가 발생했습니다. 다시 시도해주세요.");
+  };
 
   useEffect(() => {
     // if (!checkout.products.length) {
@@ -61,18 +94,6 @@ export default function page() {
               <h1>결제상세</h1>
             </div>
           </div>
-
-          {/* <div className="sticky top-[100px] space-y-4">
-            <div className="bg-white rounded-lg shadow-md p-4">
-              <h1>결제상세</h1>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-4">
-              <h1>결제상세</h1>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-4">
-              <h1>결제상세</h1>
-            </div>
-          </div> */}
         </div>
       </section>
 
@@ -117,12 +138,19 @@ export default function page() {
         >
           <div
             className={`ModalLayer
-            size-[500px] bg-white
-            transition-transform duration-500
+            size-[500px] bg-white p-4 rounded-lg shadow-2xl
+            transition-all duration-500
                ${open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-[100px]"}
                ${open ? "pointer-events-auto" : "pointer-events-none"}
             `}
-          ></div>
+          >
+            <PayPalButtons
+              createOrder={createOrder}
+              onApprove={onApprove}
+              onCancel={onCancel}
+              onError={onError}
+            />
+          </div>
         </div>
       </div>
     </main>

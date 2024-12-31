@@ -3,6 +3,7 @@ import Carousel from "@/components/Carousel";
 import RecommendedProducts from "@/components/RecommendedProducts";
 import { fetcher } from "../utils/fetcher";
 import Example from "@/components/Example";
+import Test from "@/components/Test";
 
 export default async function Home() {
   const products = await fetcher("products");
@@ -12,6 +13,7 @@ export default async function Home() {
     <main>
       <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] flex justify-center items-center">
         <ProductList products={products} />
+        <Test />
 
         {/* <Example /> */}
         {/* <Carousel /> */}

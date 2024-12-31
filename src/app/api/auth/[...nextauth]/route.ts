@@ -30,41 +30,46 @@ const authOptions: NextAuthOptions = {
       account: Account | null;
       profile?: Profile | NaverProfile | KakaoProfile;
     }) {
+      // console.log("\n\n\nsignIn", { user, account, profile });
       if (!account) {
-        console.log("\n\n\nno account\n\n\n");
+        console.log("no account\n\n\n");
         return false;
       }
       if (account.provider === "naver" && profile && "response" in profile) {
         user.realname = profile.response.name;
       }
       // console.log("\n\n\nsignIn", { user, profile }, "\n\n\n");
-      console.log("\n\n\nsignIn", { user }, "\n\n\n");
+      // console.log({ user }, "\n\n\n");
 
       return true; // 로그인 허용
     },
 
-    async jwt({ token, user }: { token: JWT; user: User }) {
+    async jwt({ token, user, account }) {
+      console.log("\n\n\njwt", { token, user, account });
       if (user) {
         token.name = user.name;
         token.email = user.email;
         token.realname = user.realname;
       }
-      console.log("\n\n\njwt", token, "\n\n\n");
+      console.log(token, "\n\n\n");
 
       return token;
     },
     async session({ session, token }: { session: Session; token: JWT }) {
+      console.log("\n\n\nsession", { session, token });
       if (session.user) {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.realname = token.realname;
       }
-      console.log("\n\n\nsession", session, "\n\n\n");
+      console.log(session, "\n\n\n");
 
       return session;
     },
   },
   secret: process.env.NEXTAUTH_SECRET,
+  session: { strategy: "jwt" },
+
   // 커스텀 로그인 페이지 (credentials를 활용한) 를 만들 경우에 사용한다.
   // pages: { signIn: "/signin" },
 };

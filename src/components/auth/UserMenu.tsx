@@ -1,13 +1,22 @@
-import { headers } from "next/headers";
+import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function UserMenu() {
   // 토큰추출과 토큰디코딩
-  const headersList = await headers();
-  const token = headersList.get("token") as string;
-  const user = token ? JSON.parse(Buffer.from(token, "base64url").toString("utf-8")) : null;
-  // const user = token && JSON.parse(Buffer.from(token, "base64url").toString("utf-8"));
+  // const headersList = await headers();
+  // const token = headersList.get("token") as string;
+  // const user = token ? JSON.parse(Buffer.from(token, "base64url").toString("utf-8")) : null;
+  // console.log({ user });
+
+  const cookieStore = await cookies();
+  const sessionId = cookieStore.get("connect.sid");
+  // 클라이언트쿠키를 외부서버로쿠키설정해서보낸다.
+  const res = await fetch("http://localhost:7000/api/profile", {
+    headers: { Cookie: `connect.sid=${sessionId?.value}` }, // 노드환경에서동작
+    // credentials: "include", // 브라우저환경에서동작
+  });
+  const { user } = await res.json();
   console.log({ user });
 
   return (
@@ -21,7 +30,8 @@ export default async function UserMenu() {
             hover:ring-2 hover:ring-amber-300 transition-all duration-300
             "
           >
-            <Image src={user.picture || ""} alt="" width={100} height={100} />
+            <Image src={user.image || ""} alt="" width={100} height={100} />
+            {/* <Image src={user.picture || ""} alt="" width={100} height={100} /> */}
           </div>
 
           <div
