@@ -1,6 +1,6 @@
 export async function fetcher(url: string) {
   try {
-    // console.log(`${process.env.DEFAULT_API_URL}/${url}`);
+    console.log(`${process.env.DEFAULT_API_URL}/${url}`);
     const res = await fetch(`${process.env.DEFAULT_API_URL}/${url}`);
     if (!res.ok) throw new Error("데이터 패칭 오류!");
     const data = await res.json();

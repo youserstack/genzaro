@@ -53,8 +53,9 @@ export default function Signin() {
   //   await signIn(item.id, { redirect: true, callbackUrl: "/callback" });
   // };
 
-  const handleSigninWithNaver = () => {
-    router.push("http://localhost:7000/api/auth/naver");
+  const handleSigninWithNaver = async () => {
+    router.push(`${process.env.DEFAULT_API_URL}/auth/naver`);
+    // router.push("http://localhost:7000/api/auth/naver");
   };
 
   return (
