@@ -210,7 +210,7 @@ export default function Carousel() {
             key={brand.name}
             title={brand.name}
             className="group
-            !transition-[filter] !duration-500
+            !transition-[filter,transform] !duration-500
             brightness-50
             [&.swiper-slide-active]:brightness-100
             "
