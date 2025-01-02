@@ -1,7 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
   env: {
     DEFAULT_API_URL: process.env.DEFAULT_API_URL,
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,

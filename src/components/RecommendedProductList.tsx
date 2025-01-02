@@ -8,10 +8,10 @@ type Props = {
   products: Product[];
 };
 
-export default function RecommendedProducts({ products }: Props) {
+export default function RecommendedProductList({ products }: Props) {
   return (
     <div
-      className="RecommendedProducts
+      className="RecommendedProductList
       px-4 sm:px-6 lg:px-8 py-16 sm:py-24 
       mx-auto 
       "

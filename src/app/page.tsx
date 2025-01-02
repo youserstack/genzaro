@@ -1,6 +1,6 @@
 import ProductList from "@/components/product/ProductList";
 import Carousel from "@/components/Carousel";
-import RecommendedProducts from "@/components/RecommendedProducts";
+import RecommendedProductList from "@/components/RecommendedProductList";
 import { fetcher } from "../utils/fetcher";
 
 export default async function Home() {
@@ -12,6 +12,7 @@ export default async function Home() {
       <section className="pt-[50px] md:pt-[40px]">
         <Carousel />
       </section>
+
       <section
         className="max-w-screen-xl min-h-screen mx-auto py-[100px] 
         flex flex-col justify-center items-center"
@@ -25,11 +26,12 @@ export default async function Home() {
 
         <ProductList products={products} />
       </section>
+
       <section
         className="max-w-screen-xl min-h-screen mx-auto py-[100px] 
         flex flex-col justify-center items-center"
       >
-        <RecommendedProducts products={products} />
+        <RecommendedProductList products={products} />
       </section>
     </main>
   );

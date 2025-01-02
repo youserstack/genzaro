@@ -9,7 +9,7 @@ type Props = {
 
 export default async function ProductDetail({ params }: Props) {
   const product: Product = await fetcher(`products/${(await params).id}`);
-  // console.log({ product });
+  console.log({ product });
 
   return (
     <main>
