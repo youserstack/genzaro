@@ -7,7 +7,7 @@ const menuItems = [
     links: [
       { label: "멤버가입", href: "" },
       { label: "매장찾기", href: "" },
-      { label: "젠자로 저널", href: "" },
+      { label: "젠자로", href: "" },
     ],
   },
   {

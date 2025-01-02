@@ -1,5 +1,6 @@
 "use client";
 
+import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -9,11 +10,26 @@ type Props = {
 
 export default function RecommendedProducts({ products }: Props) {
   return (
-    <section className="p-4">
-      <h1 className="text-5xl font-semibold text-center mb-[200px]">Recommendations</h1>
-      <div className="columns-2xs gap-4 space-y-4">
+    <div
+      className="RecommendedProducts
+      px-4 sm:px-6 lg:px-8 py-16 sm:py-24 
+      mx-auto 
+      "
+    >
+      <h1
+        className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
+        font-semibold text-center mb-[100px] whitespace-pre"
+      >
+        추천제품
+      </h1>
+
+      <ul
+        className="
+        columns-2 sm:columns-3 md:columns-4 lg:columns-5
+        "
+      >
         {products.map((product) => (
-          <Link key={product.productId} href={""} className="group inline-block">
+          <Link key={product.productId} href={""} className="group inline-block py-4">
             <Image
               alt={""}
               src={
@@ -21,17 +37,18 @@ export default function RecommendedProducts({ products }: Props) {
                 "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg"
               }
               className="w-full /aspect-[7/8]
-              rounded-lg bg-gray-200 object-cover group-hover:opacity-75
+              rounded-lg bg-gray-200 object-cover 
               transition-opacity 
+              group-hover:opacity-75
               "
               width={700}
               height={700}
             />
             <h3 className="mt-4 text-sm text-gray-700">{product.title}</h3>
-            <p className="mt-1 text-lg font-medium text-gray-900">{product.price}</p>
+            <p className="mt-1 text-lg font-medium text-gray-900">{formatPrice(product.price)}</p>
           </Link>
         ))}
-      </div>
-    </section>
+      </ul>
+    </div>
   );
 }

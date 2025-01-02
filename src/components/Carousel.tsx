@@ -133,7 +133,11 @@ const brands = [
 const Background = ({ bgUrl }: { bgUrl: string }) => {
   // console.log({ bgUrl });
   return (
-    <div className="absolute inset-0 overflow-hidden ">
+    <div
+      className="Background
+      absolute inset-0 overflow-hidden 
+      "
+    >
       <Image
         src={bgUrl}
         alt=""
@@ -164,7 +168,6 @@ export default function Carousel() {
 
   return (
     <Swiper
-      className="h-[500px]"
       modules={[Navigation, Pagination, Keyboard, Parallax, Autoplay]}
       navigation={{
         //
@@ -177,7 +180,15 @@ export default function Carousel() {
         type: "bullets", // 기본값
         clickable: true, // 점 클릭 시 슬라이드 이동 가능
         renderBullet: (index, className) =>
-          `<span class="${className} !w-[10px] !h-[10px] !bg-white !mx-2"></span>`,
+          `<span class="
+                ${className} 
+                !w-[10px] !h-[10px] !bg-white !mx-2 
+                !opacity-50 hover:!opacity-100
+                [&.swiper-pagination-bullet-active]:!opacity-100
+                [&.swiper-pagination-bullet-active]:!ring-2
+                [&.swiper-pagination-bullet-active]:!ring-amber-500
+
+          "></span>`,
       }}
       keyboard={{ enabled: true }}
       // autoplay={{ delay: 4000 }}
@@ -186,28 +197,40 @@ export default function Carousel() {
       centeredSlides
       parallax
       loop
+      className="h-[500px]"
 
       // spaceBetween={70}
       // onSlideChange={() => console.log("slide change")}
       // onSwiper={(swiper) => console.log(swiper)}
     >
       {/* swiper slides */}
-      <div>
-        {brands.map((brand, index) => {
-          return (
-            <SwiperSlide key={brand.name} title={brand.name} className="group">
-              <Background bgUrl={brand.bg} />
+      {brands.map((brand, index) => {
+        return (
+          <SwiperSlide
+            key={brand.name}
+            title={brand.name}
+            className="group
+            !transition-[filter] !duration-500
+            brightness-50
+            [&.swiper-slide-active]:brightness-100
+            "
+          >
+            <Background bgUrl={brand.bg} />
 
-              <div
-                className="absolute inset-0 text-white bg-black/10 hover:bg-transparent transition-all duration-500
-                flex flex-col justify-center items-center"
-              >
-                <Image
-                  src={brand.svg || brand.png || brand.items[0]}
-                  alt=""
-                  width={300}
-                  height={300}
-                  className={`w-[200px] /h-full 
+            <div
+              className="
+                absolute inset-0 
+                flex flex-col justify-center items-center
+                transition-all duration-500
+                text-white /bg-black/10 /hover:bg-transparent 
+                "
+            >
+              <Image
+                src={brand.svg || brand.png || brand.items[0]}
+                alt=""
+                width={1000}
+                height={1000}
+                className={`w-[200px] /h-full 
                   object-center object-cover 
                   drop-shadow-[2px_4px_6px_rgba(0,0,0,0.8)]
                   mb-8 
@@ -218,37 +241,49 @@ export default function Carousel() {
                   ${brand.name === "apple" ? "!w-[100px]" : ""}
                   ${brand.name === "tesla" ? "!w-[100px]" : ""}
                   `}
-                  data-swiper-parallax="-1000"
-                  // data-swiper-parallax="-200%"
-                />
+                data-swiper-parallax="-1000"
+                // data-swiper-parallax="-200%"
+              />
 
-                <div data-swiper-parallax="-700" className="max-w-[80%] sm:max-w-[50%]">
-                  {brand.descriptions
-                    ? brand.descriptions.map((desc, index) => <p key={index}>{desc}</p>)
-                    : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat cum sit maiores, illum blanditiis ipsam ullam distinctio"}
-                </div>
+              <div data-swiper-parallax="-700" className="max-w-[80%] sm:max-w-[50%]">
+                {brand.descriptions
+                  ? brand.descriptions.map((desc, index) => <p key={index}>{desc}</p>)
+                  : "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Repellat cum sit maiores, illum blanditiis ipsam ullam distinctio"}
+              </div>
 
-                <div data-swiper-parallax="-600">
-                  <button
-                    className="
+              <div data-swiper-parallax="-600">
+                <button
+                  className="
                     !transition-[background-color] !duration-500
                     bg-black/20 backdrop-blur-[2px] 
                     text-white hover:bg-black/30 
                     px-4 py-2 mt-8 rounded-2xl"
-                    onClick={() => console.log("first")}
-                  >
-                    자세히 보기
-                  </button>
-                </div>
+                  onClick={() => console.log("first")}
+                >
+                  자세히 보기
+                </button>
               </div>
-            </SwiperSlide>
-          );
-        })}
-      </div>
+            </div>
+          </SwiperSlide>
+        );
+      })}
 
       {/* navigation arrow buttons */}
-      <IoIosArrowBack className="swiper-button-prev !text-white" />
-      <IoIosArrowForward className="swiper-button-next !text-white" />
+      <IoIosArrowBack
+        className="swiper-button-prev 
+        !w-[2rem] sm:!w-[3rem] md:!w-[4rem]
+        !text-white !left-[5%] 
+        transition-opacity
+        opacity-80 hover:opacity-100 
+        "
+      />
+      <IoIosArrowForward
+        className="swiper-button-next 
+        !w-[2rem] sm:!w-[3rem] md:!w-[4rem]
+        !text-white !right-[5%]
+        opacity-80 hover:opacity-100 transition-opacity
+        "
+      />
 
       {/* pagination bullet buttons */}
       <div className="swiper-pagination !bottom-[10%]"></div>

@@ -2,26 +2,34 @@ import ProductList from "@/components/product/ProductList";
 import Carousel from "@/components/Carousel";
 import RecommendedProducts from "@/components/RecommendedProducts";
 import { fetcher } from "../utils/fetcher";
-import Example from "@/components/Example";
 
 export default async function Home() {
-  // const products = await fetcher("products");
+  const products = await fetcher("products");
   // console.log({ products });
 
   return (
     <main>
-      <section className="max-w-screen-xl min-h-screen mx-auto pt-[100px] flex justify-center items-center">
-        {/* <ProductList products={products} /> */}
+      <section className="pt-[50px] md:pt-[40px]">
+        <Carousel />
+      </section>
+      <section
+        className="max-w-screen-xl min-h-screen mx-auto py-[100px] 
+        flex flex-col justify-center items-center"
+      >
+        <h1
+          className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl 
+        font-semibold text-center mb-[100px] whitespace-pre"
+        >
+          최신상품
+        </h1>
 
-        {/* <Example /> */}
-        {/* <Carousel /> */}
-        {/* <RecommendedProducts products={products} /> */}
-
-        {/* <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed minima delectus omnis est
-          asperiores maxime officiis, id sunt, natus aliquam suscipit, ipsum molestias repellat
-          dolorum laborum dignissimos. Commodi, hic minima!
-        </p> */}
+        <ProductList products={products} />
+      </section>
+      <section
+        className="max-w-screen-xl min-h-screen mx-auto py-[100px] 
+        flex flex-col justify-center items-center"
+      >
+        <RecommendedProducts products={products} />
       </section>
     </main>
   );
