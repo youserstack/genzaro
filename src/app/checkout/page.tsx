@@ -8,6 +8,7 @@ import OrderProductInfo from "./OrderProductInfo";
 import ShippingInfo from "./ShippingInfo";
 import { formatPrice } from "@/utils/formatPrice";
 import { PayPalButtons, PayPalButtonsComponentProps } from "@paypal/react-paypal-js";
+import { postOrder } from "@/utils/createOrder";
 
 export default function page() {
   const router = useRouter();
@@ -34,8 +35,16 @@ export default function page() {
       return Promise.reject(new Error("주문 작업을 찾을 수 없습니다."));
     }
 
-    return actions.order.capture().then((details) => {
-      console.log("결제가 성공적으로 완료되었습니다:", details);
+    // capture를 실행하여 결제진행
+    return actions.order.capture().then(async (details) => {
+      console.log("결제가 성공적으로 완료되었습니다(페이팔)", details);
+      const order = {
+        products: checkout.products,
+        shippingInfo: checkout.shippingInfo,
+        paymentInfo: details,
+      };
+      console.log({ order });
+      await postOrder(order);
       alert(`결제가 완료되었습니다.`);
     });
   };

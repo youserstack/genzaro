@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  console.log(request.url);
+  // console.log(request.url);
 
   // 토큰추출과 토큰인코딩
   // const token = await getToken({ req: request, secret: process.env.NEXTAUTH_SECRET });

@@ -2,24 +2,20 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import Logout from "./Logout";
+import { getUser } from "@/utils/getUser";
 
 export default async function UserMenu() {
   let user = null;
   const cookieStore = await cookies();
-  const sessionId = cookieStore.get("connect.sid");
-  if (sessionId) {
+  const sessionCookie = cookieStore.get("connect.sid");
+  if (sessionCookie) {
     try {
-      const res = await fetch(`${process.env.DEFAULT_API_URL}/profile`, {
-        headers: { Cookie: `connect.sid=${sessionId.value}` },
-      });
-
-      if (!res.ok) throw new Error("유저정보패칭에러");
-      const data = await res.json();
-      user = data.user;
+      user = await getUser(sessionCookie);
     } catch (error) {
-      console.error(error);
+      user = null;
     }
   }
+  // console.log({ user });
 
   return (
     <>
@@ -42,15 +38,22 @@ export default async function UserMenu() {
             pt-2
             "
           >
-            <div className="ModalLayer 모달레이어 border border-neutral-200 bg-white shadow-md text-black p-4 rounded-md">
-              <ul>
+            <div
+              className="ModalLayer 모달레이어 
+              divide-y
+              border border-neutral-200 bg-white shadow-md text-black p-4 rounded-md
+              "
+            >
+              <ul className="pb-2 space-y-2">
                 <li>내 정보</li>
                 <li>대시보드</li>
                 <li>관심상품</li>
                 <li>주문내역</li>
               </ul>
 
-              <Logout />
+              <div className="pt-2">
+                <Logout />
+              </div>
             </div>
           </div>
         </div>
@@ -66,7 +69,7 @@ export default async function UserMenu() {
   );
   // return (
   //   <>
-  //     {sessionId && user ? (
+  //     {sessionCookie && user ? (
   //       <div className="UserMenu 유저메뉴 relative flex group">
   //         <div
   //           className="ImageContainer

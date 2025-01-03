@@ -1,21 +1,4 @@
-import { createContext, useEffect, useState } from "react";
-
-interface ShippingInfo {
-  method: "standard" | "express" | "same-day" | "scheduled" | "pickup-location";
-  recipent: string;
-  address: string;
-  phone: string;
-  cost: number;
-  instructions?: string;
-  message?: string;
-  note?: string;
-}
-
-interface Checkout {
-  products: GroupedProduct[];
-  shippingInfo: ShippingInfo;
-  total: number;
-}
+import { createContext, useState } from "react";
 
 const initialCheckout: Checkout = {
   products: [],

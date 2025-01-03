@@ -49,13 +49,10 @@ const items = [
 export default function Signin() {
   const router = useRouter();
 
-  // const handleSignin = async (item: (typeof items)[number]) => {
-  //   await signIn(item.id, { redirect: true, callbackUrl: "/callback" });
-  // };
-
-  const handleSigninWithNaver = async () => {
-    router.push(`${process.env.DEFAULT_API_URL}/auth/naver`);
+  const handleSignin = async (item: (typeof items)[number]) => {
+    router.push(`${process.env.DEFAULT_API_URL}/auth/${item.id}`);
     // router.push("http://localhost:7000/api/auth/naver");
+    // await signIn(item.id, { redirect: true, callbackUrl: "/callback" });
   };
 
   return (
@@ -70,7 +67,7 @@ export default function Signin() {
           <Header />
 
           <div className="mt-5">
-            {/* <div className="Oauth flex flex-col gap-2">
+            <div className="Oauth flex flex-col gap-2">
               {items.map((item) => (
                 <button
                   className="
@@ -99,9 +96,7 @@ export default function Signin() {
                   {item.label}
                 </button>
               ))}
-            </div> */}
-
-            <button onClick={handleSigninWithNaver}>네이버 로그인</button>
+            </div>
 
             {/* <Partition />
             <GeneralSigninForm /> */}

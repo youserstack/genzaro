@@ -35,3 +35,26 @@ interface GroupedProduct {
   product: Product; // 팝퓰레잇될 제품
   items: Item[]; // 병합될 아이템들
 }
+
+interface ShippingInfo {
+  method: "standard" | "express" | "same-day" | "scheduled" | "pickup-location";
+  recipent: string;
+  address: string;
+  phone: string;
+  cost: number;
+  instructions?: string;
+  message?: string;
+  note?: string;
+}
+
+interface Checkout {
+  products: GroupedProduct[];
+  shippingInfo: ShippingInfo;
+  total: number;
+}
+
+interface Order {
+  products: GroupedProduct[];
+  shippingInfo: ShippingInfo;
+  paymentInfo: any;
+}
