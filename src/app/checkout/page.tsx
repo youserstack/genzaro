@@ -8,7 +8,7 @@ import OrderProductInfo from "./OrderProductInfo";
 import ShippingInfo from "./ShippingInfo";
 import { formatPrice } from "@/utils/formatPrice";
 import { PayPalButtons, PayPalButtonsComponentProps } from "@paypal/react-paypal-js";
-import { postOrder } from "@/utils/createOrder";
+import { postOrder } from "@/utils/postOrder";
 
 export default function page() {
   const router = useRouter();
@@ -18,6 +18,7 @@ export default function page() {
   const handleClick = () => setOpen(true);
 
   const createOrder: PayPalButtonsComponentProps["createOrder"] = (data, actions) => {
+    console.log({ data, actions });
     return actions.order
       .create({
         intent: "CAPTURE",
@@ -59,9 +60,9 @@ export default function page() {
   };
 
   useEffect(() => {
-    // if (!checkout.products.length) {
-    //   router.push("/cart");
-    // }
+    if (!checkout.products.length) {
+      router.push("/cart");
+    }
 
     console.log({ checkout });
   }, []);

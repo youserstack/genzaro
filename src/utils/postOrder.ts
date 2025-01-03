@@ -8,14 +8,14 @@ export async function postOrder(order: Order) {
     //   credentials: "include",
     // });
 
-    const res = await fetch(`/api/order`, {
+    const res = await fetch(`/api/orders`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(order),
       //   세임오리진이면 쿠키를 자동으로 보낸다.
       //   credentials: "include",
     });
-    if (!res.ok) throw new Error("주문요청실패(앱서버:express)");
+    if (!res.ok) throw new Error("주문요청실패");
   } catch (error) {
     console.error(error);
   }
