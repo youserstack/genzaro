@@ -8,6 +8,7 @@ export default async function UserMenu() {
   let user = null;
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get("connect.sid");
+
   if (sessionCookie) {
     try {
       user = await getUser(sessionCookie);

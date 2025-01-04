@@ -10,10 +10,12 @@ import { formatPrice } from "@/utils/formatPrice";
 import { PayPalButtons, PayPalButtonsComponentProps } from "@paypal/react-paypal-js";
 import { postOrder } from "@/utils/postOrder";
 import { convertKRWToUSD } from "@/utils/currencyConverter";
+import { CartContext } from "@/components/context/cart/CartContext";
 
 export default function page() {
   const router = useRouter();
-  const { checkout } = useContext(CheckoutContext);
+  const { checkout, clearCheckout } = useContext(CheckoutContext);
+  const { removeGroupedProduct } = useContext(CartContext);
   const [open, setOpen] = useState(false);
 
   const handleClick = () => setOpen(true);
@@ -41,15 +43,23 @@ export default function page() {
 
     // capture를 실행하여 결제진행
     return actions.order.capture().then(async (details) => {
-      console.log("결제가 성공적으로 완료되었습니다(페이팔)", details);
-      const order = {
-        products: checkout.products,
-        shippingInfo: checkout.shippingInfo,
-        paymentInfo: details,
-      };
-      console.log({ order });
-      await postOrder(order);
-      alert(`결제가 완료되었습니다.`);
+      try {
+        const newOrder = await postOrder({
+          products: checkout.products,
+          shippingInfo: checkout.shippingInfo,
+          paymentInfo: details,
+        });
+        console.log("결제가 성공적으로 완료되었습니다(페이팔)", { newOrder });
+        alert(`결제가 완료되었습니다.`);
+        clearCheckout();
+        checkout.products.forEach((groupedProduct) =>
+          removeGroupedProduct(groupedProduct.product._id)
+        );
+        setOpen(false);
+        router.push("/cart");
+      } catch (error) {
+        console.error(error);
+      }
     });
   };
 

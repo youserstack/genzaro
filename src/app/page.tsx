@@ -5,8 +5,7 @@ import { fetcher } from "../utils/fetcher";
 
 export default async function Home() {
   const products = await fetcher("products");
-
-  console.log({ products });
+  // console.log({ products });
 
   return (
     <main>
@@ -14,7 +13,7 @@ export default async function Home() {
         <Carousel />
       </section> */}
 
-      {/* <section
+      <section
         className="max-w-screen-xl min-h-screen mx-auto py-[100px] 
         flex flex-col justify-center items-center"
       >
@@ -33,7 +32,7 @@ export default async function Home() {
         flex flex-col justify-center items-center"
       >
         <RecommendedProductList products={products} />
-      </section> */}
+      </section>
     </main>
   );
 }

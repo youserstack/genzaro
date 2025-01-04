@@ -15,9 +15,11 @@ const initialCheckout: Checkout = {
 export const CheckoutContext = createContext<{
   checkout: Checkout;
   setProducts: (products: GroupedProduct[]) => void;
+  clearCheckout: () => void;
 }>({
   checkout: initialCheckout,
   setProducts: () => {},
+  clearCheckout: () => {},
 });
 
 export const CheckoutProvider = ({ children }: { children: React.ReactNode }) => {
@@ -39,8 +41,12 @@ export const CheckoutProvider = ({ children }: { children: React.ReactNode }) =>
     }));
   };
 
+  const clearCheckout = () => {
+    setCheckout(initialCheckout);
+  };
+
   return (
-    <CheckoutContext.Provider value={{ checkout, setProducts }}>
+    <CheckoutContext.Provider value={{ checkout, setProducts, clearCheckout }}>
       {children}
     </CheckoutContext.Provider>
   );
