@@ -6,6 +6,7 @@ export async function postOrder(order: Order) {
       body: JSON.stringify(order),
     });
     if (!res.ok) throw new Error("주문요청실패");
+    return res.json();
   } catch (error) {
     console.error(error);
   }
