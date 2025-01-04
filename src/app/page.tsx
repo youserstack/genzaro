@@ -4,8 +4,9 @@ import RecommendedProductList from "@/components/RecommendedProductList";
 import { fetcher } from "../utils/fetcher";
 
 export default async function Home() {
-  // const products = await fetcher("products");
-  // console.log({ products });
+  const products = await fetcher("products");
+
+  console.log({ products });
 
   return (
     <main>

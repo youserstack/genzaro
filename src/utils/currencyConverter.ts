@@ -15,6 +15,8 @@ export function convertUSDToKRW(usdAmount: number): number {
     throw new Error("유효한 달러 금액을 입력하세요.");
   }
 
+  // 원화는 소수점이하를 표시하지 않는것을 더 권장
   // 100을 곱하고 Math.round로 반올림 후 다시 100으로 나누어 소수점 두 자리 고정
-  return Math.round(usdAmount * (1 / FIXED_EXCHANGE_RATE) * 100) / 100;
+  //   return Math.round(usdAmount * (1 / FIXED_EXCHANGE_RATE) * 100) / 100;
+  return Math.round(usdAmount * (1 / FIXED_EXCHANGE_RATE));
 }

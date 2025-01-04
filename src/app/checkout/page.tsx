@@ -9,6 +9,7 @@ import ShippingInfo from "./ShippingInfo";
 import { formatPrice } from "@/utils/formatPrice";
 import { PayPalButtons, PayPalButtonsComponentProps } from "@paypal/react-paypal-js";
 import { postOrder } from "@/utils/postOrder";
+import { convertKRWToUSD } from "@/utils/currencyConverter";
 
 export default function page() {
   const router = useRouter();
@@ -18,14 +19,16 @@ export default function page() {
   const handleClick = () => setOpen(true);
 
   const createOrder: PayPalButtonsComponentProps["createOrder"] = (data, actions) => {
-    console.log({ data, actions });
     return actions.order
       .create({
         intent: "CAPTURE",
-        purchase_units: [{ amount: { currency_code: "USD", value: "10" } }],
+        purchase_units: [
+          { amount: { currency_code: "USD", value: `${convertKRWToUSD(checkout.total)}` } },
+        ],
+        // purchase_units: [{ amount: { currency_code: "USD", value: "10" } }],
       })
       .then((orderId: string) => {
-        console.log({ orderId });
+        // console.log({ orderId });
         return orderId;
       });
   };

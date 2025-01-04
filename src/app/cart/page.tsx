@@ -2,7 +2,6 @@
 
 import GroupedProductsBySeller from "@/components/cart/GroupedProductsBySeller";
 import { CartContext } from "@/components/context/cart/CartContext";
-import { fetcher } from "@/utils/fetcher";
 import { useContext, useEffect, useState } from "react";
 
 export default function Cart() {
@@ -26,7 +25,8 @@ export default function Cart() {
 
       try {
         // 제품데이터 패칭
-        const products: Product[] = await fetcher(`products?${searchParams.toString()}`);
+        const res = await fetch(`/api/products?${searchParams.toString()}`);
+        const products: Product[] = await res.json();
         // console.log({ products });
 
         // 그룹핑

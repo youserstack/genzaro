@@ -15,7 +15,7 @@ export default async function UserMenu() {
       user = null;
     }
   }
-  // console.log({ user });
+  console.log({ user });
 
   return (
     <>
@@ -111,3 +111,18 @@ export default async function UserMenu() {
   //   </>
   // );
 }
+// "use client";
+// import { useEffect, useState } from "react";
+// const [user, setUser]: any = useState(null);
+// useEffect(() => {
+//   (async function getProfile() {
+//     try {
+//       const res = await fetch("/api/profile");
+//       const { user } = await res.json();
+//       console.log({ user });
+//       setUser(user);
+//     } catch (error) {
+//       console.log({ error });
+//     }
+//   })();
+// }, []);
