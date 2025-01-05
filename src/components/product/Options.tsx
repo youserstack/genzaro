@@ -31,27 +31,12 @@ function Colors({
               <label
                 htmlFor={color.name}
                 className={`Outer_Round
-              peer-checked:ring-2 /ring-black/80
-              p-[2px] rounded-full 
-
-              ${color.name === "black" ? "ring-black" : ""}
-              ${color.name === "white" ? "ring-black/30 dark:ring-white" : ""}
-              
-              ${color.name === "red" ? "ring-red-500" : ""}
-              ${color.name === "orange" ? "ring-orange-500" : ""}
-              ${color.name === "amber" ? "ring-amber-500" : ""}
-              ${color.name === "yellow" ? "ring-yellow-500" : ""}
-              ${color.name === "green" ? "ring-green-500" : ""}
-              ${color.name === "blue" ? "ring-blue-500" : ""}
-              ${color.name === "purple" ? "ring-purple-500" : ""}
-              ${color.name === "pink" ? "ring-pink-500" : ""}
-              ${color.name === "gray" ? "ring-gray-500" : ""}
-              `}
+                p-[2px] rounded-full peer-checked:ring-2 ${color.ring} `}
               >
                 <div
-                  className={`Inner_Round 
-                w-8 h-8  rounded-full border-[1px] border-black/10  cursor-pointer
-                ${color.class} `}
+                  className={`Inner_Round
+                  w-8 h-8 rounded-full border-[1px] border-black/10 
+                  cursor-pointer ${color.bg} `}
                 />
               </label>
             </div>

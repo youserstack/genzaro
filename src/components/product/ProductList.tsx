@@ -2,9 +2,9 @@ import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 
-type Props = {
+interface Props {
   products: Product[];
-};
+}
 
 export default function ProductList({ products }: Props) {
   return (

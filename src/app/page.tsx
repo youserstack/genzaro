@@ -2,9 +2,11 @@ import ProductList from "@/components/product/ProductList";
 import Carousel from "@/components/Carousel";
 import RecommendedProductList from "@/components/RecommendedProductList";
 import { fetcher } from "../utils/fetcher";
+import MoreProductList from "@/components/product/MoreProductList";
 
 export default async function Home() {
-  const products = await fetcher("products");
+  const latestProducts = await fetcher("products?sort=latest");
+  const poppularProducts = await fetcher("products?sort=popular");
   // console.log({ products });
 
   return (
@@ -24,14 +26,15 @@ export default async function Home() {
           최신상품
         </h1>
 
-        <ProductList products={products} />
+        {/* <ProductList products={latestProducts} /> */}
+        <MoreProductList initialProducts={latestProducts} />
       </section>
 
       <section
         className="max-w-screen-xl min-h-screen mx-auto py-[100px] 
         flex flex-col justify-center items-center"
       >
-        <RecommendedProductList products={products} />
+        <RecommendedProductList products={poppularProducts} />
       </section>
     </main>
   );
