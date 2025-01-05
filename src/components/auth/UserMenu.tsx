@@ -8,7 +8,6 @@ export default async function UserMenu() {
   let user = null;
   const cookieStore = await cookies();
   const sessionCookie = cookieStore.get("connect.sid");
-
   if (sessionCookie) {
     try {
       user = await getUser(sessionCookie);
@@ -34,7 +33,7 @@ export default async function UserMenu() {
 
           <div
             className="PositionLayer 포지션레이어
-            #position absolute top-full right-0
+            absolute top-full right-0
             hidden group-hover:block /peer-hover:block /hover:block
             pt-2
             "
@@ -42,19 +41,33 @@ export default async function UserMenu() {
             <div
               className="ModalLayer 모달레이어 
               divide-y
-              border border-neutral-200 bg-white shadow-md text-black p-4 rounded-md
+              border border-neutral-200 bg-white shadow-md text-black /p-4 rounded-md
               "
             >
-              <ul className="pb-2 space-y-2">
-                <li>내 정보</li>
-                <li>대시보드</li>
-                <li>관심상품</li>
-                <li>주문내역</li>
+              <ul
+                className="flex flex-col
+                [&_a]:block
+                [&_a]:size-full
+                [&_a]:px-4
+                [&_a]:py-2
+                [&_a:hover]:bg-neutral-100
+                "
+              >
+                <li>
+                  <Link href={""}>내 정보</Link>
+                </li>
+                <li>
+                  <Link href={""}>대시보드</Link>
+                </li>
+                <li>
+                  <Link href={""}>관심상품</Link>
+                </li>
+                <li>
+                  <Link href={"/orders"}>주문내역</Link>
+                </li>
               </ul>
 
-              <div className="pt-2">
-                <Logout />
-              </div>
+              <Logout />
             </div>
           </div>
         </div>
@@ -84,7 +97,7 @@ export default async function UserMenu() {
 
   //         <div
   //           className="PositionLayer 포지션레이어
-  //           #position absolute top-full right-0
+  //           absolute top-full right-0
   //           hidden group-hover:block /peer-hover:block /hover:block
   //           pt-2
   //           "

@@ -16,7 +16,7 @@ type Props = {
   products: GroupedProduct[];
 };
 
-function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
+export function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   const { product, items } = groupedProduct;
   const { removeItem, removeGroupedProduct } = useContext(CartContext);
   const [open, setOpen] = useState(false);
@@ -149,8 +149,8 @@ export default function GroupedProductsBySeller({ seller, products }: Props) {
   return (
     <li
       className="GroupedProductsBySeller 아이템
-      #size min-h-[150px] p-4
-      #deco shadow-md
+      min-h-[150px] p-4
+      shadow-md
       bg-white
       border border-neutral-200 rounded-xl
       divide-y divide-neutral-200

@@ -71,8 +71,8 @@ export default function Signin() {
               {items.map((item) => (
                 <button
                   className="
-                  #size w-full px-4 py-3 
-                  #deco text-sm font-medium rounded-lg border shadow-sm 
+                  w-full px-4 py-3 
+                  text-sm font-medium rounded-lg border shadow-sm 
                   #display inline-flex justify-center items-center gap-x-2 
                   focus:outline-none  
                   disabled:opacity-50 

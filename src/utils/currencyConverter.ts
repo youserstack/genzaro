@@ -11,6 +11,8 @@ export function convertKRWToUSD(krwAmount: number): number {
 }
 
 export function convertUSDToKRW(usdAmount: number): number {
+  console.log({ usdAmount });
+
   if (typeof usdAmount !== "number" || usdAmount < 0) {
     throw new Error("유효한 달러 금액을 입력하세요.");
   }

@@ -2,7 +2,6 @@
 
 import { createContext, useState } from "react";
 import { CartProvider } from "./cart/CartContext";
-// import { SessionProvider } from "next-auth/react";
 import { CheckoutProvider } from "./checkout/CheckoutContext";
 import { PayPalScriptProvider, ReactPayPalScriptOptions } from "@paypal/react-paypal-js";
 
@@ -31,7 +30,5 @@ export const Provider = ({ children, mode }: { children: React.ReactNode; mode?:
         </CartProvider>
       </Context.Provider>
     </PayPalScriptProvider>
-    // <SessionProvider>
-    // </SessionProvider>
   );
 };

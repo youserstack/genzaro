@@ -17,8 +17,8 @@ export default function Logout() {
   };
 
   return (
-    <div>
-      <button onClick={handleSignout}>로그아웃</button>
-    </div>
+    <button onClick={handleSignout} className="px-4 py-2 hover:bg-neutral-100">
+      로그아웃
+    </button>
   );
 }

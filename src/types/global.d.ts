@@ -54,6 +54,7 @@ interface Checkout {
 }
 
 interface Order {
+  _id?: string;
   products: GroupedProduct[];
   shippingInfo: ShippingInfo;
   paymentInfo: any;

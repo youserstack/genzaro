@@ -12,6 +12,25 @@ import { postOrder } from "@/utils/postOrder";
 import { convertKRWToUSD } from "@/utils/currencyConverter";
 import { CartContext } from "@/components/context/cart/CartContext";
 
+function CheckoutDetails({ total }: { total: number }) {
+  return (
+    <div
+      className="CheckoutDetails 결제상세
+      p-4 rounded-lg shadow-md 
+      border border-neutral-200 bg-white 
+      divide-y 
+      "
+    >
+      <h1 className="p-2 text-xl font-bold">결제상세</h1>
+
+      <div className="px-2 pt-4 flex justify-between">
+        <p>신용카드</p>
+        <p>결제금액 : {formatPrice(total)}</p>
+      </div>
+    </div>
+  );
+}
+
 export default function page() {
   const router = useRouter();
   const { checkout, clearCheckout } = useContext(CheckoutContext);
@@ -95,27 +114,7 @@ export default function page() {
 
         <div className="col-span-1">
           <div className="sticky top-[100px] space-y-4">
-            <div
-              className="CheckoutDetails 결제상세
-              p-4 rounded-lg shadow-md 
-              border border-neutral-200 bg-white 
-              divide-y 
-              "
-            >
-              <h1 className="p-2 text-xl font-bold">결제상세</h1>
-
-              <div className="px-2 pt-4 flex justify-between">
-                <p>신용카드</p>
-                <p>결제금액 : {formatPrice(checkout.total)}</p>
-              </div>
-            </div>
-
-            <div className="bg-white rounded-lg shadow-md p-4">
-              <h1>결제상세</h1>
-            </div>
-            <div className="bg-white rounded-lg shadow-md p-4">
-              <h1>결제상세</h1>
-            </div>
+            <CheckoutDetails total={checkout.total} />
           </div>
         </div>
       </section>
