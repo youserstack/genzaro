@@ -91,6 +91,7 @@ export default function Signin() {
                   type="button"
                   key={item.id}
                   onClick={() => handleSignin(item)}
+                  disabled={item.id === "google" || item.id === "kakao"}
                 >
                   {item.icon}
                   {item.label}
