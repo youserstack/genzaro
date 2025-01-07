@@ -5,7 +5,7 @@ interface SessionCookie {
 
 export async function getUser(sessionCookie: SessionCookie) {
   try {
-    const res = await fetch(`${process.env.DEFAULT_API_URL}/profile`, {
+    const res = await fetch(`${process.env.API_URL}/api/profile`, {
       headers: { Cookie: `connect.sid=${sessionCookie.value}` },
     });
     if (!res.ok) throw new Error("유저정보패칭에러");

@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   env: {
-    DEFAULT_API_URL: process.env.DEFAULT_API_URL,
+    API_URL: process.env.API_URL,
     PAYPAL_CLIENT_ID: process.env.PAYPAL_CLIENT_ID,
   },
   images: {
@@ -25,8 +25,9 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:7000/api/:path*",
+        destination: "https://express-server-obqa.onrender.com/api/:path*",
       },
+      // destination: "http://localhost:7000/api/:path*",
     ];
   },
 };

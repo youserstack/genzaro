@@ -50,14 +50,14 @@ export default function Signin() {
   const router = useRouter();
 
   const handleSignin = async (item: (typeof items)[number]) => {
-    router.push(`${process.env.DEFAULT_API_URL}/auth/${item.id}`);
-    // router.push("http://localhost:7000/api/auth/naver");
-    // await signIn(item.id, { redirect: true, callbackUrl: "/callback" });
+    // router.push(`${process.env.API_URL}/api/auth/${item.id}`);
+    console.log(`${process.env.API_URL}/api/auth/${item.id}`);
+    // router.push(`https://express-server-obqa.onrender.com/api/auth/${item.id}`);
   };
 
   return (
     <main className="min-h-screen pt-[150px]">
-      <section className="max-w-screen-lg px-4 py-12 lg:px-8">
+      <section className="max-w-screen-lg mx-auto px-4 py-12 lg:px-8">
         <div
           className="로그인_박스 w-[300px] mx-auto sm:w-[400px] p-4 sm:p-7 mt-7 
           shadow-sm border rounded-xl

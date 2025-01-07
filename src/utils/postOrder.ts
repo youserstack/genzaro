@@ -1,3 +1,5 @@
+// client fetcher
+
 export async function postOrder(order: Order) {
   try {
     const res = await fetch(`/api/orders`, {
