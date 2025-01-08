@@ -16,7 +16,7 @@ type Props = {
   products: GroupedProduct[];
 };
 
-export function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
+function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   const { product, items } = groupedProduct;
   const { removeItem, removeGroupedProduct } = useContext(CartContext);
   const [open, setOpen] = useState(false);
