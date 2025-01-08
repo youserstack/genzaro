@@ -191,7 +191,7 @@ export default function Carousel() {
           "></span>`,
       }}
       keyboard={{ enabled: true }}
-      // autoplay={{ delay: 4000 }}
+      autoplay={{ delay: 4000, pauseOnMouseEnter: true }}
       slidesPerView={slidesPerView}
       speed={1000}
       centeredSlides

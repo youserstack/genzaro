@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import Image from "next/image";
 import Link from "next/link";
 import Logout from "./Logout";
-import { getUser } from "@/utils/getUser";
+import { getUser } from "@/utils/fetchAPI";
 
 export default async function UserMenu() {
   let user = null;

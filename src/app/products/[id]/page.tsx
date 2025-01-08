@@ -1,4 +1,4 @@
-import { fetcher } from "@/utils/fetcher";
+import { fetchAPI } from "@/utils/fetchAPI";
 import Breadcrumb from "@/components/product/Breadcrumb";
 import ProductInfo from "@/components/product/ProductInfo";
 import Gallery from "@/components/product/Gallery";
@@ -8,7 +8,7 @@ type Props = {
 };
 
 export default async function ProductDetail({ params }: Props) {
-  const product: Product = await fetcher(`products/${(await params).id}`);
+  const product: Product = await fetchAPI(`products/${(await params).id}`);
   console.log({ product });
 
   return (

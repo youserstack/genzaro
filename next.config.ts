@@ -7,7 +7,6 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      //
       { hostname: "shopping-phinf.pstatic.net" },
       { hostname: "blog-next-app.tooroo.rf.gd" },
       { hostname: "store.storeimages.cdn-apple.com" },
@@ -25,9 +24,8 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "https://express-server-obqa.onrender.com/api/:path*",
+        destination: `${process.env.API_URL}/api/:path*`,
       },
-      // destination: "http://localhost:7000/api/:path*",
     ];
   },
 };

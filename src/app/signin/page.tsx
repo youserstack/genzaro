@@ -1,7 +1,6 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-// import { signIn } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
 import { SiKakaotalk, SiNaver } from "react-icons/si";
 
@@ -50,9 +49,8 @@ export default function Signin() {
   const router = useRouter();
 
   const handleSignin = async (item: (typeof items)[number]) => {
+    router.push(`/api/auth/${item.id}`);
     // router.push(`${process.env.API_URL}/api/auth/${item.id}`);
-    console.log(`${process.env.API_URL}/api/auth/${item.id}`);
-    // router.push(`https://express-server-obqa.onrender.com/api/auth/${item.id}`);
   };
 
   return (

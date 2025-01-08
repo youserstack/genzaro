@@ -1,19 +1,19 @@
 import ProductList from "@/components/product/ProductList";
 import Carousel from "@/components/Carousel";
 import RecommendedProductList from "@/components/RecommendedProductList";
-import { fetcher } from "../utils/fetcher";
+import { fetchAPI } from "../utils/fetchAPI";
 import MoreProductList from "@/components/product/MoreProductList";
 
 export default async function Home() {
-  const latestProducts = await fetcher("products?sort=latest");
-  const poppularProducts = await fetcher("products?sort=popular");
+  const latestProducts = await fetchAPI("products?sort=latest");
+  const poppularProducts = await fetchAPI("products?sort=popular");
   // console.log({ products });
 
   return (
     <main>
-      {/* <section className="pt-[50px] md:pt-[40px]">
+      <section className="pt-[50px] md:pt-[40px]">
         <Carousel />
-      </section> */}
+      </section>
 
       <section
         className="max-w-screen-xl min-h-screen mx-auto py-[100px] 
