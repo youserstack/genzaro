@@ -24,7 +24,8 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: `${process.env.API_URL}/api/:path*`,
+        destination: `https://express-server-obqa.onrender.com/api/:path*`,
+        // destination: `${process.env.API_URL}/api/:path*`,
       },
     ];
   },
