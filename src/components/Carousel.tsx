@@ -179,7 +179,7 @@ export default function Carousel() {
         el: ".swiper-pagination",
         type: "bullets", // 기본값
         clickable: true, // 점 클릭 시 슬라이드 이동 가능
-        renderBullet: (_index, className) =>
+        renderBullet: (_, className) =>
           `<span class="
                 ${className} 
                 !w-[10px] !h-[10px] !bg-white !mx-2 
@@ -204,7 +204,7 @@ export default function Carousel() {
       // onSwiper={(swiper) => console.log(swiper)}
     >
       {/* swiper slides */}
-      {brands.map((brand, _index) => {
+      {brands.map((brand) => {
         return (
           <SwiperSlide
             key={brand.name}
