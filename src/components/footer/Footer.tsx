@@ -1,6 +1,3 @@
-import Link from "next/link";
-import { SiInstagram, SiMeta, SiYoutube } from "react-icons/si";
-
 const menuItems = [
   {
     title: "안내",

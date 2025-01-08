@@ -109,7 +109,7 @@ export default function page() {
         <div className="col-span-3">
           <ul className="OrderList space-y-4">
             {orders.map((order) => {
-              const total = order.paymentInfo.purchase_units.reduce(
+              const total = (order.paymentInfo as any).purchase_units.reduce(
                 (a: any, v: any) => a + convertUSDToKRW(Number(v.amount.value)),
                 0
               );

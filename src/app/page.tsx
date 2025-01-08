@@ -1,4 +1,3 @@
-import ProductList from "@/components/product/ProductList";
 import Carousel from "@/components/Carousel";
 import RecommendedProductList from "@/components/RecommendedProductList";
 import { fetchAPI } from "../utils/fetchAPI";
@@ -26,7 +25,6 @@ export default async function Home() {
           최신상품
         </h1>
 
-        {/* <ProductList products={latestProducts} /> */}
         <MoreProductList initialProducts={latestProducts} />
       </section>
 

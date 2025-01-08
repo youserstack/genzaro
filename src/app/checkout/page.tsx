@@ -31,7 +31,7 @@ function CheckoutDetails({ total }: { total: number }) {
   );
 }
 
-export default function page() {
+export default function Checkout() {
   const router = useRouter();
   const { checkout, clearCheckout } = useContext(CheckoutContext);
   const { removeGroupedProduct } = useContext(CartContext);

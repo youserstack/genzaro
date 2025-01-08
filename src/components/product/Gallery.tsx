@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 type Props = {
   product: Product;
 };
@@ -12,9 +14,11 @@ export default function Gallery({ product }: Props) {
       /border border-black/10
       "
     >
-      <img
+      <Image
         alt={""}
         src={product.image}
+        width={1000}
+        height={1000}
         className="
         aspect-[4/3] lg:aspect-[16/9] 
         size-full object-cover 
