@@ -70,7 +70,7 @@ export function Row({ groupedProduct }: { groupedProduct: GroupedProduct }) {
   );
 }
 
-export default function page() {
+export default function OrderList() {
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
@@ -109,8 +109,8 @@ export default function page() {
         <div className="col-span-3">
           <ul className="OrderList space-y-4">
             {orders.map((order) => {
-              const total = (order.paymentInfo as any).purchase_units.reduce(
-                (a: any, v: any) => a + convertUSDToKRW(Number(v.amount.value)),
+              const total = order.paymentInfo.purchase_units.reduce(
+                (a, v) => a + convertUSDToKRW(Number(v.amount.value)),
                 0
               );
               return (

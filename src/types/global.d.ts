@@ -53,9 +53,15 @@ interface Checkout {
   total: number;
 }
 
+interface PaymentInfo {
+  purchase_units: {
+    amount: { value: string };
+  }[];
+}
+
 interface Order {
   _id?: string;
   products: GroupedProduct[];
   shippingInfo: ShippingInfo;
-  paymentInfo: unknown;
+  paymentInfo: PaymentInfo;
 }

@@ -26,7 +26,8 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const addItem = (newItem: Item) => {
     setCart((state) => {
       // 아이템 추가
-      const { quantity, total, ...rest } = newItem;
+      const { quantity, ...rest } = newItem;
+      // const { quantity, total, ...rest } = newItem;
       const items = structuredClone(state.items);
       const foundItem = items.find((item) =>
         Object.keys(rest).every((key) => rest[key] === item[key])

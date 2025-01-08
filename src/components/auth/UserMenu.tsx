@@ -12,6 +12,7 @@ export default async function UserMenu() {
     try {
       user = await getUser(sessionCookie);
     } catch (error) {
+      console.error(error);
       user = null;
     }
   }

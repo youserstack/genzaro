@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { CartContext } from "../context/cart/CartContext";
 import { formatPrice } from "@/utils/formatPrice";
 import OrderEditModal from "./OrderEditModal";
@@ -141,7 +141,7 @@ export default function GroupedProductsBySeller({ seller, products }: Props) {
   const { setProducts } = useContext(CheckoutContext);
   const router = useRouter();
 
-  const handleSubmit = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = () => {
     setProducts(products);
     router.push("/checkout");
   };

@@ -19,17 +19,17 @@ const Header = () => (
   </div>
 );
 
-const Partition = () => (
-  <div
-    className="파티션 flex items-center py-3 text-xs uppercase 
-  text-neutral-400 dark:text-neutral-500 
-    before:flex-1 before:border-t before:border-neutral-200 before:me-6 
-    after:flex-1 after:border-t after:border-neutral-200 after:ms-6 
-  dark:before:border-neutral-600 dark:after:border-neutral-600"
-  >
-    Or
-  </div>
-);
+// const Partition = () => (
+//   <div
+//     className="파티션 flex items-center py-3 text-xs uppercase
+//   text-neutral-400 dark:text-neutral-500
+//     before:flex-1 before:border-t before:border-neutral-200 before:me-6
+//     after:flex-1 after:border-t after:border-neutral-200 after:ms-6
+//   dark:before:border-neutral-600 dark:after:border-neutral-600"
+//   >
+//     Or
+//   </div>
+// );
 
 const items = [
   { id: "google", icon: <FcGoogle className="w-[1.2rem] h-auto" />, label: "구글로 로그인" },
