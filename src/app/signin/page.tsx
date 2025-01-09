@@ -50,6 +50,7 @@ export default function Signin() {
 
   const handleSignin = async (item: (typeof items)[number]) => {
     router.push(`/api/auth/${item.id}`);
+    // router.push(`http://localhost:7000/api/auth/${item.id}`);
     // router.push(`${process.env.API_URL}/api/auth/${item.id}`);
   };
 
