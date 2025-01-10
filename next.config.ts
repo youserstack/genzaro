@@ -27,7 +27,6 @@ const nextConfig: NextConfig = {
         destination: `https://express-server-pi-seven.vercel.app/api/:path*`,
         // destination: `https://express-server-obqa.onrender.com/api/:path*`,
         // destination: `http://localhost:7000/api/:path*`,
-        // destination: `${process.env.API_URL}/api/:path*`,
       },
     ];
   },

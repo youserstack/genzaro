@@ -29,7 +29,11 @@ export default function RecommendedProductList({ products }: Props) {
         "
       >
         {products.map((product) => (
-          <Link key={product.productId} href={""} className="group inline-block py-4">
+          <Link
+            key={product.productId}
+            href={`/products/${product._id}`}
+            className="group inline-block py-4"
+          >
             <Image
               alt={""}
               src={
