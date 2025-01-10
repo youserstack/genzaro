@@ -23,8 +23,8 @@ export default function Options({ product }: Props) {
     const form = e.currentTarget as HTMLFormElement;
     const formData = new FormData(form);
     const submittedData = Object.fromEntries(formData.entries());
-    console.log({ submittedData });
-    return;
+    // console.log({ submittedData });
+    // return;
 
     if (!submittedData.color || !submittedData.size || !submittedData.quantity) {
       alert("옵션을 선택해주세요.");
