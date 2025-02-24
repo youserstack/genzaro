@@ -9,12 +9,13 @@ export default function OrderList() {
   const [orders, setOrders] = useState<Order[]>([]);
 
   useEffect(() => {
-    const getOrders = async () => {
+    async function getOrders() {
       const res = await fetch("/api/orders");
+      if (!res.ok) return console.error("getOrders error");
       const orders = await res.json();
       console.log({ orders });
       setOrders(orders);
-    };
+    }
     getOrders();
   }, []);
 

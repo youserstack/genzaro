@@ -10,7 +10,8 @@ export default async function UserMenu() {
   const sessionCookie = cookieStore.get("connect.sid");
   if (sessionCookie) {
     try {
-      user = await getUser(sessionCookie);
+      const data = await getUser(sessionCookie);
+      user = data.user;
     } catch (error) {
       console.error(error);
       user = null;

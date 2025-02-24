@@ -32,9 +32,7 @@ export default function RootLayout({
         className="x-default-color overflow-x-hidden"
         // className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Provider
-        // mode={mode}
-        >
+        <Provider>
           <Header />
           {children}
           <Footer />

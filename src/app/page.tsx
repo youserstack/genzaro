@@ -1,12 +1,23 @@
 import Carousel from "@/components/Carousel";
 import RecommendedProductList from "@/components/RecommendedProductList";
-import { fetchAPI } from "../utils/fetchAPI";
 import MoreProductList from "@/components/product/MoreProductList";
 
+// export const dynamic = "force-static";
+export const revalidate = 60;
+
+async function getProducts(url: string) {
+  const res = await fetch(`${process.env.API_URL}/api/${url}`, {
+    next: { tags: ["products"] },
+  });
+  if (!res.ok) return undefined;
+  return res.json();
+}
+
 export default async function Home() {
-  const latestProducts = await fetchAPI("products?sort=latest");
-  const poppularProducts = await fetchAPI("products?sort=popular");
-  // console.log({ products });
+  const [latestProducts, poppularProducts] = await Promise.all([
+    getProducts("products?sort=latest"),
+    getProducts("products?sort=popular"),
+  ]);
 
   return (
     <main>
