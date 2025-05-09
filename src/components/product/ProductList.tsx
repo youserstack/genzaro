@@ -2,11 +2,7 @@ import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 
-interface Props {
-  products: Product[];
-}
-
-export default function ProductList({ products }: Props) {
+export default function ProductList({ products }: { products: Product[] }) {
   return (
     <div
       className="ProductList  
@@ -25,10 +21,7 @@ export default function ProductList({ products }: Props) {
           <Link key={product.productId} href={`/products/${product._id}`} className="group">
             <Image
               alt={""}
-              src={
-                product.image ||
-                "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg"
-              }
+              src={product.image || spareImageUrl}
               className="w-full aspect-[7/8]
               rounded-lg bg-gray-200 object-cover group-hover:opacity-75"
               width={700}
@@ -42,3 +35,6 @@ export default function ProductList({ products }: Props) {
     </div>
   );
 }
+
+const spareImageUrl =
+  "https://shopping-phinf.pstatic.net/main_4683155/46831553621.20240403112809.jpg";

@@ -3,11 +3,7 @@
 import { useState } from "react";
 import ProductList from "./ProductList";
 
-interface Props {
-  initialProducts: Product[];
-}
-
-export default function MoreProductList({ initialProducts }: Props) {
+export default function MoreProductList({ initialProducts }: { initialProducts: Product[] }) {
   const [products, setProducts] = useState(initialProducts);
   const [page, setPage] = useState(1);
 
